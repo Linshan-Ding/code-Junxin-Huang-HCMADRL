@@ -1,0 +1,24 @@
+method: SAC
+instance_id: M4_A4_R4_J2
+instance_params:
+  M: 4
+  A: 4
+  R: 4
+  J: 2
+objective_weights:
+  alpha_t: 0.5
+  alpha_c: 0.5
+training:
+  total_episodes: 500
+  num_workers: 1
+best_metrics:
+  best_episode: 473
+  best_makespan: 1027.0
+  best_cost: 102.0
+  best_total_reward: -0.9290488789862135
+  final_makespan: 1222.8333333333335
+  final_cost: 284.0
+  total_episodes: 500
+  min_makespan: 994.0
+  min_cost: 102.0
+source_file: SAC\sac_0.5makespan_0.5cost_M4_A4_R4_J2.pt

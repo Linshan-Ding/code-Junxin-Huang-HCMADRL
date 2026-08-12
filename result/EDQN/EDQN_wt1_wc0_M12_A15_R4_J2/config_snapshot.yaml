@@ -1,0 +1,24 @@
+method: EDQN
+instance_id: M12_A15_R4_J2
+instance_params:
+  M: 12
+  A: 15
+  R: 4
+  J: 2
+objective_weights:
+  alpha_t: 1.0
+  alpha_c: 0.0
+training:
+  total_episodes: 500
+  num_workers: 1
+best_metrics:
+  best_episode: 14
+  best_makespan: 939.3333333333334
+  best_cost: 2542.0
+  best_total_reward: -939.3333333333334
+  final_makespan: 2007.166666666667
+  final_cost: 6595.0
+  total_episodes: 500
+  min_makespan: 939.3333333333334
+  min_cost: 2542.0
+source_file: EDQN\edqn_1makespan_0cost_M12_A15_R4_J2.pt

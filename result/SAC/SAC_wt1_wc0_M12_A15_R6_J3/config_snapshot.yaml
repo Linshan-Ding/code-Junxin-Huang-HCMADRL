@@ -1,0 +1,24 @@
+method: SAC
+instance_id: M12_A15_R6_J3
+instance_params:
+  M: 12
+  A: 15
+  R: 6
+  J: 3
+objective_weights:
+  alpha_t: 1.0
+  alpha_c: 0.0
+training:
+  total_episodes: 500
+  num_workers: 1
+best_metrics:
+  best_episode: 80
+  best_makespan: 683.3333333333333
+  best_cost: 855.0
+  best_total_reward: -683.3333333333333
+  final_makespan: 858.8333333333333
+  final_cost: 1283.0
+  total_episodes: 500
+  min_makespan: 683.3333333333333
+  min_cost: 855.0
+source_file: SAC\sac_1makespan_0cost_M12_A15_R6_J3.pt

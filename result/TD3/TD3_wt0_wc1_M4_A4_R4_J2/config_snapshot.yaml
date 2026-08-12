@@ -1,0 +1,24 @@
+method: TD3
+instance_id: M4_A4_R4_J2
+instance_params:
+  M: 4
+  A: 4
+  R: 4
+  J: 2
+objective_weights:
+  alpha_t: 0.0
+  alpha_c: 1.0
+training:
+  total_episodes: 500
+  num_workers: 1
+best_metrics:
+  best_episode: 138
+  best_makespan: 970.3333333333334
+  best_cost: 102.0
+  best_total_reward: -102.0
+  final_makespan: 1459.5
+  final_cost: 281.0
+  total_episodes: 500
+  min_makespan: 966.0
+  min_cost: 102.0
+source_file: TD3\td3_0makespan_1cost_M4_A4_R4_J2.pt

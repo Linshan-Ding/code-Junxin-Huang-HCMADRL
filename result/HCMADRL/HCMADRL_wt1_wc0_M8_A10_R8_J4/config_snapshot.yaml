@@ -1,0 +1,24 @@
+method: HCMADRL
+instance_id: M8_A10_R8_J4
+instance_params:
+  M: 8
+  A: 10
+  R: 8
+  J: 4
+objective_weights:
+  alpha_t: 1.0
+  alpha_c: 0.0
+training:
+  total_episodes: 500
+  num_workers: 6
+best_metrics:
+  best_episode: 492
+  best_makespan: 1951.861111111111
+  best_cost: 970.8333333333334
+  best_total_reward: -3903.722222222222
+  final_makespan: 2082.972222222222
+  final_cost: 1238.3333333333333
+  total_episodes: 500
+  min_makespan: 1951.861111111111
+  min_cost: 941.1666666666666
+source_file: HCMADRL\1makespan_0cost_M8_A10_R8_J4.pt

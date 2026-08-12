@@ -1,0 +1,24 @@
+method: HomoGNN
+instance_id: M8_A8_R8_J4
+instance_params:
+  M: 8
+  A: 8
+  R: 8
+  J: 4
+objective_weights:
+  alpha_t: 0.25
+  alpha_c: 0.75
+training:
+  total_episodes: 500
+  num_workers: 4
+best_metrics:
+  best_episode: 173
+  best_makespan: 2476.5
+  best_cost: 968.25
+  best_total_reward: -2.1936384157472286
+  final_makespan: 2536.583333333333
+  final_cost: 1481.0
+  total_episodes: 500
+  min_makespan: 2269.9166666666665
+  min_cost: 968.25
+source_file: homognn\homo_gnn_0.25makespan_0.75cost_M8_A8_R8_J4.pt

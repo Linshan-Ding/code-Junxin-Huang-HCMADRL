@@ -1,0 +1,24 @@
+method: TD3
+instance_id: M12_A12_R6_J3
+instance_params:
+  M: 12
+  A: 12
+  R: 6
+  J: 3
+objective_weights:
+  alpha_t: 0.75
+  alpha_c: 0.25
+training:
+  total_episodes: 500
+  num_workers: 1
+best_metrics:
+  best_episode: 53
+  best_makespan: 862.0
+  best_cost: 663.0
+  best_total_reward: -0.9691454564953171
+  final_makespan: 970.8333333333334
+  final_cost: 1416.0
+  total_episodes: 500
+  min_makespan: 784.0
+  min_cost: 663.0
+source_file: TD3\td3_0.75makespan_0.25cost_M12_A12_R6_J3.pt

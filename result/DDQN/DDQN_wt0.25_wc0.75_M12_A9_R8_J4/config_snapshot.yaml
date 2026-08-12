@@ -1,0 +1,24 @@
+method: DDQN
+instance_id: M12_A9_R8_J4
+instance_params:
+  M: 12
+  A: 9
+  R: 8
+  J: 4
+objective_weights:
+  alpha_t: 0.25
+  alpha_c: 0.75
+training:
+  total_episodes: 500
+  num_workers: 1
+best_metrics:
+  best_episode: 375
+  best_makespan: 2119.5
+  best_cost: 836.0
+  best_total_reward: -1.0498166555354578
+  final_makespan: 2293.333333333333
+  final_cost: 2027.0
+  total_episodes: 500
+  min_makespan: 1407.5
+  min_cost: 836.0
+source_file: DDQN\ddqn_0.25makespan_0.75cost_M12_A9_R8_J4.pt

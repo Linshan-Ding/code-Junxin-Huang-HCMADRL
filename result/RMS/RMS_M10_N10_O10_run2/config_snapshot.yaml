@@ -1,0 +1,57 @@
+method: RMS
+instance_id: M10_N10_O10
+instance_params:
+  M: 10
+  N: 10
+  O: 10
+objective_weights:
+  alpha_t: 1.0
+  alpha_c: 0.0
+training:
+  total_episodes: 500
+  num_workers: 6
+best_metrics:
+  best_episode: 344
+  best_makespan: 707.1666666666666
+  best_cost: 0.0
+  best_total_reward: -1414.3333333333333
+  final_makespan: 763.1666666666666
+  final_cost: 0.0
+  total_episodes: 500
+  min_makespan: 707.1666666666666
+  min_cost: 0.0
+source_file: rmmsp\makespan_RMS_M10N10O10_2.pt
+metadata:
+  file_name: RMS_M10N10O10_2
+  source: RMSSP_Benchmark
+  benchmark_txt_path: F:\Flexible Reconfigurable Manufacturing System\rmssp_makespan_project\RMSSP_Benchmark\M10N10O10\RMS_M10N10O10_2.txt
+  objective: single_objective_makespan
+  alpha_t: 1.0
+  alpha_c: 0.0
+  reward_normalize: false
+  reconfiguration_cost: 0.0
+  reconfiguration_time: pairwise_machine_configuration_matrix
+  input_dims:
+    op_input_dim: 11
+    machine_input_dim: 40
+    module_input_dim: 36
+  saved_model: best_state_by_original_project_reward_logic
+  min_makespan_sofar: 603.0
+best_trace_info:
+  episode: 344
+  avg_upper_lower_reward_sum: -1414.3333333333333
+  avg_makespan: 707.1666666666666
+  avg_cost: 0.0
+  selected_worker_index: 5
+  selected_worker_metrics:
+    makespan: 653.0
+    cost: 0.0
+    steps: 113
+    upper_reward_sum: -653.0
+    lower_reward_sum: -653.0
+    upper_lower_reward_sum: -1306.0
+    done: true
+    worker_id: 5
+    upper_transition_count: 113
+    lower_transition_count: 92
+  selection_rule: original_project_best_avg_reward_then_done_worker_with_max_reward

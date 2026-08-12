@@ -1,0 +1,24 @@
+method: Flat_DRL
+instance_id: M12_A9_R8_J4
+instance_params:
+  M: 12
+  A: 9
+  R: 8
+  J: 4
+objective_weights:
+  alpha_t: 0.0
+  alpha_c: 1.0
+training:
+  total_episodes: 500
+  num_workers: 4
+best_metrics:
+  best_episode: 193
+  best_makespan: 1907.0833333333333
+  best_cost: 789.5
+  best_total_reward: -1579.0
+  final_makespan: 1954.125
+  final_cost: 1117.0
+  total_episodes: 500
+  min_makespan: 1630.9166666666665
+  min_cost: 789.5
+source_file: Flat_DRL\flat_mappo_0makespan_1cost_M12_A9_R8_J4.pt

@@ -1,0 +1,57 @@
+method: RMS
+instance_id: M8_N20_O8
+instance_params:
+  M: 8
+  N: 20
+  O: 8
+objective_weights:
+  alpha_t: 1.0
+  alpha_c: 0.0
+training:
+  total_episodes: 500
+  num_workers: 6
+best_metrics:
+  best_episode: 171
+  best_makespan: 1140.1666666666667
+  best_cost: 0.0
+  best_total_reward: -2280.3333333333335
+  final_makespan: 1211.0
+  final_cost: 0.0
+  total_episodes: 500
+  min_makespan: 1140.1666666666667
+  min_cost: 0.0
+source_file: rmmsp\makespan_RMS_M8N20O8_4.pt
+metadata:
+  file_name: RMS_M8N20O8_4
+  source: RMSSP_Benchmark
+  benchmark_txt_path: D:\HJX\rmssp_makespan_project\RMSSP_Benchmark\M8N20O8\RMS_M8N20O8_4.txt
+  objective: single_objective_makespan
+  alpha_t: 1.0
+  alpha_c: 0.0
+  reward_normalize: false
+  reconfiguration_cost: 0.0
+  reconfiguration_time: pairwise_machine_configuration_matrix
+  input_dims:
+    op_input_dim: 11
+    machine_input_dim: 32
+    module_input_dim: 28
+  saved_model: best_state_by_original_project_reward_logic
+  min_makespan_sofar: 1044.0
+best_trace_info:
+  episode: 171
+  avg_upper_lower_reward_sum: -2280.3333333333335
+  avg_makespan: 1140.1666666666667
+  avg_cost: 0.0
+  selected_worker_index: 5
+  selected_worker_metrics:
+    makespan: 1088.0
+    cost: 0.0
+    steps: 170
+    upper_reward_sum: -1088.0
+    lower_reward_sum: -1088.0
+    upper_lower_reward_sum: -2176.0
+    done: true
+    worker_id: 5
+    upper_transition_count: 170
+    lower_transition_count: 169
+  selection_rule: original_project_best_avg_reward_then_done_worker_with_max_reward

@@ -1,0 +1,24 @@
+method: No_Attn
+instance_id: M8_A6_R8_J4
+instance_params:
+  M: 8
+  A: 6
+  R: 8
+  J: 4
+objective_weights:
+  alpha_t: 0.25
+  alpha_c: 0.75
+training:
+  total_episodes: 500
+  num_workers: 4
+best_metrics:
+  best_episode: 258
+  best_makespan: 3025.8333333333335
+  best_cost: 224.5
+  best_total_reward: -1.8935961018638476
+  final_makespan: 3605.916666666667
+  final_cost: 268.25
+  total_episodes: 500
+  min_makespan: 3025.8333333333335
+  min_cost: 224.5
+source_file: No_Attn\no_attn_0.25makespan_0.75cost_M8_A6_R8_J4.pt

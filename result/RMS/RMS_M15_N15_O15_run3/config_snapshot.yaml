@@ -1,0 +1,57 @@
+method: RMS
+instance_id: M15_N15_O15
+instance_params:
+  M: 15
+  N: 15
+  O: 15
+objective_weights:
+  alpha_t: 1.0
+  alpha_c: 0.0
+training:
+  total_episodes: 500
+  num_workers: 4
+best_metrics:
+  best_episode: 435
+  best_makespan: 1097.0
+  best_cost: 0.0
+  best_total_reward: -2194.0
+  final_makespan: 1176.0
+  final_cost: 0.0
+  total_episodes: 500
+  min_makespan: 1097.0
+  min_cost: 0.0
+source_file: rmmsp\makespan_RMS_M15N15O15_3.pt
+metadata:
+  file_name: RMS_M15N15O15_3
+  source: RMSSP_Benchmark
+  benchmark_txt_path: D:\Python project\rmssp_makespan_project\RMSSP_Benchmark\M15N15O15\RMS_M15N15O15_3.txt
+  objective: single_objective_makespan
+  alpha_t: 1.0
+  alpha_c: 0.0
+  reward_normalize: false
+  reconfiguration_cost: 0.0
+  reconfiguration_time: pairwise_machine_configuration_matrix
+  input_dims:
+    op_input_dim: 11
+    machine_input_dim: 51
+    module_input_dim: 47
+  saved_model: best_state_by_original_project_reward_logic
+  min_makespan_sofar: 1018.0
+best_trace_info:
+  episode: 435
+  avg_upper_lower_reward_sum: -2194.0
+  avg_makespan: 1097.0
+  avg_cost: 0.0
+  selected_worker_index: 0
+  selected_worker_metrics:
+    makespan: 1057.0
+    cost: 0.0
+    steps: 243
+    upper_reward_sum: -1057.0
+    lower_reward_sum: -1057.0
+    upper_lower_reward_sum: -2114.0
+    done: true
+    worker_id: 0
+    upper_transition_count: 243
+    lower_transition_count: 218
+  selection_rule: original_project_best_avg_reward_then_done_worker_with_max_reward

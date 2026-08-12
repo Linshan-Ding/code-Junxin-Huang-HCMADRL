@@ -1,0 +1,24 @@
+method: MLP_Encoder
+instance_id: M4_A3_R8_J4
+instance_params:
+  M: 4
+  A: 3
+  R: 8
+  J: 4
+objective_weights:
+  alpha_t: 0.75
+  alpha_c: 0.25
+training:
+  total_episodes: 500
+  num_workers: 4
+best_metrics:
+  best_episode: 212
+  best_makespan: 3140.375
+  best_cost: 134.0
+  best_total_reward: -1.9791431882242403
+  final_makespan: 3095.1666666666665
+  final_cost: 257.0
+  total_episodes: 500
+  min_makespan: 2999.833333333333
+  min_cost: 134.0
+source_file: mlp_enconder\mlp_encoder_0.75makespan_0.25cost_M4_A3_R8_J4.pt
