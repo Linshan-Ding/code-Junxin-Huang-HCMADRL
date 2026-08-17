@@ -1,0 +1,56 @@
+% Shared TikZ style contract for every schematic figure in this paper.
+% Each schematic is a standalone document that \input's this file, so the
+% schematics and the matplotlib data figures form one visual system.
+%
+% Colours are the same Okabe-Ito values as figures/scifig_style.py.
+
+% No font package: the manuscript class sets the body in Computer Modern, so
+% the schematics inherit the same family by loading nothing here.
+\usepackage{amsmath,amssymb}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds,shapes.geometric,
+                shapes.multipart,patterns,decorations.pathreplacing,matrix}
+
+% ---------- Notation shared with the manuscript ----------
+% Kept in sync with the definitions in main.tex so that a symbol means the
+% same thing in a schematic as it does in the body.
+\newcommand{\Cmax}{C_{\max}}
+\newcommand{\Zcost}{Z}
+\newcommand{\Nb}{\mathcal{N}}
+
+% ---------- Okabe-Ito colour-blind-safe palette ----------
+\definecolor{oiblue}{RGB}{0,114,178}
+\definecolor{oiorange}{RGB}{230,159,0}
+\definecolor{oigreen}{RGB}{0,158,115}
+\definecolor{oivermilion}{RGB}{213,94,0}
+\definecolor{oipurple}{RGB}{204,121,167}
+\definecolor{oisky}{RGB}{86,180,233}
+\definecolor{oiyellow}{RGB}{240,228,66}
+\definecolor{oigray}{RGB}{110,110,110}
+
+% ---------- Shared node and arrow styles ----------
+\tikzset{
+  block/.style={draw, rounded corners=2pt, minimum height=6.5mm, minimum width=17mm,
+                align=center, font=\footnotesize, fill=oisky!16, line width=0.6pt,
+                draw=oiblue!70},
+  keyblock/.style={block, fill=oiorange!26, draw=oiorange!85},
+  smallblock/.style={block, minimum height=5mm, minimum width=12mm, font=\scriptsize},
+  datanode/.style={draw, trapezium, trapezium left angle=70, trapezium right angle=110,
+                   align=center, font=\scriptsize, fill=oigreen!14, line width=0.6pt,
+                   draw=oigreen!75, inner sep=2pt},
+  opnode/.style={draw, circle, inner sep=1pt, minimum size=6mm, font=\scriptsize,
+                 fill=oiyellow!45, line width=0.6pt, draw=oigray},
+  macnode/.style={draw, rectangle, rounded corners=1pt, minimum size=6mm,
+                  font=\scriptsize, fill=oisky!30, line width=0.6pt, draw=oiblue!70},
+  modnode/.style={draw, diamond, aspect=1.4, inner sep=1pt, minimum size=6mm,
+                  font=\scriptsize, fill=oipurple!28, line width=0.6pt, draw=oipurple!85},
+  arrow/.style={-{Stealth[length=2.0mm]}, line width=0.65pt},
+  dasharrow/.style={arrow, dashed, draw=oigray},
+  thinedge/.style={line width=0.45pt, draw=oigray},
+  note/.style={font=\scriptsize, text=oigray, align=center},
+  tinynote/.style={font=\tiny, text=oigray, align=center},
+  group/.style={draw=oigray, dashed, rounded corners=3pt, inner sep=2.6mm,
+                line width=0.5pt},
+  grouplabel/.style={font=\scriptsize\itshape, text=oigray},
+  whitebg/.style={fill=white, inner sep=1pt},
+}
