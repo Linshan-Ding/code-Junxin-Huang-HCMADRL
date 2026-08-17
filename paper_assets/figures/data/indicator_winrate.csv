@@ -1,0 +1,31 @@
+group,indicator,method,win_rate
+rl,IGD,HCMAGRL,96.3
+rl,IGD,DDQN,0.0
+rl,IGD,EDQN,0.0
+rl,IGD,SAC,0.0
+rl,IGD,D-DRL,7.4
+rl,Spread,HCMAGRL,59.3
+rl,Spread,DDQN,40.7
+rl,Spread,EDQN,37.0
+rl,Spread,SAC,25.9
+rl,Spread,D-DRL,40.7
+rl,HV,HCMAGRL,100.0
+rl,HV,DDQN,0.0
+rl,HV,EDQN,0.0
+rl,HV,SAC,0.0
+rl,HV,D-DRL,3.7
+ablation,IGD,HCMAGRL,33.3
+ablation,IGD,w/o EdgeAttn,25.9
+ablation,IGD,w/o Hierarchy,14.8
+ablation,IGD,w/o Heterogeneity,22.2
+ablation,IGD,w/o Graph,25.9
+ablation,Spread,HCMAGRL,29.6
+ablation,Spread,w/o EdgeAttn,33.3
+ablation,Spread,w/o Hierarchy,48.1
+ablation,Spread,w/o Heterogeneity,44.4
+ablation,Spread,w/o Graph,44.4
+ablation,HV,HCMAGRL,40.7
+ablation,HV,w/o EdgeAttn,29.6
+ablation,HV,w/o Hierarchy,18.5
+ablation,HV,w/o Heterogeneity,14.8
+ablation,HV,w/o Graph,22.2

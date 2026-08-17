@@ -1,0 +1,811 @@
+group,indicator,cid,method,value
+rl,IGD,C1,HCMAGRL,0.040695
+rl,IGD,C1,DDQN,0.134645
+rl,IGD,C1,EDQN,0.134645
+rl,IGD,C1,SAC,0.117001
+rl,IGD,C1,D-DRL,0.086059
+rl,IGD,C2,HCMAGRL,0.060571
+rl,IGD,C2,DDQN,0.313225
+rl,IGD,C2,EDQN,0.272652
+rl,IGD,C2,SAC,0.289041
+rl,IGD,C2,D-DRL,0.26378
+rl,IGD,C3,HCMAGRL,0.0
+rl,IGD,C3,DDQN,0.465744
+rl,IGD,C3,EDQN,0.388148
+rl,IGD,C3,SAC,0.323625
+rl,IGD,C3,D-DRL,0.305424
+rl,IGD,C4,HCMAGRL,0.004597
+rl,IGD,C4,DDQN,0.364198
+rl,IGD,C4,EDQN,0.408483
+rl,IGD,C4,SAC,0.146774
+rl,IGD,C4,D-DRL,0.126744
+rl,IGD,C5,HCMAGRL,0.002938
+rl,IGD,C5,DDQN,0.212607
+rl,IGD,C5,EDQN,0.200503
+rl,IGD,C5,SAC,0.237835
+rl,IGD,C5,D-DRL,0.242426
+rl,IGD,C6,HCMAGRL,0.02226
+rl,IGD,C6,DDQN,0.19456
+rl,IGD,C6,EDQN,0.162541
+rl,IGD,C6,SAC,0.174397
+rl,IGD,C6,D-DRL,0.175049
+rl,IGD,C7,HCMAGRL,0.096019
+rl,IGD,C7,DDQN,0.208552
+rl,IGD,C7,EDQN,0.208552
+rl,IGD,C7,SAC,0.295022
+rl,IGD,C7,D-DRL,0.305382
+rl,IGD,C8,HCMAGRL,0.019483
+rl,IGD,C8,DDQN,0.332764
+rl,IGD,C8,EDQN,0.332764
+rl,IGD,C8,SAC,0.276035
+rl,IGD,C8,D-DRL,0.217192
+rl,IGD,C9,HCMAGRL,0.030329
+rl,IGD,C9,DDQN,0.224387
+rl,IGD,C9,EDQN,0.06444
+rl,IGD,C9,SAC,0.265387
+rl,IGD,C9,D-DRL,0.162735
+rl,IGD,C10,HCMAGRL,0.0
+rl,IGD,C10,DDQN,0.388363
+rl,IGD,C10,EDQN,0.388363
+rl,IGD,C10,SAC,0.003866
+rl,IGD,C10,D-DRL,0.0
+rl,IGD,C11,HCMAGRL,0.034783
+rl,IGD,C11,DDQN,0.082609
+rl,IGD,C11,EDQN,0.082609
+rl,IGD,C11,SAC,0.12058
+rl,IGD,C11,D-DRL,0.148439
+rl,IGD,C12,HCMAGRL,0.001965
+rl,IGD,C12,DDQN,0.460216
+rl,IGD,C12,EDQN,0.338724
+rl,IGD,C12,SAC,0.231422
+rl,IGD,C12,D-DRL,0.156932
+rl,IGD,C13,HCMAGRL,0.010988
+rl,IGD,C13,DDQN,0.230122
+rl,IGD,C13,EDQN,0.230122
+rl,IGD,C13,SAC,0.087216
+rl,IGD,C13,D-DRL,0.067208
+rl,IGD,C14,HCMAGRL,0.179195
+rl,IGD,C14,DDQN,0.288591
+rl,IGD,C14,EDQN,0.272367
+rl,IGD,C14,SAC,0.143383
+rl,IGD,C14,D-DRL,0.102474
+rl,IGD,C15,HCMAGRL,0.075197
+rl,IGD,C15,DDQN,0.201498
+rl,IGD,C15,EDQN,0.156109
+rl,IGD,C15,SAC,0.219888
+rl,IGD,C15,D-DRL,0.181665
+rl,IGD,C16,HCMAGRL,0.037624
+rl,IGD,C16,DDQN,0.201191
+rl,IGD,C16,EDQN,0.201191
+rl,IGD,C16,SAC,0.224254
+rl,IGD,C16,D-DRL,0.223872
+rl,IGD,C17,HCMAGRL,0.001473
+rl,IGD,C17,DDQN,0.32888
+rl,IGD,C17,EDQN,0.32888
+rl,IGD,C17,SAC,0.197246
+rl,IGD,C17,D-DRL,0.159194
+rl,IGD,C18,HCMAGRL,0.028668
+rl,IGD,C18,DDQN,0.168672
+rl,IGD,C18,EDQN,0.259373
+rl,IGD,C18,SAC,0.335171
+rl,IGD,C18,D-DRL,0.284664
+rl,IGD,C19,HCMAGRL,0.022919
+rl,IGD,C19,DDQN,0.039933
+rl,IGD,C19,EDQN,0.039933
+rl,IGD,C19,SAC,0.243757
+rl,IGD,C19,D-DRL,0.087525
+rl,IGD,C20,HCMAGRL,0.040259
+rl,IGD,C20,DDQN,0.379137
+rl,IGD,C20,EDQN,0.379137
+rl,IGD,C20,SAC,0.320243
+rl,IGD,C20,D-DRL,0.387734
+rl,IGD,C21,HCMAGRL,0.048997
+rl,IGD,C21,DDQN,0.285819
+rl,IGD,C21,EDQN,0.293391
+rl,IGD,C21,SAC,0.139805
+rl,IGD,C21,D-DRL,0.163949
+rl,IGD,C22,HCMAGRL,0.01134
+rl,IGD,C22,DDQN,0.228372
+rl,IGD,C22,EDQN,0.228372
+rl,IGD,C22,SAC,0.110798
+rl,IGD,C22,D-DRL,0.103901
+rl,IGD,C23,HCMAGRL,0.022468
+rl,IGD,C23,DDQN,0.384631
+rl,IGD,C23,EDQN,0.384631
+rl,IGD,C23,SAC,0.224501
+rl,IGD,C23,D-DRL,0.158482
+rl,IGD,C24,HCMAGRL,0.107664
+rl,IGD,C24,DDQN,0.341143
+rl,IGD,C24,EDQN,0.337655
+rl,IGD,C24,SAC,0.24614
+rl,IGD,C24,D-DRL,0.12674
+rl,IGD,C25,HCMAGRL,0.053947
+rl,IGD,C25,DDQN,0.29185
+rl,IGD,C25,EDQN,0.29185
+rl,IGD,C25,SAC,0.247731
+rl,IGD,C25,D-DRL,0.257255
+rl,IGD,C26,HCMAGRL,0.037754
+rl,IGD,C26,DDQN,0.280742
+rl,IGD,C26,EDQN,0.280742
+rl,IGD,C26,SAC,0.319971
+rl,IGD,C26,D-DRL,0.308327
+rl,IGD,C27,HCMAGRL,0.01785
+rl,IGD,C27,DDQN,0.462075
+rl,IGD,C27,EDQN,0.091939
+rl,IGD,C27,SAC,0.066285
+rl,IGD,C27,D-DRL,0.060719
+rl,Spread,C1,HCMAGRL,0.0
+rl,Spread,C1,DDQN,0.0
+rl,Spread,C1,EDQN,0.0
+rl,Spread,C1,SAC,0.454882
+rl,Spread,C1,D-DRL,0.0
+rl,Spread,C2,HCMAGRL,0.0
+rl,Spread,C2,DDQN,0.0
+rl,Spread,C2,EDQN,0.0
+rl,Spread,C2,SAC,0.0
+rl,Spread,C2,D-DRL,0.0
+rl,Spread,C3,HCMAGRL,0.090581
+rl,Spread,C3,DDQN,0.853185
+rl,Spread,C3,EDQN,0.743764
+rl,Spread,C3,SAC,0.734571
+rl,Spread,C3,D-DRL,0.794327
+rl,Spread,C4,HCMAGRL,0.0
+rl,Spread,C4,DDQN,0.0
+rl,Spread,C4,EDQN,0.0
+rl,Spread,C4,SAC,0.0
+rl,Spread,C4,D-DRL,0.0
+rl,Spread,C5,HCMAGRL,0.493855
+rl,Spread,C5,DDQN,0.615741
+rl,Spread,C5,EDQN,0.613766
+rl,Spread,C5,SAC,0.950498
+rl,Spread,C5,D-DRL,0.943503
+rl,Spread,C6,HCMAGRL,0.559476
+rl,Spread,C6,DDQN,0.929162
+rl,Spread,C6,EDQN,0.521648
+rl,Spread,C6,SAC,0.861686
+rl,Spread,C6,D-DRL,0.994757
+rl,Spread,C7,HCMAGRL,0.220478
+rl,Spread,C7,DDQN,0.391128
+rl,Spread,C7,EDQN,0.391128
+rl,Spread,C7,SAC,0.783214
+rl,Spread,C7,D-DRL,0.552156
+rl,Spread,C8,HCMAGRL,0.094635
+rl,Spread,C8,DDQN,0.940947
+rl,Spread,C8,EDQN,0.940947
+rl,Spread,C8,SAC,0.0
+rl,Spread,C8,D-DRL,0.901044
+rl,Spread,C9,HCMAGRL,0.0
+rl,Spread,C9,DDQN,0.926935
+rl,Spread,C9,EDQN,0.0
+rl,Spread,C9,SAC,0.912614
+rl,Spread,C9,D-DRL,0.637445
+rl,Spread,C10,HCMAGRL,0.0
+rl,Spread,C10,DDQN,0.0
+rl,Spread,C10,EDQN,0.0
+rl,Spread,C10,SAC,0.0
+rl,Spread,C10,D-DRL,0.0
+rl,Spread,C11,HCMAGRL,0.0
+rl,Spread,C11,DDQN,0.0
+rl,Spread,C11,EDQN,0.0
+rl,Spread,C11,SAC,0.0
+rl,Spread,C11,D-DRL,0.0
+rl,Spread,C12,HCMAGRL,0.0
+rl,Spread,C12,DDQN,0.0
+rl,Spread,C12,EDQN,0.0
+rl,Spread,C12,SAC,0.0
+rl,Spread,C12,D-DRL,0.0
+rl,Spread,C13,HCMAGRL,0.496628
+rl,Spread,C13,DDQN,0.592767
+rl,Spread,C13,EDQN,0.592767
+rl,Spread,C13,SAC,0.620898
+rl,Spread,C13,D-DRL,0.769858
+rl,Spread,C14,HCMAGRL,0.76678
+rl,Spread,C14,DDQN,0.805355
+rl,Spread,C14,EDQN,0.801531
+rl,Spread,C14,SAC,0.774916
+rl,Spread,C14,D-DRL,0.768639
+rl,Spread,C15,HCMAGRL,0.515108
+rl,Spread,C15,DDQN,0.781124
+rl,Spread,C15,EDQN,0.726953
+rl,Spread,C15,SAC,0.871797
+rl,Spread,C15,D-DRL,0.644655
+rl,Spread,C16,HCMAGRL,0.746964
+rl,Spread,C16,DDQN,0.520151
+rl,Spread,C16,EDQN,0.520151
+rl,Spread,C16,SAC,0.517
+rl,Spread,C16,D-DRL,0.495522
+rl,Spread,C17,HCMAGRL,0.677083
+rl,Spread,C17,DDQN,0.744112
+rl,Spread,C17,EDQN,0.801165
+rl,Spread,C17,SAC,0.807528
+rl,Spread,C17,D-DRL,0.637173
+rl,Spread,C18,HCMAGRL,0.61902
+rl,Spread,C18,DDQN,0.0
+rl,Spread,C18,EDQN,0.882825
+rl,Spread,C18,SAC,0.898308
+rl,Spread,C18,D-DRL,0.591366
+rl,Spread,C19,HCMAGRL,0.834371
+rl,Spread,C19,DDQN,0.0
+rl,Spread,C19,EDQN,0.0
+rl,Spread,C19,SAC,0.739488
+rl,Spread,C19,D-DRL,0.0
+rl,Spread,C20,HCMAGRL,0.740859
+rl,Spread,C20,DDQN,0.760357
+rl,Spread,C20,EDQN,0.760357
+rl,Spread,C20,SAC,0.896559
+rl,Spread,C20,D-DRL,0.912296
+rl,Spread,C21,HCMAGRL,0.667253
+rl,Spread,C21,DDQN,0.0
+rl,Spread,C21,EDQN,0.70645
+rl,Spread,C21,SAC,0.0
+rl,Spread,C21,D-DRL,0.733582
+rl,Spread,C22,HCMAGRL,0.261944
+rl,Spread,C22,DDQN,0.437552
+rl,Spread,C22,EDQN,0.437552
+rl,Spread,C22,SAC,0.94157
+rl,Spread,C22,D-DRL,0.687515
+rl,Spread,C23,HCMAGRL,0.4735
+rl,Spread,C23,DDQN,0.0
+rl,Spread,C23,EDQN,0.782564
+rl,Spread,C23,SAC,0.94414
+rl,Spread,C23,D-DRL,0.575691
+rl,Spread,C24,HCMAGRL,0.716631
+rl,Spread,C24,DDQN,0.921173
+rl,Spread,C24,EDQN,0.777119
+rl,Spread,C24,SAC,0.920511
+rl,Spread,C24,D-DRL,0.309691
+rl,Spread,C25,HCMAGRL,0.426201
+rl,Spread,C25,DDQN,0.0
+rl,Spread,C25,EDQN,0.0
+rl,Spread,C25,SAC,0.787665
+rl,Spread,C25,D-DRL,0.788163
+rl,Spread,C26,HCMAGRL,0.780794
+rl,Spread,C26,DDQN,0.757147
+rl,Spread,C26,EDQN,0.705958
+rl,Spread,C26,SAC,0.844827
+rl,Spread,C26,D-DRL,0.668862
+rl,Spread,C27,HCMAGRL,0.65575
+rl,Spread,C27,DDQN,0.810806
+rl,Spread,C27,EDQN,0.704951
+rl,Spread,C27,SAC,0.702012
+rl,Spread,C27,D-DRL,0.82481
+rl,HV,C1,HCMAGRL,0.926193
+rl,HV,C1,DDQN,0.773979
+rl,HV,C1,EDQN,0.773979
+rl,HV,C1,SAC,0.84846
+rl,HV,C1,D-DRL,0.86203
+rl,HV,C2,HCMAGRL,0.944935
+rl,HV,C2,DDQN,0.716045
+rl,HV,C2,EDQN,0.730508
+rl,HV,C2,SAC,0.706919
+rl,HV,C2,D-DRL,0.741447
+rl,HV,C3,HCMAGRL,0.991626
+rl,HV,C3,DDQN,0.453792
+rl,HV,C3,EDQN,0.566859
+rl,HV,C3,SAC,0.6512
+rl,HV,C3,D-DRL,0.647349
+rl,HV,C4,HCMAGRL,0.995821
+rl,HV,C4,DDQN,0.641789
+rl,HV,C4,EDQN,0.597274
+rl,HV,C4,SAC,0.870954
+rl,HV,C4,D-DRL,0.905331
+rl,HV,C5,HCMAGRL,0.995503
+rl,HV,C5,DDQN,0.699409
+rl,HV,C5,EDQN,0.701115
+rl,HV,C5,SAC,0.727625
+rl,HV,C5,D-DRL,0.722965
+rl,HV,C6,HCMAGRL,0.968285
+rl,HV,C6,DDQN,0.780101
+rl,HV,C6,EDQN,0.812324
+rl,HV,C6,SAC,0.822125
+rl,HV,C6,D-DRL,0.826252
+rl,HV,C7,HCMAGRL,0.895871
+rl,HV,C7,DDQN,0.70627
+rl,HV,C7,EDQN,0.70627
+rl,HV,C7,SAC,0.64967
+rl,HV,C7,D-DRL,0.651347
+rl,HV,C8,HCMAGRL,0.984822
+rl,HV,C8,DDQN,0.643051
+rl,HV,C8,EDQN,0.643051
+rl,HV,C8,SAC,0.743025
+rl,HV,C8,D-DRL,0.801249
+rl,HV,C9,HCMAGRL,0.961898
+rl,HV,C9,DDQN,0.66786
+rl,HV,C9,EDQN,0.828842
+rl,HV,C9,SAC,0.683773
+rl,HV,C9,D-DRL,0.716913
+rl,HV,C10,HCMAGRL,1.0
+rl,HV,C10,DDQN,0.790139
+rl,HV,C10,EDQN,0.628378
+rl,HV,C10,SAC,0.999828
+rl,HV,C10,D-DRL,1.0
+rl,HV,C11,HCMAGRL,0.997665
+rl,HV,C11,DDQN,0.924901
+rl,HV,C11,EDQN,0.924901
+rl,HV,C11,SAC,0.913713
+rl,HV,C11,D-DRL,0.887515
+rl,HV,C12,HCMAGRL,0.998214
+rl,HV,C12,DDQN,0.53862
+rl,HV,C12,EDQN,0.658593
+rl,HV,C12,SAC,0.783051
+rl,HV,C12,D-DRL,0.857335
+rl,HV,C13,HCMAGRL,0.99585
+rl,HV,C13,DDQN,0.692425
+rl,HV,C13,EDQN,0.692425
+rl,HV,C13,SAC,0.920855
+rl,HV,C13,D-DRL,0.912801
+rl,HV,C14,HCMAGRL,0.827748
+rl,HV,C14,DDQN,0.612856
+rl,HV,C14,EDQN,0.639176
+rl,HV,C14,SAC,0.786352
+rl,HV,C14,D-DRL,0.819205
+rl,HV,C15,HCMAGRL,0.900085
+rl,HV,C15,DDQN,0.654876
+rl,HV,C15,EDQN,0.748435
+rl,HV,C15,SAC,0.729522
+rl,HV,C15,D-DRL,0.711647
+rl,HV,C16,HCMAGRL,0.963171
+rl,HV,C16,DDQN,0.71644
+rl,HV,C16,EDQN,0.71644
+rl,HV,C16,SAC,0.744559
+rl,HV,C16,D-DRL,0.72552
+rl,HV,C17,HCMAGRL,0.995001
+rl,HV,C17,DDQN,0.615258
+rl,HV,C17,EDQN,0.597028
+rl,HV,C17,SAC,0.791032
+rl,HV,C17,D-DRL,0.791407
+rl,HV,C18,HCMAGRL,0.9855
+rl,HV,C18,DDQN,0.732319
+rl,HV,C18,EDQN,0.648104
+rl,HV,C18,SAC,0.670843
+rl,HV,C18,D-DRL,0.683342
+rl,HV,C19,HCMAGRL,0.971258
+rl,HV,C19,DDQN,0.881277
+rl,HV,C19,EDQN,0.881277
+rl,HV,C19,SAC,0.706769
+rl,HV,C19,D-DRL,0.815754
+rl,HV,C20,HCMAGRL,0.909498
+rl,HV,C20,DDQN,0.546167
+rl,HV,C20,EDQN,0.546167
+rl,HV,C20,SAC,0.592287
+rl,HV,C20,D-DRL,0.542978
+rl,HV,C21,HCMAGRL,0.928383
+rl,HV,C21,DDQN,0.580006
+rl,HV,C21,EDQN,0.66081
+rl,HV,C21,SAC,0.756634
+rl,HV,C21,D-DRL,0.777197
+rl,HV,C22,HCMAGRL,0.994443
+rl,HV,C22,DDQN,0.726835
+rl,HV,C22,EDQN,0.726835
+rl,HV,C22,SAC,0.861203
+rl,HV,C22,D-DRL,0.879967
+rl,HV,C23,HCMAGRL,0.968855
+rl,HV,C23,DDQN,0.462065
+rl,HV,C23,EDQN,0.465625
+rl,HV,C23,SAC,0.670711
+rl,HV,C23,D-DRL,0.73457
+rl,HV,C24,HCMAGRL,0.872289
+rl,HV,C24,DDQN,0.508984
+rl,HV,C24,EDQN,0.540012
+rl,HV,C24,SAC,0.608423
+rl,HV,C24,D-DRL,0.747935
+rl,HV,C25,HCMAGRL,0.89783
+rl,HV,C25,DDQN,0.589612
+rl,HV,C25,EDQN,0.589612
+rl,HV,C25,SAC,0.646011
+rl,HV,C25,D-DRL,0.631067
+rl,HV,C26,HCMAGRL,0.960224
+rl,HV,C26,DDQN,0.656776
+rl,HV,C26,EDQN,0.657073
+rl,HV,C26,SAC,0.618978
+rl,HV,C26,D-DRL,0.639172
+rl,HV,C27,HCMAGRL,0.968492
+rl,HV,C27,DDQN,0.40343
+rl,HV,C27,EDQN,0.812638
+rl,HV,C27,SAC,0.848798
+rl,HV,C27,D-DRL,0.854453
+ablation,IGD,C1,HCMAGRL,0.040695
+ablation,IGD,C1,w/o EdgeAttn,0.040597
+ablation,IGD,C1,w/o Hierarchy,0.049431
+ablation,IGD,C1,w/o Heterogeneity,0.048391
+ablation,IGD,C1,w/o Graph,0.045372
+ablation,IGD,C2,HCMAGRL,0.060571
+ablation,IGD,C2,w/o EdgeAttn,0.0
+ablation,IGD,C2,w/o Hierarchy,0.136311
+ablation,IGD,C2,w/o Heterogeneity,0.019238
+ablation,IGD,C2,w/o Graph,0.0
+ablation,IGD,C3,HCMAGRL,0.0
+ablation,IGD,C3,w/o EdgeAttn,0.108094
+ablation,IGD,C3,w/o Hierarchy,0.245856
+ablation,IGD,C3,w/o Heterogeneity,0.077699
+ablation,IGD,C3,w/o Graph,0.17434
+ablation,IGD,C4,HCMAGRL,0.004597
+ablation,IGD,C4,w/o EdgeAttn,0.0
+ablation,IGD,C4,w/o Hierarchy,0.022656
+ablation,IGD,C4,w/o Heterogeneity,0.004597
+ablation,IGD,C4,w/o Graph,0.0
+ablation,IGD,C5,HCMAGRL,0.002938
+ablation,IGD,C5,w/o EdgeAttn,0.098877
+ablation,IGD,C5,w/o Hierarchy,0.138093
+ablation,IGD,C5,w/o Heterogeneity,0.062465
+ablation,IGD,C5,w/o Graph,0.076698
+ablation,IGD,C6,HCMAGRL,0.02226
+ablation,IGD,C6,w/o EdgeAttn,0.008853
+ablation,IGD,C6,w/o Hierarchy,0.091374
+ablation,IGD,C6,w/o Heterogeneity,0.008622
+ablation,IGD,C6,w/o Graph,0.011209
+ablation,IGD,C7,HCMAGRL,0.096019
+ablation,IGD,C7,w/o EdgeAttn,0.102892
+ablation,IGD,C7,w/o Hierarchy,0.057388
+ablation,IGD,C7,w/o Heterogeneity,0.127945
+ablation,IGD,C7,w/o Graph,0.06755
+ablation,IGD,C8,HCMAGRL,0.019483
+ablation,IGD,C8,w/o EdgeAttn,0.027932
+ablation,IGD,C8,w/o Hierarchy,0.088047
+ablation,IGD,C8,w/o Heterogeneity,0.01252
+ablation,IGD,C8,w/o Graph,0.096316
+ablation,IGD,C9,HCMAGRL,0.030329
+ablation,IGD,C9,w/o EdgeAttn,0.043731
+ablation,IGD,C9,w/o Hierarchy,0.066434
+ablation,IGD,C9,w/o Heterogeneity,0.067318
+ablation,IGD,C9,w/o Graph,0.087265
+ablation,IGD,C10,HCMAGRL,0.0
+ablation,IGD,C10,w/o EdgeAttn,0.0
+ablation,IGD,C10,w/o Hierarchy,0.0
+ablation,IGD,C10,w/o Heterogeneity,0.0
+ablation,IGD,C10,w/o Graph,0.0
+ablation,IGD,C11,HCMAGRL,0.034783
+ablation,IGD,C11,w/o EdgeAttn,0.0
+ablation,IGD,C11,w/o Hierarchy,0.028696
+ablation,IGD,C11,w/o Heterogeneity,0.054493
+ablation,IGD,C11,w/o Graph,0.028696
+ablation,IGD,C12,HCMAGRL,0.001965
+ablation,IGD,C12,w/o EdgeAttn,0.0
+ablation,IGD,C12,w/o Hierarchy,0.038149
+ablation,IGD,C12,w/o Heterogeneity,0.035303
+ablation,IGD,C12,w/o Graph,0.040995
+ablation,IGD,C13,HCMAGRL,0.010988
+ablation,IGD,C13,w/o EdgeAttn,0.022135
+ablation,IGD,C13,w/o Hierarchy,0.022188
+ablation,IGD,C13,w/o Heterogeneity,0.019841
+ablation,IGD,C13,w/o Graph,0.003561
+ablation,IGD,C14,HCMAGRL,0.179195
+ablation,IGD,C14,w/o EdgeAttn,0.067384
+ablation,IGD,C14,w/o Hierarchy,0.040967
+ablation,IGD,C14,w/o Heterogeneity,0.097181
+ablation,IGD,C14,w/o Graph,0.092913
+ablation,IGD,C15,HCMAGRL,0.075197
+ablation,IGD,C15,w/o EdgeAttn,0.084058
+ablation,IGD,C15,w/o Hierarchy,0.081228
+ablation,IGD,C15,w/o Heterogeneity,0.050251
+ablation,IGD,C15,w/o Graph,0.134071
+ablation,IGD,C16,HCMAGRL,0.037624
+ablation,IGD,C16,w/o EdgeAttn,0.03748
+ablation,IGD,C16,w/o Hierarchy,0.109731
+ablation,IGD,C16,w/o Heterogeneity,0.059724
+ablation,IGD,C16,w/o Graph,0.031665
+ablation,IGD,C17,HCMAGRL,0.001473
+ablation,IGD,C17,w/o EdgeAttn,0.125007
+ablation,IGD,C17,w/o Hierarchy,0.073635
+ablation,IGD,C17,w/o Heterogeneity,0.006641
+ablation,IGD,C17,w/o Graph,0.024921
+ablation,IGD,C18,HCMAGRL,0.028668
+ablation,IGD,C18,w/o EdgeAttn,0.061926
+ablation,IGD,C18,w/o Hierarchy,0.081751
+ablation,IGD,C18,w/o Heterogeneity,0.054661
+ablation,IGD,C18,w/o Graph,0.051343
+ablation,IGD,C19,HCMAGRL,0.022919
+ablation,IGD,C19,w/o EdgeAttn,0.013904
+ablation,IGD,C19,w/o Hierarchy,0.059143
+ablation,IGD,C19,w/o Heterogeneity,0.075605
+ablation,IGD,C19,w/o Graph,0.069547
+ablation,IGD,C20,HCMAGRL,0.040259
+ablation,IGD,C20,w/o EdgeAttn,0.053765
+ablation,IGD,C20,w/o Hierarchy,0.070246
+ablation,IGD,C20,w/o Heterogeneity,0.081053
+ablation,IGD,C20,w/o Graph,0.008553
+ablation,IGD,C21,HCMAGRL,0.048997
+ablation,IGD,C21,w/o EdgeAttn,0.075239
+ablation,IGD,C21,w/o Hierarchy,0.101547
+ablation,IGD,C21,w/o Heterogeneity,0.022898
+ablation,IGD,C21,w/o Graph,0.057301
+ablation,IGD,C22,HCMAGRL,0.01134
+ablation,IGD,C22,w/o EdgeAttn,0.018709
+ablation,IGD,C22,w/o Hierarchy,0.025113
+ablation,IGD,C22,w/o Heterogeneity,0.034625
+ablation,IGD,C22,w/o Graph,0.028361
+ablation,IGD,C23,HCMAGRL,0.022468
+ablation,IGD,C23,w/o EdgeAttn,0.044222
+ablation,IGD,C23,w/o Hierarchy,0.099946
+ablation,IGD,C23,w/o Heterogeneity,0.022041
+ablation,IGD,C23,w/o Graph,0.026949
+ablation,IGD,C24,HCMAGRL,0.107664
+ablation,IGD,C24,w/o EdgeAttn,0.078869
+ablation,IGD,C24,w/o Hierarchy,0.050596
+ablation,IGD,C24,w/o Heterogeneity,0.127603
+ablation,IGD,C24,w/o Graph,0.078842
+ablation,IGD,C25,HCMAGRL,0.053947
+ablation,IGD,C25,w/o EdgeAttn,0.049119
+ablation,IGD,C25,w/o Hierarchy,0.099475
+ablation,IGD,C25,w/o Heterogeneity,0.043114
+ablation,IGD,C25,w/o Graph,0.008851
+ablation,IGD,C26,HCMAGRL,0.037754
+ablation,IGD,C26,w/o EdgeAttn,0.091891
+ablation,IGD,C26,w/o Hierarchy,0.039655
+ablation,IGD,C26,w/o Heterogeneity,0.056039
+ablation,IGD,C26,w/o Graph,0.103857
+ablation,IGD,C27,HCMAGRL,0.01785
+ablation,IGD,C27,w/o EdgeAttn,0.028189
+ablation,IGD,C27,w/o Hierarchy,0.017954
+ablation,IGD,C27,w/o Heterogeneity,0.026945
+ablation,IGD,C27,w/o Graph,0.025271
+ablation,Spread,C1,HCMAGRL,0.0
+ablation,Spread,C1,w/o EdgeAttn,0.0
+ablation,Spread,C1,w/o Hierarchy,0.0
+ablation,Spread,C1,w/o Heterogeneity,0.0
+ablation,Spread,C1,w/o Graph,0.0
+ablation,Spread,C2,HCMAGRL,0.0
+ablation,Spread,C2,w/o EdgeAttn,0.0
+ablation,Spread,C2,w/o Hierarchy,0.0
+ablation,Spread,C2,w/o Heterogeneity,0.0
+ablation,Spread,C2,w/o Graph,0.0
+ablation,Spread,C3,HCMAGRL,0.090581
+ablation,Spread,C3,w/o EdgeAttn,0.445982
+ablation,Spread,C3,w/o Hierarchy,0.518655
+ablation,Spread,C3,w/o Heterogeneity,0.781945
+ablation,Spread,C3,w/o Graph,0.552159
+ablation,Spread,C4,HCMAGRL,0.0
+ablation,Spread,C4,w/o EdgeAttn,0.0
+ablation,Spread,C4,w/o Hierarchy,0.0
+ablation,Spread,C4,w/o Heterogeneity,0.0
+ablation,Spread,C4,w/o Graph,0.0
+ablation,Spread,C5,HCMAGRL,0.493855
+ablation,Spread,C5,w/o EdgeAttn,0.583388
+ablation,Spread,C5,w/o Hierarchy,0.61956
+ablation,Spread,C5,w/o Heterogeneity,0.350699
+ablation,Spread,C5,w/o Graph,0.400933
+ablation,Spread,C6,HCMAGRL,0.559476
+ablation,Spread,C6,w/o EdgeAttn,0.300991
+ablation,Spread,C6,w/o Hierarchy,0.0
+ablation,Spread,C6,w/o Heterogeneity,0.0
+ablation,Spread,C6,w/o Graph,0.0
+ablation,Spread,C7,HCMAGRL,0.220478
+ablation,Spread,C7,w/o EdgeAttn,0.687894
+ablation,Spread,C7,w/o Hierarchy,0.0
+ablation,Spread,C7,w/o Heterogeneity,0.662348
+ablation,Spread,C7,w/o Graph,0.424467
+ablation,Spread,C8,HCMAGRL,0.094635
+ablation,Spread,C8,w/o EdgeAttn,0.311995
+ablation,Spread,C8,w/o Hierarchy,0.0
+ablation,Spread,C8,w/o Heterogeneity,0.25077
+ablation,Spread,C8,w/o Graph,0.873145
+ablation,Spread,C9,HCMAGRL,0.0
+ablation,Spread,C9,w/o EdgeAttn,0.238872
+ablation,Spread,C9,w/o Hierarchy,0.0
+ablation,Spread,C9,w/o Heterogeneity,0.803979
+ablation,Spread,C9,w/o Graph,0.682308
+ablation,Spread,C10,HCMAGRL,0.0
+ablation,Spread,C10,w/o EdgeAttn,0.0
+ablation,Spread,C10,w/o Hierarchy,0.0
+ablation,Spread,C10,w/o Heterogeneity,0.0
+ablation,Spread,C10,w/o Graph,0.0
+ablation,Spread,C11,HCMAGRL,0.0
+ablation,Spread,C11,w/o EdgeAttn,0.0
+ablation,Spread,C11,w/o Hierarchy,0.0
+ablation,Spread,C11,w/o Heterogeneity,0.0
+ablation,Spread,C11,w/o Graph,0.0
+ablation,Spread,C12,HCMAGRL,0.0
+ablation,Spread,C12,w/o EdgeAttn,0.0
+ablation,Spread,C12,w/o Hierarchy,0.0
+ablation,Spread,C12,w/o Heterogeneity,0.0
+ablation,Spread,C12,w/o Graph,0.0
+ablation,Spread,C13,HCMAGRL,0.496628
+ablation,Spread,C13,w/o EdgeAttn,0.245681
+ablation,Spread,C13,w/o Hierarchy,0.241177
+ablation,Spread,C13,w/o Heterogeneity,0.345104
+ablation,Spread,C13,w/o Graph,0.050878
+ablation,Spread,C14,HCMAGRL,0.76678
+ablation,Spread,C14,w/o EdgeAttn,0.947204
+ablation,Spread,C14,w/o Hierarchy,0.527522
+ablation,Spread,C14,w/o Heterogeneity,0.736972
+ablation,Spread,C14,w/o Graph,1.089422
+ablation,Spread,C15,HCMAGRL,0.515108
+ablation,Spread,C15,w/o EdgeAttn,0.580386
+ablation,Spread,C15,w/o Hierarchy,0.766439
+ablation,Spread,C15,w/o Heterogeneity,0.42615
+ablation,Spread,C15,w/o Graph,0.699812
+ablation,Spread,C16,HCMAGRL,0.746964
+ablation,Spread,C16,w/o EdgeAttn,0.577401
+ablation,Spread,C16,w/o Hierarchy,0.579659
+ablation,Spread,C16,w/o Heterogeneity,0.757604
+ablation,Spread,C16,w/o Graph,0.267487
+ablation,Spread,C17,HCMAGRL,0.677083
+ablation,Spread,C17,w/o EdgeAttn,0.789949
+ablation,Spread,C17,w/o Hierarchy,0.0
+ablation,Spread,C17,w/o Heterogeneity,0.375952
+ablation,Spread,C17,w/o Graph,0.341101
+ablation,Spread,C18,HCMAGRL,0.61902
+ablation,Spread,C18,w/o EdgeAttn,0.92152
+ablation,Spread,C18,w/o Hierarchy,0.739457
+ablation,Spread,C18,w/o Heterogeneity,0.825977
+ablation,Spread,C18,w/o Graph,0.0
+ablation,Spread,C19,HCMAGRL,0.834371
+ablation,Spread,C19,w/o EdgeAttn,0.132437
+ablation,Spread,C19,w/o Hierarchy,0.874231
+ablation,Spread,C19,w/o Heterogeneity,0.969877
+ablation,Spread,C19,w/o Graph,0.708698
+ablation,Spread,C20,HCMAGRL,0.740859
+ablation,Spread,C20,w/o EdgeAttn,0.355087
+ablation,Spread,C20,w/o Hierarchy,0.353139
+ablation,Spread,C20,w/o Heterogeneity,0.573611
+ablation,Spread,C20,w/o Graph,0.543053
+ablation,Spread,C21,HCMAGRL,0.667253
+ablation,Spread,C21,w/o EdgeAttn,0.671724
+ablation,Spread,C21,w/o Hierarchy,0.596747
+ablation,Spread,C21,w/o Heterogeneity,0.307971
+ablation,Spread,C21,w/o Graph,0.871961
+ablation,Spread,C22,HCMAGRL,0.261944
+ablation,Spread,C22,w/o EdgeAttn,0.600097
+ablation,Spread,C22,w/o Hierarchy,0.694832
+ablation,Spread,C22,w/o Heterogeneity,0.0
+ablation,Spread,C22,w/o Graph,0.104903
+ablation,Spread,C23,HCMAGRL,0.4735
+ablation,Spread,C23,w/o EdgeAttn,0.974653
+ablation,Spread,C23,w/o Hierarchy,0.549171
+ablation,Spread,C23,w/o Heterogeneity,0.940539
+ablation,Spread,C23,w/o Graph,0.421835
+ablation,Spread,C24,HCMAGRL,0.716631
+ablation,Spread,C24,w/o EdgeAttn,0.482683
+ablation,Spread,C24,w/o Hierarchy,1.051659
+ablation,Spread,C24,w/o Heterogeneity,0.863632
+ablation,Spread,C24,w/o Graph,0.710572
+ablation,Spread,C25,HCMAGRL,0.426201
+ablation,Spread,C25,w/o EdgeAttn,0.284109
+ablation,Spread,C25,w/o Hierarchy,0.353455
+ablation,Spread,C25,w/o Heterogeneity,0.184738
+ablation,Spread,C25,w/o Graph,0.189161
+ablation,Spread,C26,HCMAGRL,0.780794
+ablation,Spread,C26,w/o EdgeAttn,0.74847
+ablation,Spread,C26,w/o Hierarchy,0.79035
+ablation,Spread,C26,w/o Heterogeneity,0.696541
+ablation,Spread,C26,w/o Graph,0.598203
+ablation,Spread,C27,HCMAGRL,0.65575
+ablation,Spread,C27,w/o EdgeAttn,0.52537
+ablation,Spread,C27,w/o Hierarchy,0.655703
+ablation,Spread,C27,w/o Heterogeneity,0.838204
+ablation,Spread,C27,w/o Graph,0.72572
+ablation,HV,C1,HCMAGRL,0.926193
+ablation,HV,C1,w/o EdgeAttn,0.926193
+ablation,HV,C1,w/o Hierarchy,0.911313
+ablation,HV,C1,w/o Heterogeneity,0.913064
+ablation,HV,C1,w/o Graph,0.918315
+ablation,HV,C2,HCMAGRL,0.944935
+ablation,HV,C2,w/o EdgeAttn,1.0
+ablation,HV,C2,w/o Hierarchy,0.890866
+ablation,HV,C2,w/o Heterogeneity,0.992353
+ablation,HV,C2,w/o Graph,1.0
+ablation,HV,C3,HCMAGRL,0.991626
+ablation,HV,C3,w/o EdgeAttn,0.845223
+ablation,HV,C3,w/o Hierarchy,0.691228
+ablation,HV,C3,w/o Heterogeneity,0.934688
+ablation,HV,C3,w/o Graph,0.806176
+ablation,HV,C4,HCMAGRL,0.995821
+ablation,HV,C4,w/o EdgeAttn,1.0
+ablation,HV,C4,w/o Hierarchy,0.979403
+ablation,HV,C4,w/o Heterogeneity,0.995821
+ablation,HV,C4,w/o Graph,1.0
+ablation,HV,C5,HCMAGRL,0.995503
+ablation,HV,C5,w/o EdgeAttn,0.85534
+ablation,HV,C5,w/o Hierarchy,0.857742
+ablation,HV,C5,w/o Heterogeneity,0.917048
+ablation,HV,C5,w/o Graph,0.905414
+ablation,HV,C6,HCMAGRL,0.968285
+ablation,HV,C6,w/o EdgeAttn,0.990372
+ablation,HV,C6,w/o Hierarchy,0.896943
+ablation,HV,C6,w/o Heterogeneity,0.984342
+ablation,HV,C6,w/o Graph,0.986955
+ablation,HV,C7,HCMAGRL,0.895871
+ablation,HV,C7,w/o EdgeAttn,0.889248
+ablation,HV,C7,w/o Hierarchy,0.942577
+ablation,HV,C7,w/o Heterogeneity,0.873524
+ablation,HV,C7,w/o Graph,0.905285
+ablation,HV,C8,HCMAGRL,0.984822
+ablation,HV,C8,w/o EdgeAttn,0.993228
+ablation,HV,C8,w/o Hierarchy,0.921237
+ablation,HV,C8,w/o Heterogeneity,0.998265
+ablation,HV,C8,w/o Graph,0.89445
+ablation,HV,C9,HCMAGRL,0.961898
+ablation,HV,C9,w/o EdgeAttn,0.944525
+ablation,HV,C9,w/o Hierarchy,0.852513
+ablation,HV,C9,w/o Heterogeneity,0.904807
+ablation,HV,C9,w/o Graph,0.901268
+ablation,HV,C10,HCMAGRL,1.0
+ablation,HV,C10,w/o EdgeAttn,1.0
+ablation,HV,C10,w/o Hierarchy,1.0
+ablation,HV,C10,w/o Heterogeneity,1.0
+ablation,HV,C10,w/o Graph,1.0
+ablation,HV,C11,HCMAGRL,0.997665
+ablation,HV,C11,w/o EdgeAttn,1.0
+ablation,HV,C11,w/o Hierarchy,0.999315
+ablation,HV,C11,w/o Heterogeneity,0.994079
+ablation,HV,C11,w/o Graph,0.998373
+ablation,HV,C12,HCMAGRL,0.998214
+ablation,HV,C12,w/o EdgeAttn,1.0
+ablation,HV,C12,w/o Hierarchy,0.965319
+ablation,HV,C12,w/o Heterogeneity,0.967906
+ablation,HV,C12,w/o Graph,0.968791
+ablation,HV,C13,HCMAGRL,0.99585
+ablation,HV,C13,w/o EdgeAttn,0.989036
+ablation,HV,C13,w/o Hierarchy,0.989225
+ablation,HV,C13,w/o Heterogeneity,0.989569
+ablation,HV,C13,w/o Graph,0.991834
+ablation,HV,C14,HCMAGRL,0.827748
+ablation,HV,C14,w/o EdgeAttn,0.906623
+ablation,HV,C14,w/o Hierarchy,0.972181
+ablation,HV,C14,w/o Heterogeneity,0.886358
+ablation,HV,C14,w/o Graph,0.915438
+ablation,HV,C15,HCMAGRL,0.900085
+ablation,HV,C15,w/o EdgeAttn,0.865935
+ablation,HV,C15,w/o Hierarchy,0.849871
+ablation,HV,C15,w/o Heterogeneity,0.935012
+ablation,HV,C15,w/o Graph,0.840212
+ablation,HV,C16,HCMAGRL,0.963171
+ablation,HV,C16,w/o EdgeAttn,0.976863
+ablation,HV,C16,w/o Hierarchy,0.886597
+ablation,HV,C16,w/o Heterogeneity,0.964062
+ablation,HV,C16,w/o Graph,0.971074
+ablation,HV,C17,HCMAGRL,0.995001
+ablation,HV,C17,w/o EdgeAttn,0.858731
+ablation,HV,C17,w/o Hierarchy,0.917424
+ablation,HV,C17,w/o Heterogeneity,0.990781
+ablation,HV,C17,w/o Graph,0.983293
+ablation,HV,C18,HCMAGRL,0.9855
+ablation,HV,C18,w/o EdgeAttn,0.923862
+ablation,HV,C18,w/o Hierarchy,0.896559
+ablation,HV,C18,w/o Heterogeneity,0.964634
+ablation,HV,C18,w/o Graph,0.98499
+ablation,HV,C19,HCMAGRL,0.971258
+ablation,HV,C19,w/o EdgeAttn,0.961269
+ablation,HV,C19,w/o Hierarchy,0.894164
+ablation,HV,C19,w/o Heterogeneity,0.935766
+ablation,HV,C19,w/o Graph,0.977672
+ablation,HV,C20,HCMAGRL,0.909498
+ablation,HV,C20,w/o EdgeAttn,0.901539
+ablation,HV,C20,w/o Hierarchy,0.910532
+ablation,HV,C20,w/o Heterogeneity,0.879802
+ablation,HV,C20,w/o Graph,0.96231
+ablation,HV,C21,HCMAGRL,0.928383
+ablation,HV,C21,w/o EdgeAttn,0.88737
+ablation,HV,C21,w/o Hierarchy,0.914656
+ablation,HV,C21,w/o Heterogeneity,0.984929
+ablation,HV,C21,w/o Graph,0.894228
+ablation,HV,C22,HCMAGRL,0.994443
+ablation,HV,C22,w/o EdgeAttn,0.984147
+ablation,HV,C22,w/o Hierarchy,0.98189
+ablation,HV,C22,w/o Heterogeneity,0.94201
+ablation,HV,C22,w/o Graph,0.989844
+ablation,HV,C23,HCMAGRL,0.968855
+ablation,HV,C23,w/o EdgeAttn,0.885239
+ablation,HV,C23,w/o Hierarchy,0.868189
+ablation,HV,C23,w/o Heterogeneity,0.951346
+ablation,HV,C23,w/o Graph,0.924707
+ablation,HV,C24,HCMAGRL,0.872289
+ablation,HV,C24,w/o EdgeAttn,0.875192
+ablation,HV,C24,w/o Hierarchy,0.949635
+ablation,HV,C24,w/o Heterogeneity,0.785922
+ablation,HV,C24,w/o Graph,0.813829
+ablation,HV,C25,HCMAGRL,0.89783
+ablation,HV,C25,w/o EdgeAttn,0.926288
+ablation,HV,C25,w/o Hierarchy,0.888076
+ablation,HV,C25,w/o Heterogeneity,0.942725
+ablation,HV,C25,w/o Graph,0.984599
+ablation,HV,C26,HCMAGRL,0.960224
+ablation,HV,C26,w/o EdgeAttn,0.911625
+ablation,HV,C26,w/o Hierarchy,0.972002
+ablation,HV,C26,w/o Heterogeneity,0.933147
+ablation,HV,C26,w/o Graph,0.924895
+ablation,HV,C27,HCMAGRL,0.968492
+ablation,HV,C27,w/o EdgeAttn,0.956347
+ablation,HV,C27,w/o Hierarchy,0.96641
+ablation,HV,C27,w/o Heterogeneity,0.921912
+ablation,HV,C27,w/o Graph,0.963519

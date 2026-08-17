@@ -1,0 +1,83 @@
+\documentclass[border=2pt]{standalone}
+\input{../scifig-preamble}
+\begin{document}
+\begin{tikzpicture}[node distance=4mm]
+
+% ============================ environment =============================
+\node[datanode, minimum width=20mm] (env) {Reconfigurable\\shop-floor\\simulator};
+\node[note, below=1.2mm of env] (envnote) {event-driven\\clock advance};
+
+\node[block, right=4mm of env, minimum width=21mm, minimum height=15mm] (graph)
+  {Heterogeneous\\graph state\\$\mathcal{G}(\tau_k)$};
+\node[tinynote, below=1.0mm of graph] {operation / cell / module\\nodes, four relations};
+
+% ============================ encoder =================================
+\node[keyblock, right=4mm of graph, minimum width=25mm, minimum height=15mm] (enc)
+  {Edge-conditioned\\relational encoder\\\textsc{rhgn}};
+
+\node[block, right=5mm of enc, minimum width=17mm, minimum height=15mm] (emb)
+  {$\mathbf{h}^{\mathrm{op}},\mathbf{h}^{\mathrm{ma}}$\\$\mathbf{h}^{\mathrm{mo}},\mathbf{h}^{g}$};
+
+% ============================ two agents ==============================
+\node[keyblock, right=5mm of emb, yshift=9mm, minimum width=27mm] (upper)
+  {Upper agent: \emph{reconfigure}\\$a^{u}=(m,\alpha)$};
+\node[keyblock, right=5mm of emb, yshift=-9mm, minimum width=27mm] (lower)
+  {Lower agent: \emph{dispatch}\\$a^{\ell}=(m',r,j)$};
+
+\node[block, right=3mm of upper, minimum width=13mm, font=\scriptsize] (cu) {critic $V^{u}$};
+\node[block, right=3mm of lower, minimum width=13mm, font=\scriptsize] (cl) {critic $V^{\ell}$};
+
+% main data flow
+\draw[arrow] (env) -- (graph);
+\draw[arrow] (graph) -- (enc);
+\draw[arrow] (enc) -- (emb);
+\draw[arrow] (emb.east) -- ++(3mm,0) |- (upper.west);
+\draw[arrow] (emb.east) -- ++(3mm,0) |- (lower.west);
+\draw[arrow] (upper) -- (cu);
+\draw[arrow] (lower) -- (cl);
+
+% conditioning of the lower level on the upper decision
+\draw[arrow, draw=oivermilion, line width=0.8pt] (upper.south) -- node[right=0.5mm, font=\tiny, text=oivermilion, align=left] {restricts\\feasible set} (lower.north);
+
+% execution back to the environment: routed below the policy row, above training
+\coordinate (retY) at ($(lower.south)+(0,-9mm)$);
+\draw[arrow] (lower.south) -- (retY) -| (env.south);
+\node[note, whitebg] at ($(retY)+(-42mm,0)$)
+  {joint action $(m,\alpha,m',r,j)$ executed atomically};
+
+% Reward feedback. Routed high enough to clear the "Hierarchical policies"
+% group label, and delivered to both critics rather than to one of them.
+\coordinate (rwY)  at ($(env.north)+(0,20mm)$);
+\draw[dasharrow] (env.north) -- (rwY) -| (cu.north);
+\node[note, whitebg] at ($(rwY)+(46mm,3.4mm)$)
+  {common reward $r_k=-\big(\alpha_t\,\Delta C/\Cmax^{\mathrm{ref}}
+   +\alpha_c\,\Delta Z/\Zcost^{\mathrm{ref}}\big)$, shared by both levels};
+
+% ============================ training ================================
+\node[block, below=30mm of enc, minimum width=24mm, fill=oigreen!12, draw=oigreen!70]
+  (workers) {$W$ parallel rollout\\workers};
+\node[block, right=7mm of workers, minimum width=20mm, fill=oigreen!12, draw=oigreen!70]
+  (buffer) {Two-stream\\advantage buffer};
+\node[keyblock, right=7mm of buffer, minimum width=24mm] (ppo)
+  {Hierarchical clipped\\policy update};
+
+\draw[arrow] (workers) -- (buffer);
+\draw[arrow] (buffer) -- (ppo);
+% updated parameters flow back into the shared encoder and both policy heads
+\coordinate (thetaY) at ($(ppo.north)+(0,5mm)$);
+\draw[arrow] (ppo.north) -- (thetaY) -| (enc.south);
+\node[note, whitebg] at ($(thetaY)+(-30mm,0)$) {updated parameters $\theta$};
+
+\begin{scope}[on background layer]
+  \node[group, fit=(env)(envnote)(graph)] (genv) {};
+  \node[group, fit=(enc)(emb)] (gnet) {};
+  \node[group, fit=(upper)(lower)(cu)(cl)] (gact) {};
+  \node[group, fit=(workers)(buffer)(ppo)] (gtrain) {};
+\end{scope}
+\node[grouplabel, above=0.4mm of genv.north] {Environment};
+\node[grouplabel, above=0.4mm of gnet.north] {Shared representation};
+\node[grouplabel, above=0.4mm of gact.north] {Hierarchical policies};
+\node[grouplabel, below=0.4mm of gtrain.south] {Training};
+
+\end{tikzpicture}
+\end{document}
