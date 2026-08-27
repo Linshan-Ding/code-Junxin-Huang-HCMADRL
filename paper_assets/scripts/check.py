@@ -35,10 +35,12 @@ from pathlib import Path
 # guide at submission time -- publishers do revise these.
 VENUE = {
     "elsevier":  dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
+    "jms":       dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
+    "cie":       dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
     "rcim":      dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
     "ieee-trans": dict(abstract=250, highlights=None, keywords=(3, 8)),
 }
-TARGET = "rcim"
+TARGET = "jms"
 
 # Titles in this field run 9-15 words; a longer one is a warning, not a failure.
 TITLE_WORDS = 18
@@ -91,9 +93,20 @@ for opts, target in included:
         problems.append(f"missing figure file: {target}")
 
 # ---- 6: scaling keys ------------------------------------------------------
-# Every figure is generated at its final printed width, so a scaling key would
-# mean its labels no longer print at the size they were designed for.
+# Every data figure is generated at its final printed width, so a scaling key
+# would mean its labels no longer print at the size they were designed for.
+# The TikZ schematics are the documented exception: they are drawn at natural
+# size, re-exported from Overleaf, and scaled to the text width in the body.
+SCALED_OK = {
+    "figures/fig-system.pdf",
+    "figures/fig-framework.pdf",
+    "figures/fig-graph-state.pdf",
+    "figures/fig-action-mask.pdf",
+    "figures/fig-attention.pdf",
+}
 for opts, target in included:
+    if target in SCALED_OK:
+        continue
     if opts and re.search(r"\b(width|height|scale)\s*=", opts):
         problems.append(f"figure included with a scaling key: {target} {opts}")
 
