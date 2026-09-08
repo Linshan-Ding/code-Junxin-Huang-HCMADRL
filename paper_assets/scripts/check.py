@@ -35,12 +35,13 @@ from pathlib import Path
 # guide at submission time -- publishers do revise these.
 VENUE = {
     "elsevier":  dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
+    "aei":       dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
     "jms":       dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
     "cie":       dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
     "rcim":      dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
     "ieee-trans": dict(abstract=250, highlights=None, keywords=(3, 8)),
 }
-TARGET = "jms"
+TARGET = "aei"
 
 # Titles in this field run 9-15 words; a longer one is a warning, not a failure.
 TITLE_WORDS = 18
