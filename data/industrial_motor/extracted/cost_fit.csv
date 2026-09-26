@@ -1,0 +1,17 @@
+old,new,published,fitted,residual,unit
+A,A,0,0.0,0.0,thousand CNY
+A,B,2,1.5,-0.5,thousand CNY
+A,C,4,4.625,0.625,thousand CNY
+A,D,4,3.875,-0.125,thousand CNY
+B,A,3,3.5,0.5,thousand CNY
+B,B,0,0.0,0.0,thousand CNY
+B,C,5,5.625,0.625,thousand CNY
+B,D,6,4.875,-1.125,thousand CNY
+C,A,5,3.875,-1.125,thousand CNY
+C,B,3,2.875,-0.125,thousand CNY
+C,C,0,0.0,0.0,thousand CNY
+C,D,4,5.25,1.25,thousand CNY
+D,A,3,3.625,0.625,thousand CNY
+D,B,2,2.625,0.625,thousand CNY
+D,C,7,5.75,-1.25,thousand CNY
+D,D,0,0.0,0.0,thousand CNY

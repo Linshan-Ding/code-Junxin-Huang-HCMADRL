@@ -1,0 +1,1726 @@
+{
+  "feasible": true,
+  "complete": true,
+  "errors": [],
+  "makespan": 247.9,
+  "cost": 37375.0,
+  "original_matrix_cost": 34975.0,
+  "reconfigurations": 37,
+  "initial_installations": 5,
+  "operations": 20,
+  "runtime_seconds": 0.1585493000002316,
+  "steps": 62,
+  "reward": -2.580110682317629,
+  "events": [
+    {
+      "index": 0,
+      "kind": "install",
+      "machine": 0,
+      "module": 0,
+      "start": 0.0,
+      "end": 3.9,
+      "cost": 275.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 0,
+      "ready_job": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 1,
+      "kind": "process",
+      "machine": 0,
+      "module": 0,
+      "start": 3.9,
+      "end": 8.9,
+      "cost": 0.0,
+      "product": 0,
+      "stage": 0,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 2,
+      "kind": "install",
+      "machine": 1,
+      "module": 4,
+      "start": 8.9,
+      "end": 13.25,
+      "cost": 275.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 1,
+      "ready_job": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "index": 3,
+      "kind": "remove",
+      "machine": 0,
+      "module": 0,
+      "start": 8.9,
+      "end": 11.5,
+      "cost": 225.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 2,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 4,
+      "kind": "install",
+      "machine": 0,
+      "module": 2,
+      "start": 11.5,
+      "end": 15.4,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 2,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 5,
+      "kind": "process",
+      "machine": 1,
+      "module": 4,
+      "start": 13.25,
+      "end": 21.25,
+      "cost": 0.0,
+      "product": 0,
+      "stage": 1,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 6,
+      "kind": "remove",
+      "machine": 0,
+      "module": 2,
+      "start": 15.4,
+      "end": 18.0,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 3,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 7,
+      "kind": "install",
+      "machine": 0,
+      "module": 3,
+      "start": 18.0,
+      "end": 21.9,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 3,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 8,
+      "kind": "install",
+      "machine": 2,
+      "module": 8,
+      "start": 21.25,
+      "end": 25.0,
+      "cost": 275.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 4,
+      "ready_job": [
+        0,
+        2,
+        0
+      ]
+    },
+    {
+      "index": 9,
+      "kind": "remove",
+      "machine": 0,
+      "module": 3,
+      "start": 21.9,
+      "end": 24.5,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 5,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 10,
+      "kind": "install",
+      "machine": 0,
+      "module": 2,
+      "start": 24.5,
+      "end": 28.4,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 5,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 11,
+      "kind": "process",
+      "machine": 2,
+      "module": 8,
+      "start": 25.0,
+      "end": 29.0,
+      "cost": 0.0,
+      "product": 0,
+      "stage": 2,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 12,
+      "kind": "remove",
+      "machine": 0,
+      "module": 2,
+      "start": 28.4,
+      "end": 31.0,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 6,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 13,
+      "kind": "install",
+      "machine": 0,
+      "module": 3,
+      "start": 31.0,
+      "end": 34.9,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 6,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 14,
+      "kind": "install",
+      "machine": 3,
+      "module": 12,
+      "start": 29.0,
+      "end": 32.6,
+      "cost": 275.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 7,
+      "ready_job": [
+        0,
+        3,
+        0
+      ]
+    },
+    {
+      "index": 15,
+      "kind": "process",
+      "machine": 3,
+      "module": 12,
+      "start": 32.6,
+      "end": 38.6,
+      "cost": 0.0,
+      "product": 0,
+      "stage": 3,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 16,
+      "kind": "remove",
+      "machine": 0,
+      "module": 3,
+      "start": 34.9,
+      "end": 37.5,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 8,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 17,
+      "kind": "install",
+      "machine": 0,
+      "module": 2,
+      "start": 37.5,
+      "end": 41.4,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 8,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 18,
+      "kind": "install",
+      "machine": 4,
+      "module": 16,
+      "start": 38.6,
+      "end": 42.35,
+      "cost": 275.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 9,
+      "ready_job": [
+        0,
+        4,
+        0
+      ]
+    },
+    {
+      "index": 19,
+      "kind": "remove",
+      "machine": 0,
+      "module": 2,
+      "start": 41.4,
+      "end": 44.0,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 10,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 20,
+      "kind": "install",
+      "machine": 0,
+      "module": 3,
+      "start": 44.0,
+      "end": 47.9,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 10,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 21,
+      "kind": "process",
+      "machine": 4,
+      "module": 16,
+      "start": 42.35,
+      "end": 50.35,
+      "cost": 0.0,
+      "product": 0,
+      "stage": 4,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 22,
+      "kind": "remove",
+      "machine": 0,
+      "module": 3,
+      "start": 47.9,
+      "end": 50.5,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 11,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 23,
+      "kind": "install",
+      "machine": 0,
+      "module": 2,
+      "start": 50.5,
+      "end": 54.4,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 11,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 24,
+      "kind": "remove",
+      "machine": 0,
+      "module": 2,
+      "start": 54.4,
+      "end": 57.0,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 12,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 25,
+      "kind": "install",
+      "machine": 0,
+      "module": 3,
+      "start": 57.0,
+      "end": 60.9,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 12,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 26,
+      "kind": "remove",
+      "machine": 0,
+      "module": 3,
+      "start": 60.9,
+      "end": 63.5,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 13,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 27,
+      "kind": "install",
+      "machine": 0,
+      "module": 2,
+      "start": 63.5,
+      "end": 67.4,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 13,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 28,
+      "kind": "remove",
+      "machine": 0,
+      "module": 2,
+      "start": 67.4,
+      "end": 70.0,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 14,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 29,
+      "kind": "install",
+      "machine": 0,
+      "module": 3,
+      "start": 70.0,
+      "end": 73.9,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 14,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 30,
+      "kind": "remove",
+      "machine": 0,
+      "module": 3,
+      "start": 73.9,
+      "end": 76.5,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 15,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 31,
+      "kind": "install",
+      "machine": 0,
+      "module": 2,
+      "start": 76.5,
+      "end": 80.4,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 15,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 32,
+      "kind": "remove",
+      "machine": 0,
+      "module": 2,
+      "start": 80.4,
+      "end": 83.0,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 16,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 33,
+      "kind": "install",
+      "machine": 0,
+      "module": 3,
+      "start": 83.0,
+      "end": 86.9,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 16,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 34,
+      "kind": "remove",
+      "machine": 0,
+      "module": 3,
+      "start": 86.9,
+      "end": 89.5,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 17,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 35,
+      "kind": "install",
+      "machine": 0,
+      "module": 2,
+      "start": 89.5,
+      "end": 93.4,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 17,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 36,
+      "kind": "remove",
+      "machine": 0,
+      "module": 2,
+      "start": 93.4,
+      "end": 96.0,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 18,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 37,
+      "kind": "install",
+      "machine": 0,
+      "module": 3,
+      "start": 96.0,
+      "end": 99.9,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 18,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 38,
+      "kind": "remove",
+      "machine": 0,
+      "module": 3,
+      "start": 99.9,
+      "end": 102.5,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 19,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 39,
+      "kind": "install",
+      "machine": 0,
+      "module": 2,
+      "start": 102.5,
+      "end": 106.4,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 19,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 40,
+      "kind": "remove",
+      "machine": 0,
+      "module": 2,
+      "start": 106.4,
+      "end": 109.0,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 20,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 41,
+      "kind": "install",
+      "machine": 0,
+      "module": 3,
+      "start": 109.0,
+      "end": 112.9,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 20,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 42,
+      "kind": "remove",
+      "machine": 0,
+      "module": 3,
+      "start": 112.9,
+      "end": 115.5,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 21,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 43,
+      "kind": "install",
+      "machine": 0,
+      "module": 2,
+      "start": 115.5,
+      "end": 119.4,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 21,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 44,
+      "kind": "remove",
+      "machine": 0,
+      "module": 2,
+      "start": 119.4,
+      "end": 122.0,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 22,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 45,
+      "kind": "install",
+      "machine": 0,
+      "module": 3,
+      "start": 122.0,
+      "end": 125.9,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 22,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 46,
+      "kind": "remove",
+      "machine": 0,
+      "module": 3,
+      "start": 125.9,
+      "end": 128.5,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 23,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 47,
+      "kind": "install",
+      "machine": 0,
+      "module": 2,
+      "start": 128.5,
+      "end": 132.4,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 23,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 48,
+      "kind": "remove",
+      "machine": 0,
+      "module": 2,
+      "start": 132.4,
+      "end": 135.0,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 24,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 49,
+      "kind": "install",
+      "machine": 0,
+      "module": 3,
+      "start": 135.0,
+      "end": 138.9,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 24,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 50,
+      "kind": "remove",
+      "machine": 0,
+      "module": 3,
+      "start": 138.9,
+      "end": 141.5,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 25,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 51,
+      "kind": "install",
+      "machine": 0,
+      "module": 2,
+      "start": 141.5,
+      "end": 145.4,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 25,
+      "ready_job": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 52,
+      "kind": "process",
+      "machine": 0,
+      "module": 2,
+      "start": 145.4,
+      "end": 153.4,
+      "cost": 0.0,
+      "product": 2,
+      "stage": 0,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 53,
+      "kind": "remove",
+      "machine": 1,
+      "module": 4,
+      "start": 153.4,
+      "end": 156.3,
+      "cost": 225.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 26,
+      "ready_job": [
+        2,
+        1,
+        0
+      ]
+    },
+    {
+      "index": 54,
+      "kind": "install",
+      "machine": 1,
+      "module": 6,
+      "start": 156.3,
+      "end": 160.65,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 26,
+      "ready_job": [
+        2,
+        1,
+        0
+      ]
+    },
+    {
+      "index": 55,
+      "kind": "remove",
+      "machine": 0,
+      "module": 2,
+      "start": 153.4,
+      "end": 156.0,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 27,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 56,
+      "kind": "install",
+      "machine": 0,
+      "module": 3,
+      "start": 156.0,
+      "end": 159.9,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 27,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 57,
+      "kind": "remove",
+      "machine": 0,
+      "module": 3,
+      "start": 159.9,
+      "end": 162.5,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 28,
+      "ready_job": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 58,
+      "kind": "install",
+      "machine": 0,
+      "module": 1,
+      "start": 162.5,
+      "end": 166.4,
+      "cost": 75.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 28,
+      "ready_job": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 59,
+      "kind": "process",
+      "machine": 1,
+      "module": 6,
+      "start": 160.65,
+      "end": 165.65,
+      "cost": 0.0,
+      "product": 2,
+      "stage": 1,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 60,
+      "kind": "remove",
+      "machine": 2,
+      "module": 8,
+      "start": 165.65,
+      "end": 168.15,
+      "cost": 225.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 29,
+      "ready_job": [
+        2,
+        2,
+        0
+      ]
+    },
+    {
+      "index": 61,
+      "kind": "install",
+      "machine": 2,
+      "module": 10,
+      "start": 168.15,
+      "end": 171.9,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 29,
+      "ready_job": [
+        2,
+        2,
+        0
+      ]
+    },
+    {
+      "index": 62,
+      "kind": "remove",
+      "machine": 0,
+      "module": 1,
+      "start": 166.4,
+      "end": 169.0,
+      "cost": 425.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 30,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 63,
+      "kind": "install",
+      "machine": 0,
+      "module": 3,
+      "start": 169.0,
+      "end": 172.9,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 30,
+      "ready_job": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 64,
+      "kind": "process",
+      "machine": 2,
+      "module": 10,
+      "start": 171.9,
+      "end": 176.9,
+      "cost": 0.0,
+      "product": 2,
+      "stage": 2,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 65,
+      "kind": "process",
+      "machine": 0,
+      "module": 3,
+      "start": 172.9,
+      "end": 178.9,
+      "cost": 0.0,
+      "product": 3,
+      "stage": 0,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 66,
+      "kind": "remove",
+      "machine": 3,
+      "module": 12,
+      "start": 176.9,
+      "end": 179.3,
+      "cost": 225.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 31,
+      "ready_job": [
+        2,
+        3,
+        0
+      ]
+    },
+    {
+      "index": 67,
+      "kind": "install",
+      "machine": 3,
+      "module": 14,
+      "start": 179.3,
+      "end": 182.9,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 31,
+      "ready_job": [
+        2,
+        3,
+        0
+      ]
+    },
+    {
+      "index": 68,
+      "kind": "remove",
+      "machine": 0,
+      "module": 3,
+      "start": 178.9,
+      "end": 181.5,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 32,
+      "ready_job": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 69,
+      "kind": "install",
+      "machine": 0,
+      "module": 1,
+      "start": 181.5,
+      "end": 185.4,
+      "cost": 75.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 32,
+      "ready_job": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 70,
+      "kind": "remove",
+      "machine": 1,
+      "module": 6,
+      "start": 178.9,
+      "end": 181.8,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 33,
+      "ready_job": [
+        3,
+        1,
+        0
+      ]
+    },
+    {
+      "index": 71,
+      "kind": "install",
+      "machine": 1,
+      "module": 7,
+      "start": 181.8,
+      "end": 186.15,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 33,
+      "ready_job": [
+        3,
+        1,
+        0
+      ]
+    },
+    {
+      "index": 72,
+      "kind": "process",
+      "machine": 3,
+      "module": 14,
+      "start": 182.9,
+      "end": 191.9,
+      "cost": 0.0,
+      "product": 2,
+      "stage": 3,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 73,
+      "kind": "process",
+      "machine": 0,
+      "module": 1,
+      "start": 185.4,
+      "end": 192.4,
+      "cost": 0.0,
+      "product": 1,
+      "stage": 0,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 74,
+      "kind": "process",
+      "machine": 1,
+      "module": 7,
+      "start": 186.15,
+      "end": 195.15,
+      "cost": 0.0,
+      "product": 3,
+      "stage": 1,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 75,
+      "kind": "remove",
+      "machine": 4,
+      "module": 16,
+      "start": 191.9,
+      "end": 194.4,
+      "cost": 225.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 34,
+      "ready_job": [
+        2,
+        4,
+        0
+      ]
+    },
+    {
+      "index": 76,
+      "kind": "install",
+      "machine": 4,
+      "module": 18,
+      "start": 194.4,
+      "end": 198.15,
+      "cost": 700.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 34,
+      "ready_job": [
+        2,
+        4,
+        0
+      ]
+    },
+    {
+      "index": 77,
+      "kind": "remove",
+      "machine": 1,
+      "module": 7,
+      "start": 195.15,
+      "end": 198.05,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 35,
+      "ready_job": [
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "index": 78,
+      "kind": "install",
+      "machine": 1,
+      "module": 5,
+      "start": 198.05,
+      "end": 202.4,
+      "cost": 75.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 35,
+      "ready_job": [
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "index": 79,
+      "kind": "remove",
+      "machine": 2,
+      "module": 10,
+      "start": 195.15,
+      "end": 197.65,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 36,
+      "ready_job": [
+        3,
+        2,
+        0
+      ]
+    },
+    {
+      "index": 80,
+      "kind": "install",
+      "machine": 2,
+      "module": 11,
+      "start": 197.65,
+      "end": 201.4,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 36,
+      "ready_job": [
+        3,
+        2,
+        0
+      ]
+    },
+    {
+      "index": 81,
+      "kind": "process",
+      "machine": 4,
+      "module": 18,
+      "start": 198.15,
+      "end": 202.15,
+      "cost": 0.0,
+      "product": 2,
+      "stage": 4,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 82,
+      "kind": "process",
+      "machine": 2,
+      "module": 11,
+      "start": 201.4,
+      "end": 208.4,
+      "cost": 0.0,
+      "product": 3,
+      "stage": 2,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 83,
+      "kind": "process",
+      "machine": 1,
+      "module": 5,
+      "start": 202.4,
+      "end": 209.4,
+      "cost": 0.0,
+      "product": 1,
+      "stage": 1,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 84,
+      "kind": "remove",
+      "machine": 3,
+      "module": 14,
+      "start": 208.4,
+      "end": 210.8,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 37,
+      "ready_job": [
+        3,
+        3,
+        0
+      ]
+    },
+    {
+      "index": 85,
+      "kind": "install",
+      "machine": 3,
+      "module": 15,
+      "start": 210.8,
+      "end": 214.4,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 37,
+      "ready_job": [
+        3,
+        3,
+        0
+      ]
+    },
+    {
+      "index": 86,
+      "kind": "remove",
+      "machine": 2,
+      "module": 11,
+      "start": 209.4,
+      "end": 211.9,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 38,
+      "ready_job": [
+        1,
+        2,
+        0
+      ]
+    },
+    {
+      "index": 87,
+      "kind": "install",
+      "machine": 2,
+      "module": 9,
+      "start": 211.9,
+      "end": 215.65,
+      "cost": 75.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 38,
+      "ready_job": [
+        1,
+        2,
+        0
+      ]
+    },
+    {
+      "index": 88,
+      "kind": "process",
+      "machine": 3,
+      "module": 15,
+      "start": 214.4,
+      "end": 218.4,
+      "cost": 0.0,
+      "product": 3,
+      "stage": 3,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 89,
+      "kind": "process",
+      "machine": 2,
+      "module": 9,
+      "start": 215.65,
+      "end": 224.65,
+      "cost": 0.0,
+      "product": 1,
+      "stage": 2,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 90,
+      "kind": "remove",
+      "machine": 4,
+      "module": 18,
+      "start": 218.4,
+      "end": 220.9,
+      "cost": 500.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 39,
+      "ready_job": [
+        3,
+        4,
+        0
+      ]
+    },
+    {
+      "index": 91,
+      "kind": "install",
+      "machine": 4,
+      "module": 19,
+      "start": 220.9,
+      "end": 224.65,
+      "cost": 550.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 39,
+      "ready_job": [
+        3,
+        4,
+        0
+      ]
+    },
+    {
+      "index": 92,
+      "kind": "process",
+      "machine": 4,
+      "module": 19,
+      "start": 224.65,
+      "end": 231.65,
+      "cost": 0.0,
+      "product": 3,
+      "stage": 4,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 93,
+      "kind": "remove",
+      "machine": 3,
+      "module": 15,
+      "start": 224.65,
+      "end": 227.05,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 40,
+      "ready_job": [
+        1,
+        3,
+        0
+      ]
+    },
+    {
+      "index": 94,
+      "kind": "install",
+      "machine": 3,
+      "module": 13,
+      "start": 227.05,
+      "end": 230.65,
+      "cost": 75.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 40,
+      "ready_job": [
+        1,
+        3,
+        0
+      ]
+    },
+    {
+      "index": 95,
+      "kind": "process",
+      "machine": 3,
+      "module": 13,
+      "start": 230.65,
+      "end": 235.65,
+      "cost": 0.0,
+      "product": 1,
+      "stage": 3,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    },
+    {
+      "index": 96,
+      "kind": "remove",
+      "machine": 4,
+      "module": 19,
+      "start": 235.65,
+      "end": 238.15,
+      "cost": 450.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 41,
+      "ready_job": [
+        1,
+        4,
+        0
+      ]
+    },
+    {
+      "index": 97,
+      "kind": "install",
+      "machine": 4,
+      "module": 17,
+      "start": 238.15,
+      "end": 241.9,
+      "cost": 75.0,
+      "product": null,
+      "stage": null,
+      "job": null,
+      "group": 41,
+      "ready_job": [
+        1,
+        4,
+        0
+      ]
+    },
+    {
+      "index": 98,
+      "kind": "process",
+      "machine": 4,
+      "module": 17,
+      "start": 241.9,
+      "end": 247.9,
+      "cost": 0.0,
+      "product": 1,
+      "stage": 4,
+      "job": 0,
+      "group": null,
+      "ready_job": null
+    }
+  ],
+  "termination": "complete",
+  "training_seconds": 0.3264700999989145,
+  "training_rollouts": 2,
+  "method": "MLP",
+  "weight": 0.5,
+  "seed": 42,
+  "signature": "88b10eab12f991965aa7037a07b6f9402c2cee19a924355ef18524a60e3ed823",
+  "profile": "smoke"
+}

@@ -15,8 +15,78 @@
 - [可视化与结果](#可视化与结果)：Pareto 图、甘特图、检查点与评估结果。
 - [当前限制](#当前限制)：需要先调整的路径和暂不能直接运行的入口。
 - [论文图表生成指南](paper_assets/README.md)：利用已有结果重生成论文图表与表格。
+- [工业电机案例](#工业电机案例)：公开数据重构、独立训练与评估、论文蓝色修订产物。
 
 希望查看现有实验结果的读者，可以从 `result/` 和 `paper_assets/figures/data/` 开始，无需先训练模型。重新训练、独立评估和生成论文产物是不同步骤；当前仓库尚未将它们接成完整的一键复现流程。
+
+## 工业电机案例
+
+`industrial_case/` 提供一套独立流程，使用 [Zhao 等公开论文](https://doi.org/10.1371/journal.pone.0348884) 中常州 AMEC&GBM 电机装配案例的参数。论文来源是公开文献，未进行现场采集或部署验证。`data/industrial_motor/source/` 保留未改动的开放获取论文及 SHA-256；`extracted/published.json` 对应原文第 15 页的三张表和订单，`derived.json` 保存转换参数及来源分类。
+
+保留 4 类产品、5 个工位、`[5,4,4,3]` 件订单和全部 20 个加工时间，生成 80 道实际加工任务。工位映射为制造单元，每个单元可装 4 种产品专用逻辑模块，共 20 种模块。这是适配本文模型的重构：逻辑模块、无限缓冲、空初始配置与统一零时刻释放是建模假设；原文固定投产间隔、零件频率及周期末回切约束不纳入。
+
+原始产品间成本通过非负加性最小二乘转换为卸载加安装成本，固定两组分量总和相等后平均分配至五个工位。`extracted/cost_fit.csv` 保留每项误差。模糊装卸时间是根据工位平均加工时间构造的假设值，**不是实测工人时间**。输出时间单位沿用原文未具体命名的 time-unit，内部按 1000 倍整数刻度读取；成本由千元转为 CNY。评估另用原成本矩阵按工位五等分重算成本，初始安装仍用推导值。
+
+### 命令与依赖
+
+以下命令从代码仓库根目录运行；其他环境替换解释器和两个仓库路径。新流程无需 Visdom 服务，也不调用单订单之外的流体求解功能；环境仍需导入 `docplex`，本案例无需 CPLEX 运行时。
+
+```powershell
+$Python = 'E:\anaconda3\envs\python3.13\python.exe'
+$ErrorActionPreference = 'Stop'
+$env:PYTHONUTF8 = '1'
+$env:PYTHONDONTWRITEBYTECODE = '1'
+Set-Location 'D:\Python project\code-Junxin-Huang-HCMADRL'
+$env:HCMAGRL_PAPER = 'D:\Python project\Junxin_Huang_HCMAGRL_RMS_FRT'
+
+& $Python -m pip install torch numpy scipy pandas matplotlib visdom docplex pymoo
+if ($LASTEXITCODE -ne 0) { throw '依赖安装失败' }
+
+# 已含原始 PDF；需要重新获取缺失的来源文件时才加 --fetch（需要网络）
+& $Python -m industrial_case prepare
+if ($LASTEXITCODE -ne 0) { throw '案例准备失败' }
+& $Python -m industrial_case validate
+if ($LASTEXITCODE -ne 0) { throw '数据检查失败' }
+
+# 4 件产品、20 道任务；三种模型各 2 次迭代；NSGA-II 32 次评估
+& $Python -m industrial_case run --profile smoke --resume
+if ($LASTEXITCODE -ne 0) { throw '小规模流程检查失败' }
+
+# 正式运行耗时较长：75 次训练，500 次迭代/次，4 个 CPU rollout worker
+# PPO 更新默认 CPU；可明确加 --device cuda，恢复训练时保持同一设备
+& $Python -m industrial_case run --profile full --resume
+if ($LASTEXITCODE -ne 0) { throw '完整实验未完成；请检查日志后恢复' }
+
+& $Python -m industrial_case export-paper --profile full
+if ($LASTEXITCODE -ne 0) { throw '论文导出被阻止；检查完整性及输入签名' }
+```
+
+只生成参数表、示意图和“完整实验待运行”说明时使用 `export-paper --profile full --draft`。该命令不读取 smoke 数值，并拒绝将已经导出的正式结果退回草稿。正式导出仅在全套运行记录存在且通过签名、预算、轨迹核验后执行；失败或不可行运行保留并列明，不静默删除。
+
+可分别调用 `train`、`baselines`、`evaluate`、`aggregate` 和 `export-paper`，每个入口支持 `--help`。`run` 顺序执行校验、训练、基线、评估和聚合，**不自动修改论文**。`train --stop-after 1` 可在指定绝对迭代数暂停以测试恢复，随后使用 `train --resume` 继续；这不会缩短正式实验要求。`train --methods HCMAGRL` 可仅运行一种学习方法，论文导出仍要求全套方法。
+
+### 实验设置、输出与覆盖规则
+
+正式学习方法为 HCMAGRL、Flat、MLP；基线为 SPT、SetupGreedy、成本优先的 TwoStage 和 NSGA-II。学习及搜索种子固定为 `42—46`，时间权重为 `0、0.25、0.5、0.75、1`。SPT 和 TwoStage 各运行一次，SetupGreedy 每个权重一次；确定性输出不会复制成五个统计样本。参考值由事前 SPT 调度确定，各模型保存并评估最终迭代参数。
+
+NSGA-II 每种子使用 10,000 次环境评估，保留搜索档案，并按相同五组权重选代表解。HV 按每种子的代表解集合计算，以共同 SPT 参考值归一化，参考点为全部方法可行代表解坐标最大值的 1.1 倍。报告样本标准差，并分别记录训练／搜索时间与一次调度执行时间；相同 rollout 数不代表相同实际耗时。每条轨迹最多允许 `20 × 实际工序数` 个决策步，达到上限按未完成报告。
+
+| 位置 | 内容 |
+| --- | --- |
+| `data/industrial_motor/instances/MOTOR_FULL/` | 正式案例的五种输入 CSV |
+| `data/industrial_motor/instances/MOTOR_SMOKE/` | 每类 1 件产品的小规模案例 |
+| `result/industrial_motor/<profile>/manifest.json` | 配置、环境版本、输入及代码签名 |
+| `.../checkpoints/`、`.../training/` | 可恢复模型、优化器、随机状态与逐轮 worker 指标 |
+| `.../evaluations/` | 独立评估指标及完整加工、装卸事件轨迹，包括失败记录 |
+| `.../nsga/` | 搜索档案、优先级编码、完整目标评估历史 |
+| `.../aggregate/` | 明细、汇总、每种子 HV、时间敏感性及完整性清单 |
+| `paper_assets/figures/data/industrial/` | 正式导出时复制的聚合数据 |
+
+`--output <目录>` 改变结果根目录，仍自动添加 `smoke/` 或 `full/` 子目录。配置、数据或执行代码变更后，旧输出会被拒绝复用，应选新目录；同一签名下用 `--resume` 恢复原训练或跳过已完成运行。每次迭代原子更新本次运行检查点，聚合命令覆盖本次运行的派生 CSV。`prepare` 重生成此案例的派生输入，公开提取值不一致时拒绝覆盖。下载命令只补缺失源 PDF，不替换已有来源文件。
+
+实施时完成了 7 份可行的 smoke 评估和 8 项自动测试，正式训练未启动；具体环境、验证命令和边界见[验证记录](industrial_case/VALIDATION.md)。可用 `& $Python -m unittest industrial_case.test_pipeline -v` 重新验证。
+
+敏感性分析保持既有调度的单元活动顺序、工序优先关系及触发每次重构的工件就绪条件，按装卸耗时倍率 `0.5、1、2` 重算最早可行时间。倍率 1 也是按固定顺序重新计算最早开工时间，不强制保留原调度中的空闲；该分析属于调度重放，不等同于策略在随机工人环境中的鲁棒性。甘特图固定采用 HCMAGRL 的种子 42、平衡权重与确定性 TwoStage 对照。论文产物和编译流程见[工业案例论文导出](paper_assets/README.md#工业案例论文导出)。
 
 ## 目录与数据
 
@@ -279,4 +349,4 @@ SCHEDULE = make_ablation_comparison_schedule(
 | 独立评估失败 | `evaluate.py` 尚未适配当前仓库接口，详见上节 |
 | 原始结果聚合找不到代码仓库 | 显式设置 `HCMAGRL_CODE`；当前默认仍为 `/home/user/code-Junxin-Huang-HCMADRL` |
 
-本次文档核验基于源代码中的参数、路径与输出逻辑。`plot_pareto_front.py --help` 和论文 `check.py --help` 可运行；本机训练与消融入口的 `--help` 检查因缺少 `docplex` 在导入阶段失败。未执行完整训练、独立评估或论文产物重生成，以上说明不构成对端到端复现成功的验证。
+原 README 核验时训练入口曾因缺少 `docplex` 在导入阶段失败；工业案例实施时已在本机默认解释器安装该依赖。工业案例的小规模训练、独立评估和轨迹核验另有运行记录，但原有 27 个算例的完整实验没有重新运行，旧入口的上述接口和路径限制仍然存在。

@@ -1,0 +1,50 @@
+[
+  {
+    "iteration": 1,
+    "seconds": 0.4344645999990462,
+    "workers": [
+      {
+        "feasible": true,
+        "complete": true,
+        "errors": [],
+        "makespan": 141.15,
+        "cost": 16875.0,
+        "original_matrix_cost": 16275.0,
+        "reconfigurations": 20,
+        "initial_installations": 5,
+        "operations": 20,
+        "runtime_seconds": 0.21721050000087416,
+        "steps": 45,
+        "reward": -1.3058972503617945,
+        "termination": "complete"
+      }
+    ],
+    "feasible_rollouts": 1,
+    "mean_makespan": 141.15,
+    "mean_cost": 16875.0
+  },
+  {
+    "iteration": 2,
+    "seconds": 0.4170979000009538,
+    "workers": [
+      {
+        "feasible": true,
+        "complete": true,
+        "errors": [],
+        "makespan": 115.15,
+        "cost": 15575.0,
+        "original_matrix_cost": 15275.0,
+        "reconfigurations": 17,
+        "initial_installations": 5,
+        "operations": 20,
+        "runtime_seconds": 0.20559599999978673,
+        "steps": 42,
+        "reward": -1.1323270086294686,
+        "termination": "complete"
+      }
+    ],
+    "feasible_rollouts": 1,
+    "mean_makespan": 115.15,
+    "mean_cost": 15575.0
+  }
+]

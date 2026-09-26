@@ -88,7 +88,7 @@ for l in sorted(floats - refs):
     problems.append(f"float never referenced in the text: {l}")
 
 # ---- 3: figure files ------------------------------------------------------
-included = re.findall(r"\\includegraphics(\[[^\]]*\])?\{([^}]+)\}", body)
+included = re.findall(r"\\includegraphics(\[[^\]]*\])?\{([^}]+)\}", alltex)
 for opts, target in included:
     if not (ROOT / target).exists():
         problems.append(f"missing figure file: {target}")

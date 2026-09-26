@@ -6,6 +6,55 @@
 
 论文仓库 `Junxin_Huang_HCMAGRL_RMS_FRT` 保存稿件源码、类文件、参考文献，以及编译所需的图、表格与宏。代码仓库负责生成这些产物；论文编译读取生成后的 PDF 和 TeX 文件，不直接读取原始实验 CSV。
 
+## 工业案例论文导出
+
+新增工业电机案例使用独立的 `industrial_case` 流程。来源、重构假设、训练预算和完整运行命令见[根 README](../README.md#工业电机案例)，不通过旧的 `build_data.py` 或 `make_tables.py` 聚合。
+
+```text
+data/industrial_motor/source/ + extracted/ + derived.json
+    → instances/MOTOR_FULL/、MOTOR_SMOKE/
+    → industrial_case train / baselines / evaluate
+    → result/industrial_motor/<profile>/evaluations/、nsga/
+    → industrial_case aggregate → 本次运行 aggregate/*.csv
+    → industrial_case export-paper --profile full
+        → paper_assets/figures/data/industrial/*
+        → 论文 tables/industrial_*.tex、macros/industrial-results.tex
+        → 论文 figures/fig_industrial_*.pdf
+        → 本目录 figures/_proofs/industrial/*.png
+```
+
+入口从**代码仓库根目录**运行，默认论文目录仍为兄弟目录，也可通过 `--paper` 覆盖 `HCMAGRL_PAPER`：
+
+```powershell
+$Python = 'E:\anaconda3\envs\python3.13\python.exe'
+$env:PYTHONUTF8 = '1'
+$env:HCMAGRL_CODE = 'D:\Python project\code-Junxin-Huang-HCMADRL'
+$env:HCMAGRL_PAPER = 'D:\Python project\Junxin_Huang_HCMAGRL_RMS_FRT'
+Set-Location $env:HCMAGRL_CODE
+
+# 不需要训练结果：生成来源参数表、成本拟合、模块表、案例示意图及蓝色待实验说明
+& $Python -m industrial_case export-paper --profile full --draft
+if ($LASTEXITCODE -ne 0) { throw '工业案例草稿生成失败' }
+
+# 全部正式运行完成后执行；完整性检查不通过时不修改稿件产物
+& $Python -m industrial_case export-paper --profile full
+if ($LASTEXITCODE -ne 0) { throw '工业案例正式导出失败' }
+
+Set-Location $env:HCMAGRL_PAPER
+latexmk -pdf main.tex
+if ($LASTEXITCODE -ne 0) { throw '论文编译失败' }
+Set-Location $env:HCMAGRL_CODE
+& $Python .\paper_assets\scripts\check.py --paper $env:HCMAGRL_PAPER
+```
+
+Bash 下对应入口为 `python -m industrial_case export-paper --profile full`，先 `export HCMAGRL_PAPER=/absolute/path/to/paper` 并进入代码仓库根目录；随后在论文目录运行 `latexmk -pdf main.tex`。如果用 `--output` 保存实验，导出命令需要传入相同结果根目录。
+
+本机实施验证使用已存在的 Tectonic 编译成功，PATH 中没有 `latexmk`。使用 Tectonic 时，在论文目录执行 `tectonic -X compile --keep-logs --keep-intermediates main.tex`；Windows 若未加入 PATH，用可执行文件的绝对路径替换 `tectonic`。保留日志是后续 `check.py` 的前提，首次使用可能需要联网下载缺失宏包。新小节验证状态见[验证记录](../industrial_case/VALIDATION.md)。
+
+导出需要 `numpy`、`matplotlib`、`pandas` 所在的既有分析环境；正式流程依赖详见根 README。示意图及数据图使用 Matplotlib 输出矢量 PDF，不要求先编译 TikZ，宽度为最终版面的 164.6 mm。已有 Pareto 联合图的特殊样式继续保留；新增案例只有少量代表点，采用散点显示非支配解，不对稀疏样本绘制核密度曲线。
+
+导出仅覆盖 `industrial_*` 表格、独立结果宏、`fig_industrial_*` 图片及上述工业聚合目录，保留原实验产物。草稿导出会拒绝覆盖已完成的正式结果；`smoke` 始终禁止用于论文。正式导出重新检查原始运行记录而非仅信任聚合 CSV，因此重绘时也需保留相应运行目录。全文新增修订文字、表格与图注为蓝色，图内保留算法区分色；完整训练前不会产生伪造结果图或改进百分比。
+
 ## 生成流程与输入输出
 
 ```text

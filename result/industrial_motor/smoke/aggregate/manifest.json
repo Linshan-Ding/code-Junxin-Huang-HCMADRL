@@ -1,0 +1,25 @@
+{
+  "profile": "smoke",
+  "signature": "88b10eab12f991965aa7037a07b6f9402c2cee19a924355ef18524a60e3ed823",
+  "evaluation_sha256": {
+    "HCMAGRL_w0.5_s42": "010c0e8bdbfd20fdac36555d82024486e7f7cad020eee97861d01db73ad3bf87",
+    "Flat_w0.5_s42": "2b8180f4e080fd4b50a830be02103523fd2953bb465ecb84c8f18a4f8e31011e",
+    "MLP_w0.5_s42": "ab8ff99031cf46d8587b3b40f536ab641aa0c485d7a1e1d178e53a700a820aa1",
+    "SPT_w0.5_s-1": "eeda0e2391bad11227d7b0d3b07c91836338175a2661607b2d8d3e0f759bc01c",
+    "SetupGreedy_w0.5_s-1": "9374d85100bf25851528ab2b4259b09659a341f32cfd48fe1d4981d180fc3e91",
+    "TwoStage_w0.5_s-1": "65dd5d941cc6a16c13500eca27ab1593450ac61df182d4a9b0ab5a528b623287",
+    "NSGA-II_w0.5_s42": "23c828144b7a26c23b303f46af8cb413a58b0482246f698a4b0e267655758609"
+  },
+  "expected_evaluations": 7,
+  "hv_reference_normalized": [
+    2.630873130728413,
+    3.0453703703703705
+  ],
+  "hv_scale": [
+    103.65,
+    13500.0
+  ],
+  "hv_rule": "1.1 times coordinate maxima of pooled feasible representatives; common to all methods",
+  "statistics": "sample SD across independent training/search seeds; deterministic rules are single results; infeasibility reported",
+  "failed_evaluations": 0
+}

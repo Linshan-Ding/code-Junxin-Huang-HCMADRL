@@ -1,0 +1,89 @@
+{
+  "profile": {
+    "name": "smoke",
+    "seeds": [
+      42
+    ],
+    "weights": [
+      0.5
+    ],
+    "iterations": 2,
+    "workers": 1,
+    "nsga_evaluations": 32,
+    "nsga_population": 8,
+    "variants": {
+      "HCMAGRL": "original",
+      "Flat": "flat_mappo",
+      "MLP": "mlp_encoder"
+    },
+    "methods": [
+      "HCMAGRL",
+      "Flat",
+      "MLP",
+      "SPT",
+      "SetupGreedy",
+      "TwoStage",
+      "NSGA-II"
+    ],
+    "hidden_dim": 128,
+    "checkpoint_selection": "final",
+    "schema": 1
+  },
+  "data_sha256": {
+    "instances/MOTOR_SMOKE/based_data.csv": "a82af93fea849a59ebeeca57cd11e9a90c7ca45de56a3b177205d2e6b598cd99",
+    "instances/MOTOR_SMOKE/machine_data.csv": "d69ef1aa06607d8dd4232e6d34010c5bbb2d40722c3df554cb143b3b47f4a70a",
+    "instances/MOTOR_SMOKE/module_data.csv": "f59af30bfc6afb2b06fad1405c9ff02415c4da87866a4ec2ec74e8726252f068",
+    "instances/MOTOR_SMOKE/order_data.csv": "466603fde4438b677e219130a8dfe8adffd339bc254eb6cb5e35bcfbd52d25c9",
+    "instances/MOTOR_SMOKE/process_data.csv": "abf03a95031a8c729c4b59c97dbdc1c3bc4fe5276d7fa3c717bb0ec4cc376992",
+    "derived.json": "038e4eec1eed6ee108de43062510be5cab18143645db87983afd51f690cd39b2",
+    "extracted/published.json": "d266db871a44d345d01cf33d9b379b116f110320beb8be736f81a64b9154d8d7"
+  },
+  "code_sha256": {
+    "industrial_case/__init__.py": "4c2dacb02330d6ee3bdbd640315b7b66c027c00b79654447b7fa7a28a9f69470",
+    "industrial_case/__main__.py": "4bea31a673916051ed66d7e436d0a1ab7c11498ee69878fcf77d20ab355093c3",
+    "industrial_case/analysis.py": "dc36255a23369b548b1b4d1087c616175db14464b3988b06f01d057727a189d1",
+    "industrial_case/baselines.py": "80fb209e8d02ff8c96f22dd84fc68efa3ff4fb28bc32adbccac648001f056679",
+    "industrial_case/common.py": "a16237a8167ac30c82341e416e51123e603f31c1dfab91160b46d0aca3614755",
+    "industrial_case/data.py": "9843b67716d346f84ae05628e394fdc059b75ad44c75416afb5e87b41fbb514b",
+    "industrial_case/export.py": "66be3e20bb8c5ec6b5a868d85d4fff1308bb8c4bb61f4cf09bd1dd66d5dd05aa",
+    "industrial_case/learning.py": "16d8f9c8a3dfbcefff1b44f16047153afd123af19b75100079cae33d281676fd",
+    "industrial_case/simulation.py": "b9e3117cbc9408d2f62a509a0c19453839f90ac3af2dca8957c974a206cc5f21",
+    "industrial_case/test_pipeline.py": "47468a2d0b8c3bd2b0e78ddd7b3af01d97aa5cf3fbccd9dfe0298a7af378b3a3",
+    "agent.py": "f575c16bd98ed3d884113c6da543b90be1aef194f4a66f093b767aba075bb84e",
+    "config.py": "2d3a21101716d55ed448ca3ebe16da8d53ea96ff3a002ca75440be2538c22315",
+    "env.py": "93b239806aa8bc15027f3f99f190ab2d973f69b0a96cc658d839c6326529f35b",
+    "rl_state.py": "325475acc2c838bf4a5b99e5793e16bdd16737fb8caa51908adcc1e246d8402f",
+    "graph_encoder.py": "21ec00a821db7940005656de41f005c369f552f0958efdd53e5eb39a01ef075f",
+    "graph_state.py": "8716efff08e570e45df7a9f63e4d620464ebd5ed903c0bc82c9288758745e83b",
+    "class_MO_DFRMS.py": "1c52b822c8307b5dc95704c94f0c1d350bde223f090112b45272aff0ee91b328",
+    "MO_DFRMS_instance_read.py": "7cd1ba05266e1d14cc11a9bea06aef68cb2db0f67eab6dc49e30baa678cfea19",
+    "upper_actor.py": "e38950fb231e4960a123dbd8e4c986d8d6c8d30b8b5f628d1869ea325cab83f6",
+    "lower_actor.py": "162ab7a6856cf1d074ec97f0dfd44d929d4cbe5a292c2c54705637b5e38faf7e",
+    "upper_critic.py": "6b2139ae9d8e44764b8a447dede857c329495229f662016be3b264f934f062cb",
+    "lower_critic.py": "0c2ad1ed8bd7e44b869b9ee3f1acd07bfbbe9f50a3b040152acb034598632a1e",
+    "utils.py": "c0c397f18a6bf15695a648d26c2ac71dde3d816444364dd1d2f046bc24ada83e",
+    "Triangular_fuzzy.py": "12c985e461487c1adca1b32c4024f0132903d4fa51b11b95015f9abf3bafa808",
+    "ablation/ablation_trainer.py": "874ad428fe72f54df86aa9a9d6ae42373216f210b030e2e76f8889c13b7d8bea",
+    "ablation/variants/__init__.py": "8b3d35ae41ba6125d1f7bc224a446bc80ba9e1169a02b61c1e30e13a96c52e3d",
+    "ablation/variants/variant_flat_mappo.py": "8031935513e254830ba3e7ced7fe20def7242984760792f245fef917d53c3e39",
+    "ablation/variants/variant_homo_gnn.py": "9765cd2e4032b55f210f60704be1e0ed26f98ccd5ad0a17d5486d1be4fe0e94c",
+    "ablation/variants/variant_mlp_encoder.py": "943c2fe1e790cb796af9c4fdce9eb5ee49be24f8c9178c6740dbd6158cdb885c",
+    "ablation/variants/variant_no_attn.py": "72060ce9ba6089e7416efb2fb730743807d29478211947d3cb1a38c8398f824f"
+  },
+  "signature": "88b10eab12f991965aa7037a07b6f9402c2cee19a924355ef18524a60e3ed823",
+  "python": "3.13.7",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD",
+  "cuda_available": true,
+  "torch_cuda": "12.8",
+  "gpu": "NVIDIA GeForce RTX 5070 Ti Laptop GPU",
+  "packages": {
+    "torch": "2.11.0+cu128",
+    "numpy": "2.3.3",
+    "scipy": "1.16.2",
+    "pandas": "2.3.2",
+    "matplotlib": "3.10.6",
+    "docplex": "2.32.264",
+    "pymoo": "0.6.2"
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "doi": "10.1371/journal.pone.0348884",
+  "article": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0348884",
+  "repository": "https://github.com/zixiangliwust/Instances_RALSP",
+  "locator": "Section 5; Tables 1, 2, 3; printed page 15",
+  "classification": "published",
+  "time_unit": "unspecified source time-unit",
+  "cost_unit": "thousand CNY",
+  "products": [
+    "62ZYT001",
+    "100ZYT001",
+    "62ZYT-SUV",
+    "78ZYT001"
+  ],
+  "product_labels": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "demand": [
+    5,
+    4,
+    4,
+    3
+  ],
+  "processing": [
+    [
+      5,
+      8,
+      4,
+      6,
+      8
+    ],
+    [
+      7,
+      7,
+      9,
+      5,
+      6
+    ],
+    [
+      8,
+      5,
+      5,
+      9,
+      4
+    ],
+    [
+      6,
+      9,
+      7,
+      4,
+      7
+    ]
+  ],
+  "switch_cost": [
+    [
+      0,
+      2,
+      4,
+      4
+    ],
+    [
+      3,
+      0,
+      5,
+      6
+    ],
+    [
+      5,
+      3,
+      0,
+      4
+    ],
+    [
+      3,
+      2,
+      7,
+      0
+    ]
+  ],
+  "part_requirements": [
+    [
+      1,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      1,
+      1,
+      0
+    ]
+  ],
+  "excluded_source_constraints": {
+    "startup_interval": 3,
+    "part_frequency": [
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        1,
+        2
+      ]
+    ],
+    "cyclic_return": true
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "makespan": 103.65,
+  "cost": 13500.0,
+  "method": "SPT",
+  "source": "fixed before learning/search"
+}

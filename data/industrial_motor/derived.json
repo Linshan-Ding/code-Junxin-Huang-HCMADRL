@@ -1,0 +1,389 @@
+{
+  "time_scale": 1000,
+  "cost_unit": "CNY",
+  "modules": [
+    {
+      "module": 0,
+      "station": 0,
+      "product": 0,
+      "mount_time": [
+        3.12,
+        3.9,
+        4.68
+      ],
+      "remove_time": [
+        2.08,
+        2.6,
+        3.12
+      ],
+      "mount_cost_cny": 275,
+      "remove_cost_cny": 225
+    },
+    {
+      "module": 1,
+      "station": 0,
+      "product": 1,
+      "mount_time": [
+        3.12,
+        3.9,
+        4.68
+      ],
+      "remove_time": [
+        2.08,
+        2.6,
+        3.12
+      ],
+      "mount_cost_cny": 75,
+      "remove_cost_cny": 425
+    },
+    {
+      "module": 2,
+      "station": 0,
+      "product": 2,
+      "mount_time": [
+        3.12,
+        3.9,
+        4.68
+      ],
+      "remove_time": [
+        2.08,
+        2.6,
+        3.12
+      ],
+      "mount_cost_cny": 700,
+      "remove_cost_cny": 500
+    },
+    {
+      "module": 3,
+      "station": 0,
+      "product": 3,
+      "mount_time": [
+        3.12,
+        3.9,
+        4.68
+      ],
+      "remove_time": [
+        2.08,
+        2.6,
+        3.12
+      ],
+      "mount_cost_cny": 550,
+      "remove_cost_cny": 450
+    },
+    {
+      "module": 4,
+      "station": 1,
+      "product": 0,
+      "mount_time": [
+        3.48,
+        4.35,
+        5.22
+      ],
+      "remove_time": [
+        2.32,
+        2.9,
+        3.48
+      ],
+      "mount_cost_cny": 275,
+      "remove_cost_cny": 225
+    },
+    {
+      "module": 5,
+      "station": 1,
+      "product": 1,
+      "mount_time": [
+        3.48,
+        4.35,
+        5.22
+      ],
+      "remove_time": [
+        2.32,
+        2.9,
+        3.48
+      ],
+      "mount_cost_cny": 75,
+      "remove_cost_cny": 425
+    },
+    {
+      "module": 6,
+      "station": 1,
+      "product": 2,
+      "mount_time": [
+        3.48,
+        4.35,
+        5.22
+      ],
+      "remove_time": [
+        2.32,
+        2.9,
+        3.48
+      ],
+      "mount_cost_cny": 700,
+      "remove_cost_cny": 500
+    },
+    {
+      "module": 7,
+      "station": 1,
+      "product": 3,
+      "mount_time": [
+        3.48,
+        4.35,
+        5.22
+      ],
+      "remove_time": [
+        2.32,
+        2.9,
+        3.48
+      ],
+      "mount_cost_cny": 550,
+      "remove_cost_cny": 450
+    },
+    {
+      "module": 8,
+      "station": 2,
+      "product": 0,
+      "mount_time": [
+        3.0,
+        3.75,
+        4.5
+      ],
+      "remove_time": [
+        2.0,
+        2.5,
+        3.0
+      ],
+      "mount_cost_cny": 275,
+      "remove_cost_cny": 225
+    },
+    {
+      "module": 9,
+      "station": 2,
+      "product": 1,
+      "mount_time": [
+        3.0,
+        3.75,
+        4.5
+      ],
+      "remove_time": [
+        2.0,
+        2.5,
+        3.0
+      ],
+      "mount_cost_cny": 75,
+      "remove_cost_cny": 425
+    },
+    {
+      "module": 10,
+      "station": 2,
+      "product": 2,
+      "mount_time": [
+        3.0,
+        3.75,
+        4.5
+      ],
+      "remove_time": [
+        2.0,
+        2.5,
+        3.0
+      ],
+      "mount_cost_cny": 700,
+      "remove_cost_cny": 500
+    },
+    {
+      "module": 11,
+      "station": 2,
+      "product": 3,
+      "mount_time": [
+        3.0,
+        3.75,
+        4.5
+      ],
+      "remove_time": [
+        2.0,
+        2.5,
+        3.0
+      ],
+      "mount_cost_cny": 550,
+      "remove_cost_cny": 450
+    },
+    {
+      "module": 12,
+      "station": 3,
+      "product": 0,
+      "mount_time": [
+        2.88,
+        3.6,
+        4.32
+      ],
+      "remove_time": [
+        1.92,
+        2.4,
+        2.88
+      ],
+      "mount_cost_cny": 275,
+      "remove_cost_cny": 225
+    },
+    {
+      "module": 13,
+      "station": 3,
+      "product": 1,
+      "mount_time": [
+        2.88,
+        3.6,
+        4.32
+      ],
+      "remove_time": [
+        1.92,
+        2.4,
+        2.88
+      ],
+      "mount_cost_cny": 75,
+      "remove_cost_cny": 425
+    },
+    {
+      "module": 14,
+      "station": 3,
+      "product": 2,
+      "mount_time": [
+        2.88,
+        3.6,
+        4.32
+      ],
+      "remove_time": [
+        1.92,
+        2.4,
+        2.88
+      ],
+      "mount_cost_cny": 700,
+      "remove_cost_cny": 500
+    },
+    {
+      "module": 15,
+      "station": 3,
+      "product": 3,
+      "mount_time": [
+        2.88,
+        3.6,
+        4.32
+      ],
+      "remove_time": [
+        1.92,
+        2.4,
+        2.88
+      ],
+      "mount_cost_cny": 550,
+      "remove_cost_cny": 450
+    },
+    {
+      "module": 16,
+      "station": 4,
+      "product": 0,
+      "mount_time": [
+        3.0,
+        3.75,
+        4.5
+      ],
+      "remove_time": [
+        2.0,
+        2.5,
+        3.0
+      ],
+      "mount_cost_cny": 275,
+      "remove_cost_cny": 225
+    },
+    {
+      "module": 17,
+      "station": 4,
+      "product": 1,
+      "mount_time": [
+        3.0,
+        3.75,
+        4.5
+      ],
+      "remove_time": [
+        2.0,
+        2.5,
+        3.0
+      ],
+      "mount_cost_cny": 75,
+      "remove_cost_cny": 425
+    },
+    {
+      "module": 18,
+      "station": 4,
+      "product": 2,
+      "mount_time": [
+        3.0,
+        3.75,
+        4.5
+      ],
+      "remove_time": [
+        2.0,
+        2.5,
+        3.0
+      ],
+      "mount_cost_cny": 700,
+      "remove_cost_cny": 500
+    },
+    {
+      "module": 19,
+      "station": 4,
+      "product": 3,
+      "mount_time": [
+        3.0,
+        3.75,
+        4.5
+      ],
+      "remove_time": [
+        2.0,
+        2.5,
+        3.0
+      ],
+      "mount_cost_cny": 550,
+      "remove_cost_cny": 450
+    }
+  ],
+  "cost_fit": {
+    "mae_thousand_cny": 0.7083333333333334,
+    "rmse_thousand_cny": 0.8036375634160796,
+    "max_abs_thousand_cny": 1.25
+  },
+  "cost_removal_line": [
+    1.125,
+    2.125,
+    2.5,
+    2.25
+  ],
+  "cost_installation_line": [
+    1.375,
+    0.375,
+    3.5,
+    2.75
+  ],
+  "assumptions": {
+    "layout": "five independently reconfigurable stations; stage-specific logical modules",
+    "buffers": "unlimited",
+    "release_time": 0,
+    "initial_configuration": "empty",
+    "installation_share": 0.6,
+    "removal_share": 0.4,
+    "fuzzy_factors": [
+      0.8,
+      1,
+      1.2
+    ],
+    "cost_station_share": 0.2,
+    "sensitivity_time_multipliers": [
+      0.5,
+      1,
+      2
+    ]
+  },
+  "provenance": {
+    "processing_and_demand": "published",
+    "module_compatibility": "assumed",
+    "additive_cost": "derived least squares",
+    "cost_station_share": "assumed",
+    "fuzzy_times": "assumed, not measured worker data"
+  }
+}
