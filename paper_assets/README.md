@@ -8,52 +8,74 @@
 
 ## 工业案例论文导出
 
-新增工业电机案例使用独立的 `industrial_case` 流程。来源、重构假设、训练预算和完整运行命令见[根 README](../README.md#工业电机案例)，不通过旧的 `build_data.py` 或 `make_tables.py` 聚合。
+工业电机案例使用独立的 `industrial_case` 流程。数据来源、完整训练／基线／评测步骤、断点恢复和计算预算见[根 README 的十节复现手册](../README.md#工业电机案例)。本节负责将正式结果转换为论文产物；不通过旧的 `build_data.py` 或 `make_tables.py` 聚合。
 
 ```text
-data/industrial_motor/source/ + extracted/ + derived.json
-    → instances/MOTOR_FULL/、MOTOR_SMOKE/
-    → industrial_case train / baselines / evaluate
-    → result/industrial_motor/<profile>/evaluations/、nsga/
-    → industrial_case aggregate → 本次运行 aggregate/*.csv
-    → industrial_case export-paper --profile full
-        → paper_assets/figures/data/industrial/*
-        → 论文 tables/industrial_*.tex、macros/industrial-results.tex
-        → 论文 figures/fig_industrial_*.pdf
-        → 本目录 figures/_proofs/industrial/*.png
+公开来源与派生参数 → MOTOR_FULL 输入
+    → 75 次学习方法训练＋规则／TwoStage／NSGA-II
+    → 107 份评估记录与事件轨迹
+    → full/aggregate：detail、summary、portfolios、sensitivity、manifest
+    → run_07_export_paper.py：正式门槛检查＋图表／表格／宏／蓝色结果文字
+    → run_08_compile_check.py：main.pdf＋main.log＋check.py
 ```
 
-入口从**代码仓库根目录**运行，默认论文目录仍为兄弟目录，也可通过 `--paper` 覆盖 `HCMAGRL_PAPER`：
+### 导出前检查
+
+- 已完成根 README 第 3—8 节，或 `scripts/industrial/run_all.py`，保留全部正式记录。`run_all.py` 只生成实验数据，不自动写入论文。
+- 在 [运行设置](../scripts/industrial/_settings.py) 中确认 `RESULT_ROOT` 和 `PAPER_ROOT`。前者与训练时一致且不包含 `full/` 后缀；后者必须包含 `main.tex`。
+- `PAPER_ROOT` 默认使用 `HCMAGRL_PAPER`，未设置时指向代码仓库的兄弟目录 `Junxin_Huang_HCMAGRL_RMS_FRT`。新入口不依赖旧工具的 `HCMAGRL_CODE` 默认值。
+- 正式导出重新核验原始运行记录、签名、预算和轨迹，**仅保留聚合 CSV 不足以重新导出工业案例**。这一点与下文可直接利用已有聚合 CSV 重绘的原合成实验不同。
+
+### 第 07 步：导出图表、表格和结果宏
+
+从**代码仓库根目录**运行；其他设备替换解释器与仓库路径：
 
 ```powershell
-$Python = 'E:\anaconda3\envs\python3.13\python.exe'
-$env:PYTHONUTF8 = '1'
-$env:HCMAGRL_CODE = 'D:\Python project\code-Junxin-Huang-HCMADRL'
-$env:HCMAGRL_PAPER = 'D:\Python project\Junxin_Huang_HCMAGRL_RMS_FRT'
-Set-Location $env:HCMAGRL_CODE
-
-# 不需要训练结果：生成来源参数表、成本拟合、模块表、案例示意图及蓝色待实验说明
-& $Python -m industrial_case export-paper --profile full --draft
-if ($LASTEXITCODE -ne 0) { throw '工业案例草稿生成失败' }
-
-# 全部正式运行完成后执行；完整性检查不通过时不修改稿件产物
-& $Python -m industrial_case export-paper --profile full
-if ($LASTEXITCODE -ne 0) { throw '工业案例正式导出失败' }
-
-Set-Location $env:HCMAGRL_PAPER
-latexmk -pdf main.tex
-if ($LASTEXITCODE -ne 0) { throw '论文编译失败' }
-Set-Location $env:HCMAGRL_CODE
-& $Python .\paper_assets\scripts\check.py --paper $env:HCMAGRL_PAPER
+Set-Location 'D:\Python project\code-Junxin-Huang-HCMADRL'
+& 'E:\anaconda3\envs\python3.13\python.exe' scripts/industrial/run_07_export_paper.py
 ```
 
-Bash 下对应入口为 `python -m industrial_case export-paper --profile full`，先 `export HCMAGRL_PAPER=/absolute/path/to/paper` 并进入代码仓库根目录；随后在论文目录运行 `latexmk -pdf main.tex`。如果用 `--output` 保存实验，导出命令需要传入相同结果根目录。
+**输入：**`RESULT_ROOT/full/` 的清单、参考值、107 份正式评估和数据来源参数。**成功判据：**退出码 0、日志中显示正式导出完成及 `[FINISHED]`，并核对下表。**耗时：**通常秒级至分钟级；此步骤不训练模型、不搜索新解。**重跑行为：**重新审计并覆盖本次工业案例的派生产物。
 
-本机实施验证使用已存在的 Tectonic 编译成功，PATH 中没有 `latexmk`。使用 Tectonic 时，在论文目录执行 `tectonic -X compile --keep-logs --keep-intermediates main.tex`；Windows 若未加入 PATH，用可执行文件的绝对路径替换 `tectonic`。保留日志是后续 `check.py` 的前提，首次使用可能需要联网下载缺失宏包。新小节验证状态见[验证记录](../industrial_case/VALIDATION.md)。
+| 输出位置 | 内容 |
+| --- | --- |
+| `paper_assets/figures/data/industrial/` | 本次正式聚合 CSV 和完整性清单副本 |
+| 论文 `tables/industrial_case.tex`、`industrial_cost_fit.tex`、`industrial_modules.tex` | 来源参数、成本拟合、完整模块表 |
+| 论文 `tables/industrial_results.tex`、`industrial_runtime.tex` | 方法比较、运行时间和原矩阵成本重算表 |
+| 论文 `tables/industrial_result_figures.tex`、`industrial_findings.tex` | 结果图引用和由实际数据生成的比较文字 |
+| 论文 `macros/industrial-results.tex` | 数值宏及正式结果就绪标记 |
+| 论文 `figures/fig_industrial_system.pdf` | 五工位和逻辑模块示意图 |
+| 论文 `figures/fig_industrial_performance.pdf` | Pareto／固定调度时间敏感性组合图 |
+| 论文 `figures/fig_industrial_gantt.pdf` | HCMAGRL 种子 42、平衡权重与 TwoStage 甘特图 |
+| 本目录 `figures/_proofs/industrial/*.png` | 三张图的目检稿 |
 
-导出需要 `numpy`、`matplotlib`、`pandas` 所在的既有分析环境；正式流程依赖详见根 README。示意图及数据图使用 Matplotlib 输出矢量 PDF，不要求先编译 TikZ，宽度为最终版面的 164.6 mm。已有 Pareto 联合图的特殊样式继续保留；新增案例只有少量代表点，采用散点显示非支配解，不对稀疏样本绘制核密度曲线。
+导出使用已有 NumPy／Pandas／Matplotlib 环境，示意图也是 Matplotlib 矢量图，不需要先编译 TikZ。PDF 最终宽度为 164.6 mm。新增案例只有少量代表解，绘制实际非支配点，不对稀疏点做核密度估计；原合成实验 Pareto 联合图的特殊样式继续保留。
 
-导出仅覆盖 `industrial_*` 表格、独立结果宏、`fig_industrial_*` 图片及上述工业聚合目录，保留原实验产物。草稿导出会拒绝覆盖已完成的正式结果；`smoke` 始终禁止用于论文。正式导出重新检查原始运行记录而非仅信任聚合 CSV，因此重绘时也需保留相应运行目录。全文新增修订文字、表格与图注为蓝色，图内保留算法区分色；完整训练前不会产生伪造结果图或改进百分比。
+覆盖范围限于工业案例独立命名的表格、宏、图片及上述工业聚合目录，原实验产物不受影响。新增／修改的论文文字、表格、图注为蓝色，图内保留算法配色。记录齐全仍可能存在不可行运行，应同时查看可行率和有效样本数，不删除失败记录。
+
+### 第 08 步：编译、检查与目检
+
+**前置条件：**论文源码及其引用产物齐备。正式实验完成后编译正式稿；也可独立运行本步骤检查当前“待完整实验”草稿。
+
+```powershell
+& 'E:\anaconda3\envs\python3.13\python.exe' scripts/industrial/run_08_compile_check.py
+```
+
+编译器查找顺序为：`_settings.py` 中的显式 `LATEX_COMPILER` → PATH 中的 Tectonic → 本机已有捆绑 Tectonic → PATH 中的 `latexmk`。显式路径错误会直接报错；未找到工具时提示设置路径，不自动安装。Tectonic 保留日志和中间文件，首次使用可能需要联网补齐宏包。
+
+**输出：**论文目录的 `main.pdf`、`main.log` 及其他编译中间文件；启动日志位于 `RESULT_ROOT/runner_logs/`。**成功判据：**编译成功后才调用现有 `check.py`；其输出 `all checks passed.`，整个入口退出码为 0。**耗时与重跑：**有缓存时通常秒级至分钟级；重新编译并检查当前稿件，不更改实验记录。
+
+最后打开 PDF，目检案例参数表、方法比较表、三张图、补充表和蓝色修订。`check.py` 不验证科学结论，且 `note` 提示不会导致失败；本机原稿标题／类文件的 overfull 提示需要与新增案例页面的版面问题区分。
+
+PyCharm 可直接右键上述脚本运行，参数留空，解释器使用本机项目 Python。跨平台已选定正确 Python 环境时，可在 Bash 进入代码仓库后执行同名 `python scripts/industrial/run_07_export_paper.py`、`python scripts/industrial/run_08_compile_check.py`；循环、路径解析和编译操作均由 Python 处理。
+
+### 草稿、失败与验证边界
+
+当前正式实验尚未执行，已有稿件保留“待完整实验”说明。零参数第 07 步始终要求正式数据，不会自动退回草稿，也不读取 smoke 数字。
+
+如需重新生成来源表、示意图和待实验占位，底层高级接口仍支持 `python -m industrial_case export-paper --profile full --draft`；使用自定义结果目录时保持与运行设置一致。草稿模式拒绝覆盖已就绪的正式结果。普通复现流程无需执行这个接口。
+
+缺失正式运行、签名不匹配或预算不足时，正式导出在写入论文产物前失败；修复相应上游阶段后重跑。编译失败则阅读本次日志，保留已导出的图表。当前入口验收只执行独立目录的 smoke、失败门槛测试及现有草稿编译，详情见[验证记录](../industrial_case/VALIDATION.md)。
 
 ## 生成流程与输入输出
 
@@ -254,4 +276,4 @@ python3 scripts/check.py --paper "$HCMAGRL_PAPER" --venue aei
 
 需要先成功编译论文，生成最新的 `main.log`；缺少日志会报 `FAIL`。出现 `FAIL` 时退出码为 1，无失败时打印 `all checks passed.` 并以 0 退出。部分问题只输出 `note`，例如未引用的文献条目、较大的 overfull hbox 和标题长度提示，仍应人工检查。该脚本不验证实验统计结论，也不能替代 PDF 版面与 PNG 图像的目检。
 
-本次 README 更新核验了源码中的路径、参数及生成关系，并运行了 `check.py --help`；没有执行数据重聚合、覆盖论文产物或编译稿件。环境与数据版本变化后，应按上述步骤重新验证实际输出。
+原合成实验文档最初核验了路径、参数及生成关系，没有重新聚合其数据。工业案例入口本次另有独立 smoke、恢复与错误门槛测试，并通过新编译入口检查了当前待实验稿件；没有启动正式训练或写入正式结果。环境与数据版本变化后，应按相应步骤重新验证实际输出。

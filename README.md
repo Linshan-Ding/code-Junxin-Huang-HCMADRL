@@ -17,76 +17,245 @@
 - [论文图表生成指南](paper_assets/README.md)：利用已有结果重生成论文图表与表格。
 - [工业电机案例](#工业电机案例)：公开数据重构、独立训练与评估、论文蓝色修订产物。
 
-希望查看现有实验结果的读者，可以从 `result/` 和 `paper_assets/figures/data/` 开始，无需先训练模型。重新训练、独立评估和生成论文产物是不同步骤；当前仓库尚未将它们接成完整的一键复现流程。
+希望查看现有实验结果的读者，可以从 `result/` 和 `paper_assets/figures/data/` 开始，无需先训练模型。工业案例已提供独立的数据、训练、评估和论文产物流程；原有 27 个合成算例的旧入口仍存在下文所列限制。
 
 ## 工业电机案例
 
-`industrial_case/` 提供一套独立流程，使用 [Zhao 等公开论文](https://doi.org/10.1371/journal.pone.0348884) 中常州 AMEC&GBM 电机装配案例的参数。论文来源是公开文献，未进行现场采集或部署验证。`data/industrial_motor/source/` 保留未改动的开放获取论文及 SHA-256；`extracted/published.json` 对应原文第 15 页的三张表和订单，`derived.json` 保存转换参数及来源分类。
+本节是**补充实验完整复现手册**，按“自检 → 数据 → 训练 → 基线 → 评测 → 聚合 → 论文产物”执行。初次使用建议逐步运行；确认自检通过后，可用第 9 节的一键入口生成全部实验数据。本文所需的每项产物及其生成入口见第 10 节。
 
-保留 4 类产品、5 个工位、`[5,4,4,3]` 件订单和全部 20 个加工时间，生成 80 道实际加工任务。工位映射为制造单元，每个单元可装 4 种产品专用逻辑模块，共 20 种模块。这是适配本文模型的重构：逻辑模块、无限缓冲、空初始配置与统一零时刻释放是建模假设；原文固定投产间隔、零件频率及周期末回切约束不纳入。
+### 1. 问题与假设
 
-原始产品间成本通过非负加性最小二乘转换为卸载加安装成本，固定两组分量总和相等后平均分配至五个工位。`extracted/cost_fit.csv` 保留每项误差。模糊装卸时间是根据工位平均加工时间构造的假设值，**不是实测工人时间**。输出时间单位沿用原文未具体命名的 time-unit，内部按 1000 倍整数刻度读取；成本由千元转为 CNY。评估另用原成本矩阵按工位五等分重算成本，初始安装仍用推导值。
+使用 [Zhao 等公开论文](https://doi.org/10.1371/journal.pone.0348884) 中常州 AMEC&GBM 电机装配案例的参数，属于**基于公开工业案例重构的计算实验**，未进行现场采集或部署验证。保留 4 类产品、5 个工位、订单 `[5,4,4,3]`、20 个加工时间，共 80 道实际加工任务。五个工位映射为制造单元，每个单元配置四种产品专用逻辑模块，共 20 种模块，模块只兼容对应工位。
 
-### 命令与依赖
+| 参数类别 | 内容 |
+| --- | --- |
+| 公开值 | 产品、订单量、工位加工时间、产品间换型成本矩阵；保留原始 PDF 和提取表 |
+| 推导值 | 将非对角换型成本拟合为“卸载成本＋安装成本”，两组分量总和相等；保留拟合矩阵、残差 |
+| 假设值 | 成本平均分配至五工位；安装／卸载模态时间为工位平均加工时间的 0.6／0.4 倍，三角模糊数为模态的 `(0.8,1,1.2)` 倍 |
 
-以下命令从代码仓库根目录运行；其他环境替换解释器和两个仓库路径。新流程无需 Visdom 服务，也不调用单订单之外的流体求解功能；环境仍需导入 `docplex`，本案例无需 CPLEX 运行时。
+初始配置为空、订单统一在零时刻释放、缓冲无限；不采用原文的固定投产间隔、零件供给频率及周期末回切约束。加工时间沿用原文 **time-unit**，不解释为分钟；读取器使用 1000 倍整数时间刻度，结果还原为 time-unit，成本统一为 CNY。初始安装成本是推导值，装卸时间不是实测工人数据。详情见[来源与数据说明](data/industrial_motor/README.md)。
+
+本案例是固定路线、工位独立重构场景，其表现不能单独证明全部柔性路由能力。**当前流程是在工业案例上训练和评估，不是零样本迁移。** 旧模型的模块 one-hot 输入宽度可能与 20 模块案例不兼容，目前也未找到原合成算例的正式策略文件；因此本节不提供冻结旧策略直接迁移的命令。
+
+### 2. 环境配置与计算预算
+
+本节命令使用 PowerShell、本机解释器 `E:\anaconda3\envs\python3.13\python.exe`。其他设备替换解释器及仓库路径；实验脚本名和步骤不变。先在终端进入代码仓库：
 
 ```powershell
-$Python = 'E:\anaconda3\envs\python3.13\python.exe'
-$ErrorActionPreference = 'Stop'
-$env:PYTHONUTF8 = '1'
-$env:PYTHONDONTWRITEBYTECODE = '1'
 Set-Location 'D:\Python project\code-Junxin-Huang-HCMADRL'
-$env:HCMAGRL_PAPER = 'D:\Python project\Junxin_Huang_HCMAGRL_RMS_FRT'
-
-& $Python -m pip install torch numpy scipy pandas matplotlib visdom docplex pymoo
-if ($LASTEXITCODE -ne 0) { throw '依赖安装失败' }
-
-# 已含原始 PDF；需要重新获取缺失的来源文件时才加 --fetch（需要网络）
-& $Python -m industrial_case prepare
-if ($LASTEXITCODE -ne 0) { throw '案例准备失败' }
-& $Python -m industrial_case validate
-if ($LASTEXITCODE -ne 0) { throw '数据检查失败' }
-
-# 4 件产品、20 道任务；三种模型各 2 次迭代；NSGA-II 32 次评估
-& $Python -m industrial_case run --profile smoke --resume
-if ($LASTEXITCODE -ne 0) { throw '小规模流程检查失败' }
-
-# 正式运行耗时较长：75 次训练，500 次迭代/次，4 个 CPU rollout worker
-# PPO 更新默认 CPU；可明确加 --device cuda，恢复训练时保持同一设备
-& $Python -m industrial_case run --profile full --resume
-if ($LASTEXITCODE -ne 0) { throw '完整实验未完成；请检查日志后恢复' }
-
-& $Python -m industrial_case export-paper --profile full
-if ($LASTEXITCODE -ne 0) { throw '论文导出被阻止；检查完整性及输入签名' }
+& 'E:\anaconda3\envs\python3.13\python.exe' --version
+& 'E:\anaconda3\envs\python3.13\python.exe' -c "import torch,numpy,scipy,pandas,matplotlib,visdom,docplex,pymoo; print('依赖导入成功'); print('CUDA available:', torch.cuda.is_available())"
 ```
 
-只生成参数表、示意图和“完整实验待运行”说明时使用 `export-paper --profile full --draft`。该命令不读取 smoke 数值，并拒绝将已经导出的正式结果退回草稿。正式导出仅在全套运行记录存在且通过签名、预算、轨迹核验后执行；失败或不可行运行保留并列明，不静默删除。
+仅在依赖缺失时安装，不必在每次运行前升级已有环境：
 
-可分别调用 `train`、`baselines`、`evaluate`、`aggregate` 和 `export-paper`，每个入口支持 `--help`。`run` 顺序执行校验、训练、基线、评估和聚合，**不自动修改论文**。`train --stop-after 1` 可在指定绝对迭代数暂停以测试恢复，随后使用 `train --resume` 继续；这不会缩短正式实验要求。`train --methods HCMAGRL` 可仅运行一种学习方法，论文导出仍要求全套方法。
+```powershell
+& 'E:\anaconda3\envs\python3.13\python.exe' -m pip install torch numpy scipy pandas matplotlib visdom docplex pymoo
+```
 
-### 实验设置、输出与覆盖规则
+这些是包名，不是已验证的版本范围；本机版本及验证边界见[验证记录](industrial_case/VALIDATION.md)。新流程无需启动 Visdom 服务；`visdom`、`docplex` 仍由既有模块导入。本案例为单订单，不调用流体求解分支，无需 CPLEX 运行时。论文编译工具仅在最后的编译步骤需要，缺失不会阻止训练。
 
-正式学习方法为 HCMAGRL、Flat、MLP；基线为 SPT、SetupGreedy、成本优先的 TwoStage 和 NSGA-II。学习及搜索种子固定为 `42—46`，时间权重为 `0、0.25、0.5、0.75、1`。SPT 和 TwoStage 各运行一次，SetupGreedy 每个权重一次；确定性输出不会复制成五个统计样本。参考值由事前 SPT 调度确定，各模型保存并评估最终迭代参数。
+运行设置集中在 [scripts/industrial/_settings.py](scripts/industrial/_settings.py)：
 
-NSGA-II 每种子使用 10,000 次环境评估，保留搜索档案，并按相同五组权重选代表解。HV 按每种子的代表解集合计算，以共同 SPT 参考值归一化，参考点为全部方法可行代表解坐标最大值的 1.1 倍。报告样本标准差，并分别记录训练／搜索时间与一次调度执行时间；相同 rollout 数不代表相同实际耗时。每条轨迹最多允许 `20 × 实际工序数` 个决策步，达到上限按未完成报告。
-
-| 位置 | 内容 |
+| 设置 | 默认值与含义 |
 | --- | --- |
-| `data/industrial_motor/instances/MOTOR_FULL/` | 正式案例的五种输入 CSV |
-| `data/industrial_motor/instances/MOTOR_SMOKE/` | 每类 1 件产品的小规模案例 |
-| `result/industrial_motor/<profile>/manifest.json` | 配置、环境版本、输入及代码签名 |
-| `.../checkpoints/`、`.../training/` | 可恢复模型、优化器、随机状态与逐轮 worker 指标 |
-| `.../evaluations/` | 独立评估指标及完整加工、装卸事件轨迹，包括失败记录 |
-| `.../nsga/` | 搜索档案、优先级编码、完整目标评估历史 |
-| `.../aggregate/` | 明细、汇总、每种子 HV、时间敏感性及完整性清单 |
-| `paper_assets/figures/data/industrial/` | 正式导出时复制的聚合数据 |
+| `RESULT_ROOT` | 当前仓库的 `result/industrial_motor`；自动再加 `smoke/` 或 `full/`，不要填到 profile 子目录 |
+| `DEVICE` | `cpu`；控制 PPO 更新和最终评估，rollout worker 始终使用 CPU |
+| `PAPER_ROOT` | 优先读取已设置的 `HCMAGRL_PAPER`，否则使用兄弟目录 `Junxin_Huang_HCMAGRL_RMS_FRT` |
+| `LATEX_COMPILER` | `None`，自动查找现有 Tectonic／latexmk；也可填写可执行文件的绝对路径 |
 
-`--output <目录>` 改变结果根目录，仍自动添加 `smoke/` 或 `full/` 子目录。配置、数据或执行代码变更后，旧输出会被拒绝复用，应选新目录；同一签名下用 `--resume` 恢复原训练或跳过已完成运行。每次迭代原子更新本次运行检查点，聚合命令覆盖本次运行的派生 CSV。`prepare` 重生成此案例的派生输入，公开提取值不一致时拒绝覆盖。下载命令只补缺失源 PDF，不替换已有来源文件。
+相对设置路径均以代码仓库为基准。一般不需要编辑设置文件；需要隔离实验时，只更换 `RESULT_ROOT`。实验种子、权重和预算仍以现有 [profile 定义](industrial_case/common.py) 为唯一来源。
 
-实施时完成了 7 份可行的 smoke 评估和 8 项自动测试，正式训练未启动；具体环境、验证命令和边界见[验证记录](industrial_case/VALIDATION.md)。可用 `& $Python -m unittest industrial_case.test_pipeline -v` 重新验证。
+正式协议为 HCMAGRL、Flat、MLP × 五组时间权重 `0、0.25、0.5、0.75、1` × 五个种子 `42—46`，共 **75 次训练**；每次 500 次迭代、每轮 4 条 rollout，共 150,000 条训练 rollout。各运行依次执行，不能把 4 个 rollout worker 理解为同时进行 4 次独立训练。
 
-敏感性分析保持既有调度的单元活动顺序、工序优先关系及触发每次重构的工件就绪条件，按装卸耗时倍率 `0.5、1、2` 重算最早可行时间。倍率 1 也是按固定顺序重新计算最早开工时间，不强制保留原调度中的空闲；该分析属于调度重放，不等同于策略在随机工人环境中的鲁棒性。甘特图固定采用 HCMAGRL 的种子 42、平衡权重与确定性 TwoStage 对照。论文产物和编译流程见[工业案例论文导出](paper_assets/README.md#工业案例论文导出)。
+| 阶段 | 本机时间预算 |
+| --- | --- |
+| 依赖已就绪时的 smoke | 分钟级；只有 4 件／20 道任务 |
+| HCMAGRL：25 次正式训练 | 线性外推约 17.5 小时 |
+| Flat、MLP：各 25 次 | 线性外推约 7.2、8.0 小时 |
+| 全部基线 | 建议留 10–20 分钟 |
+| 最终评估、聚合、导出、编译 | 合计建议留 10–30 分钟 |
+| 完整流程 | 训练外推约 33 小时，安排上预留 **36–48 小时** |
+
+以上来自 Ryzen 9 8945HX／RTX 5070 Ti Laptop 本机完整 80 道任务、平衡权重下每方法 3 轮的短测，排除了首轮启动开销，**不是完整训练实测或耗时上界**。不同权重、后期决策步数和持续负载会改变时间；可用正式前 20–50 轮重新估算。CUDA 短测总耗时与 CPU 接近，本节默认 CPU；正式训练及 CUDA 断点恢复均未在本次文档验收中运行。
+
+### 3. 冒烟自检
+
+**前置条件：**完成依赖检查。该入口自动准备和验证数据，随后执行三种学习方法各 2 次迭代，以及全部规则和 32 次 NSGA-II 评估。
+
+```powershell
+& 'E:\anaconda3\envs\python3.13\python.exe' scripts/industrial/run_00_smoke.py
+```
+
+**输出：**`result/industrial_motor/smoke/` 内的 3 个检查点、训练历史、7 份评估、搜索档案、4 个聚合 CSV 和清单；启动日志位于 `result/industrial_motor/runner_logs/`。
+
+**成功判据：**进程退出码 0，结尾出现 `[FINISHED]`，审计行显示 7 份记录。本次已验证的 smoke 中 7 份均可行；若自己的运行出现不可行结果，应先查看评估记录的 `errors`／`termination` 再投入正式算力。文件存在性检查不能替代轨迹审计。
+
+**耗时与重跑：**分钟级；再次执行会恢复或跳过匹配的已完成训练／评估，并重新聚合。smoke 只能验证流程，**不得用于论文数字或收敛结论**。
+
+### 4. 数据准备
+
+**前置条件：**仓库已有 `data/industrial_motor/source/` 中的公开 PDF 和来源清单；首次自检已执行过此步，可以安全再次核验。
+
+```powershell
+& 'E:\anaconda3\envs\python3.13\python.exe' scripts/industrial/run_01_prepare_data.py
+```
+
+**输出：**公开提取表、成本拟合残差、`derived.json`，以及 `MOTOR_FULL/` 和 `MOTOR_SMOKE/` 下各五种 CSV。
+
+**成功判据：**退出码 0，输出加工任务数 80／20、兼容关系、整数时间刻度和源文件 SHA-256 校验通过。**耗时：**通常秒级。**重跑行为：**按照相同公开参数重生成派生文件；公开提取值已被改动时拒绝覆盖。该入口不会重新下载或替换源 PDF；来源文件缺失时应先恢复仓库原文件，按需下载仍使用底层 `prepare --fetch` 接口。
+
+### 5. 训练主方法
+
+**前置条件：**自检和数据核验通过，确定结果根目录与设备；长时间运行期间保持机器供电和唤醒。
+
+```powershell
+& 'E:\anaconda3\envs\python3.13\python.exe' scripts/industrial/run_02_train_hcmagrl.py
+```
+
+**输出：**`full/checkpoints/HCMAGRL_w*_s*.pt` 和 `full/training/HCMAGRL_w*_s*.json`，各 25 份，另有配置／代码／输入签名和固定 SPT 归一化参考值。
+
+**成功判据：**25 次运行均完成第 500 轮，检查点标记完成，脚本退出码 0。进度中的 `feasible 4/4` 表示该轮四条采样轨迹的可行数；不表示最终策略已经完成独立评估。保存和评估的是**最终迭代模型**，不是按测试成绩挑选的模型。
+
+**耗时与重跑：**外推约 17.5 小时。每轮原子更新模型、优化器、随机状态及历史；中断后运行同一命令从最后完整检查点继续。已完成的匹配运行由原训练器核验并跳过，不自动缩短预算。
+
+### 6. 基线与消融
+
+**前置条件：**数据核验通过；所有步骤使用同一个结果根目录。建议依次执行，不同时开启多个正式入口。
+
+```powershell
+& 'E:\anaconda3\envs\python3.13\python.exe' scripts/industrial/run_03_train_ablations.py
+& 'E:\anaconda3\envs\python3.13\python.exe' scripts/industrial/run_04_baselines.py
+```
+
+**输出与成功判据：**Flat／MLP 各 25 个完成的最终检查点及训练历史；基线生成 32 份评估记录、5 份 NSGA-II 搜索档案及 5 份搜索历史 CSV，各脚本退出码 0。
+
+| 方法 | 正式执行次数及统计单位 |
+| --- | --- |
+| Flat、MLP | 各五权重 × 五训练种子，500 轮／次 |
+| SPT、TwoStage | 各计算一次 |
+| SetupGreedy | 每权重一次，共 5 次 |
+| NSGA-II | 五搜索种子，每种子 10,000 次调度评估；从解集中按五权重选代表解，共 25 份评估 |
+
+确定性规则的 7 份结果不复制成五个独立样本。NSGA-II 每种子的评估预算与单个学习方法五权重训练的 rollout 数对齐，但不意味着相同计算成本。TwoStage 先按成本枚举四类产品的 24 种批次顺序，再生成该顺序下的可行调度。
+
+**耗时与重跑：**Flat／MLP 合计外推约 15.2 小时；基线建议留 10–20 分钟。学习方法支持逐轮恢复；基线跳过匹配的已有结果。NSGA-II 只在一个种子的搜索结束后保存完整档案，**中断正在进行的种子时，该种子需重新搜索**。
+
+### 7. 评测与实验数据生成
+
+**前置条件：**三种学习方法的 75 个最终检查点已完成。基线评估已由第 6 节生成，无需重复搜索。
+
+```powershell
+& 'E:\anaconda3\envs\python3.13\python.exe' scripts/industrial/run_05_evaluate.py
+```
+
+**输出：**`full/evaluations/` 新增 75 份学习方法记录，与基线合计 **107 份**。每份包含完工时间、拟合成本、原矩阵重算成本、重构次数、可行性、执行时间，以及加工／安装／卸载完整事件轨迹。
+
+**成功判据：**75 次评估均有记录、脚本退出码 0；最终完整性和跨方法汇总检查在第 8 节执行。独立审计核对任务覆盖、工序先后、单元占用、安装状态以及目标值。达到 `20 × 实际工序数` 决策上限的轨迹按未完成记录，不伪装为可行解。
+
+**耗时与重跑：**分钟级；跳过已有评估，聚合时再次检查记录身份及签名。**107 份记录齐全不等于 107 份都可行**，应阅读可行率和失败原因；不要删除失败样本来改善统计。
+
+### 8. 统计聚合与论文接续
+
+**前置条件：**三种学习方法及全部基线评估完成。
+
+```powershell
+& 'E:\anaconda3\envs\python3.13\python.exe' scripts/industrial/run_06_aggregate.py
+```
+
+**输出：**`full/aggregate/` 中的 `detail.csv`、`summary.csv`、`portfolios.csv`、`sensitivity.csv` 和 `manifest.json`。**成功判据：**退出码 0，完整性清单覆盖 107 份评估；缺失记录、错误签名或不足预算会报错。**耗时与重跑：**通常秒级至分钟级；重新核验原始记录，并覆盖当前运行的派生聚合文件。
+
+统计口径固定如下：
+
+- 平衡权重下报告完工时间、成本、重构次数、执行时间和可行率；均值／样本标准差按独立训练或搜索种子统计，并保留有效样本数。
+- HV 使用每种子的五权重代表解集合；共同 SPT 值归一化，统一参考点为全部方法可行代表解各坐标最大值的 1.1 倍。规则只有实际产生的解，不补造重复点。
+- 同时保留原换型矩阵按工位五等分的成本重算结果；初始安装成本仍采用推导值，周期末不回切。
+- 时间敏感性针对平衡权重调度，保持单元活动顺序、工序优先关系及每次重构的工件就绪条件，按装卸时间倍率 `0.5、1、2` 重算最早开工时刻。倍率 1 也可能消除原空闲；这是固定调度方案重放，不是随机工人环境下的策略鲁棒性测试。
+
+全部正式记录通过检查后，再单独执行论文导出和编译：
+
+```powershell
+& 'E:\anaconda3\envs\python3.13\python.exe' scripts/industrial/run_07_export_paper.py
+& 'E:\anaconda3\envs\python3.13\python.exe' scripts/industrial/run_08_compile_check.py
+```
+
+第 07 步生成工业案例独立命名的表格、三张图、结果宏和蓝色结果文字；固定种子 42、平衡权重的 HCMAGRL 与 TwoStage 甘特图不择优挑选。第 08 步编译 `main.pdf`，保留日志，并运行 `check.py`。各自退出码为 0 才算该步骤成功，最后仍需目检 PDF。
+
+导出缺少正式数据时在写论文产物前失败；不能用 smoke 替代。编译入口也可独立检查当前待实验草稿。详细编译器查找、输入输出和覆盖范围见[工业案例论文导出](paper_assets/README.md#工业案例论文导出)。
+
+### 9. 启动、恢复与排障
+
+**一键生成全部实验数据：**完成第 2 节环境检查后，可使用以下命令替代逐步执行。它顺序执行 00—06，任何一步失败立即停止；已完成训练会核验后跳过。
+
+```powershell
+& 'E:\anaconda3\envs\python3.13\python.exe' scripts/industrial/run_all.py
+```
+
+该命令包含正式训练，建议预留 36–48 小时；只生成实验数据，不自动写入论文。之后按第 8 节运行 07、08。逐条手动运行时，每条结束后先检查退出状态和日志；普通 PowerShell 粘贴多条命令本身不提供跨步骤失败即停保证，需要自动停止时使用 `run_all.py`。
+
+**PyCharm：**右键目标 `run_*.py` → Run；或在 Run → Edit Configurations 中新建 Python 配置：
+
+| 字段 | 填写内容 |
+| --- | --- |
+| Script path | 项目内对应的 `scripts/industrial/run_*.py`；全流程选择 `run_all.py` |
+| Parameters | 留空 |
+| Python interpreter | `E:\anaconda3\envs\python3.13\python.exe` |
+| Working directory | `D:\Python project\code-Junxin-Huang-HCMADRL` |
+| Environment variables | 无必填项；子进程自动启用 UTF-8、无缓冲输出和禁写字节码 |
+
+入口按自身文件位置定位仓库，即使 IDE 工作目录不同也能启动。所有实验循环都在 Python 内部完成，脚本不接收命令行参数；高级调参与单方法运行继续使用 `python -m industrial_case`，其参数含义见各子命令的 `--help`。
+
+**恢复与输出隔离：**
+
+- 中断后使用同一入口、同一结果目录和相同设备恢复。训练恢复模型、优化器和随机状态；正在写入但未完成的临时检查点不作为完成结果。
+- 修改实验代码、数据或预算后，设置新的 `RESULT_ROOT`；原 CLI 会拒绝不匹配的签名。不要删除旧记录或手改 manifest 绕过检查。
+- 本节新增脚本只封装 CLI，不改变既有实验签名计算。修改 README 不要求重训。
+- 默认只有一个实验运行依次执行，单个正式运行内部有 4 个 CPU rollout worker；本次入口不提供额外并发数字参数。
+- 每次启动日志独立保存到 `RESULT_ROOT/runner_logs/`，其中包含命令、错误、耗时和产物目录。无论首次执行还是恢复，都检查末尾状态。
+
+| 情况 | 处理 |
+| --- | --- |
+| `ModuleNotFoundError` | 按第 2 节使用同一解释器检查／安装缺失包 |
+| 源 PDF 或清单缺失 | 恢复公开来源文件；底层下载接口仅补缺失 PDF，不替换已有来源 |
+| `signature/device mismatch` | 检查设置；恢复旧运行保持原设备，实验版本改变使用新结果根目录 |
+| 找不到最终检查点 | 完成第 5、6 节训练；只有 smoke 模型不能执行正式评估 |
+| `Missing ... required evaluations` | 按错误提示补齐对应训练／基线／评测阶段，再聚合 |
+| 正式导出拒绝 smoke／预算不足 | 完成正式协议，不更改标记伪装为 full |
+| 找不到编译器或 `main.tex` | 修正 `_settings.py` 中的论文／编译器路径；不影响已保存实验数据 |
+| `check.py` 报错 | 阅读最新 `main.log`；先修复编译或引用问题再检查 |
+
+### 10. 产物对照表
+
+下表默认结果根目录为 `result/industrial_motor`；设置自定义根目录后，所有入口会统一使用新位置。`full/` 与 `smoke/` 始终隔离。
+
+| 数据／产物 | 生成或核验入口 | 论文用途 |
+| --- | --- | --- |
+| `data/industrial_motor/source/` 中 PDF、manifest | 01 核验仓库已保存来源 | 工业背景、来源引用 |
+| `extracted/published.json`、`extracted/cost_fit.csv`、`derived.json` | 01 | 参数来源表、拟合残差与完整模块补充表 |
+| `instances/MOTOR_FULL/`、`MOTOR_SMOKE/` 各五种 CSV | 01；00 也准备 | 正式／自检输入，80／20 道任务 |
+| `full/manifest.json`、`references.json` | 02—05 首次运行建立，后续核验 | 协议、环境、代码／数据签名与共同参考值 |
+| `full/checkpoints/HCMAGRL_*.pt`、`training/HCMAGRL_*.json` | 02，各 25 份 | 主方法最终策略与训练耗时 |
+| `full/checkpoints/Flat_*.pt`、`MLP_*.pt` 及训练历史 | 03，各 25 份 | 消融策略与训练耗时 |
+| `full/nsga/seed_*.json`、`seed_*_history.csv` | 04，各 5 份 | 搜索档案、完整评估历史和耗时 |
+| `full/evaluations/`：规则 7 份、NSGA-II 25 份 | 04 | 方法比较和基线事件轨迹 |
+| `full/evaluations/`：学习方法 75 份 | 05 | 方法比较、原矩阵成本重算、甘特图与敏感性输入 |
+| `full/aggregate/detail.csv` | 06 | 107 份逐次结果，含失败记录 |
+| `full/aggregate/summary.csv` | 06 | 平衡权重比较表、运行时间及成本模型补充表 |
+| `full/aggregate/portfolios.csv` | 06 | 各方法各种子的 HV 和非支配解数量 |
+| `full/aggregate/sensitivity.csv` | 06 | 平衡权重、固定活动顺序下的三倍率时间敏感性 |
+| `full/aggregate/manifest.json` | 06 | 完整性、输入记录校验和、共同 HV 参考点 |
+| `paper_assets/figures/data/industrial/` | 07 复制聚合数据 | 与本次论文导出对应的数据副本 |
+| 论文 `tables/industrial_case.tex`、`industrial_cost_fit.tex`、`industrial_modules.tex` | 07 | 来源参数、成本拟合、完整模块表 |
+| 论文 `tables/industrial_results.tex`、`industrial_runtime.tex` | 07 | 主比较表、成本重算和运行时间补充表 |
+| 论文 `tables/industrial_result_figures.tex`、`industrial_findings.tex`、`macros/industrial-results.tex` | 07 | 图引用、真实结果文字及结果就绪标记 |
+| 论文 `figures/fig_industrial_system.pdf` | 07 | 五工位及逻辑模块示意图 |
+| 论文 `figures/fig_industrial_performance.pdf` | 07 | Pareto 与时间敏感性组合图 |
+| 论文 `figures/fig_industrial_gantt.pdf` | 07 | 预指定 HCMAGRL／TwoStage 对照甘特图 |
+| `paper_assets/figures/_proofs/industrial/*.png` | 07 | 目检稿，不作为实验输入 |
+| 论文 `main.pdf`、`main.log` | 08 | 稿件、编译和一致性检查 |
+| `runner_logs/` | 每次入口启动 | 执行命令、时间与错误诊断 |
+
+完整数据要求保留原始评估记录，**仅有聚合 CSV 不能通过工业案例正式导出**。每份数据的生成命令都已在以上步骤给出；现有底层 CLI、事件审计和正式导出门槛继续有效。本次入口验收只运行独立目录中的 smoke，正式结果仍待完整实验。
 
 ## 目录与数据
 
@@ -336,7 +505,7 @@ SCHEDULE = make_ablation_comparison_schedule(
 
 [evaluate.py](evaluate.py) 当前不能直接用于重新评估：它导入的 `train.py` 不在仓库中，且引用了未定义的 `config.MODEL_NAME` 与 `config.SEED`；默认算例 `M8_A6_S1` 也不属于当前数据集。即使补齐这些接口，该脚本现有实现也只打印评估指标，不导出上述评估 CSV。
 
-因此，现有结果可以直接用于分析与论文图表重生成；从头复现全部论文实验还需要补齐独立评估、结果导出及基线训练流程。仓库提供基线结果，并不包含 DDQN、EDQN、SAC、TD3 的完整训练入口。
+因此，原合成算例的现有结果可以直接用于分析与论文图表重生成；从头复现这一套旧实验还需要补齐独立评估、结果导出及基线训练流程。仓库提供基线结果，并不包含 DDQN、EDQN、SAC、TD3 的完整训练入口。工业案例使用上文独立流程，不依赖这个旧评估入口。
 
 ## 当前限制
 
