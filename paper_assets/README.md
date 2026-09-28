@@ -99,9 +99,10 @@ figures/src/fig-*.tex + figures/scifig-preamble.tex
 | --- | --- | --- |
 | [scripts/build_data.py](scripts/build_data.py) | `HCMAGRL_CODE` 下的算例、训练日志、评估明细及 Excel | 覆盖本目录 `figures/data/` 下对应的聚合 CSV |
 | [scripts/make_tables.py](scripts/make_tables.py) | 本目录的聚合 CSV | 覆盖论文仓库 `tables/` 下生成的表格和 `macros/results.tex` |
+| [scripts/make_submission.py](scripts/make_submission.py) | 论文仓库 `submission.yaml`（作者信息唯一来源）、`main.tex` 的标题、`cas-refs.bib`、本目录 `templates/*.tpl.tex` | 覆盖论文仓库 `submission/{Title_Page,Cover_Letter}.{tex,pdf}` 与 `frontmatter-authors.tex`（`main.tex` 输入的作者块；`anonymous: true` 时为空） |
 | `figures/src/plot_*.py` | 本目录的聚合 CSV；部分示例数值直接定义在绘图脚本中 | 覆盖论文仓库同名 PDF，以及本目录 `figures/_proofs/` 中的 PNG |
 | `figures/src/fig-*.tex` | 示意图源码及共享 TikZ 前导 | 编译目录内的 PDF、日志等中间文件；复制步骤覆盖论文仓库同名 PDF |
-| [scripts/check.py](scripts/check.py) | 论文源码、图文件、参考文献与最新 `main.log` | 打印检查结果，不修改稿件 |
+| [scripts/check.py](scripts/check.py) | 论文源码、图文件、参考文献、最新 `main.log`，以及 `submission.yaml` 与生成的投稿件 | 打印 15 项检查结果（一致性、投稿硬性限制、双盲匿名、投稿包一致性），不修改稿件 |
 
 输入数据主要包括：
 
@@ -118,7 +119,7 @@ figures/src/fig-*.tex + figures/scifig-preamble.tex
 
 ### 依赖
 
-Python 数据工具需要 `numpy`、`pandas`、`scipy`、`openpyxl`、`matplotlib`、`seaborn`。论文数据图不依赖 PyTorch、Visdom 或 CPLEX。`check.py` 只使用 Python 标准库。
+Python 数据工具需要 `numpy`、`pandas`、`scipy`、`openpyxl`、`matplotlib`、`seaborn`。论文数据图不依赖 PyTorch、Visdom 或 CPLEX。`check.py` 只使用 Python 标准库（投稿包一致性项另需 `pyyaml`，缺失时跳过并提示）；`make_submission.py` 需要 `pyyaml` 与 `pdflatex`。
 
 示意图需要 `pdflatex` 及 `standalone`、TikZ、AMS 数学包；论文编译需要 `latexmk` 和论文源码使用的 LaTeX 包。数据图本身不要求先安装 LaTeX。字体设置见 [figures/scifig_style.py](figures/scifig_style.py) 和各绘图脚本。
 
@@ -147,7 +148,7 @@ $env:HCMAGRL_CODE = 'D:\Python project\code-Junxin-Huang-HCMADRL'
 $env:HCMAGRL_PAPER = 'D:\Python project\Junxin_Huang_HCMAGRL_RMS_FRT'
 Set-Location (Join-Path $env:HCMAGRL_CODE 'paper_assets')
 
-& $Python -m pip install numpy pandas scipy openpyxl matplotlib seaborn
+& $Python -m pip install numpy pandas scipy openpyxl matplotlib seaborn pyyaml
 ```
 
 每个新终端需要重新设置这些变量。下列步骤默认顺序执行，除示意图和论文编译的临时目录切换外，当前工作目录保持为 `paper_assets/`。

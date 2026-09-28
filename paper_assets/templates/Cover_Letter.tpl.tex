@@ -1,0 +1,44 @@
+% Cover letter -- generated from the paper's submission.yaml by make_submission.py.
+% Do not edit by hand, and keep this template free of names, e-mails and ORCIDs:
+% every author fact lives in submission.yaml.
+\documentclass[12pt]{article}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+\setstretch{1.12}
+\usepackage{xspace}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.7em}
+\pagestyle{empty}
+\newcommand{\journalname}[1]{\emph{#1}}   % a journal name is a title, not an emphasis
+\newcommand{\HC}{HCMAGRL\xspace}
+\input{../macros/results}                 % the letter's numbers come from the same macros as the body
+
+\begin{document}
+
+<<date>>
+
+Dear <<editor>>,
+
+We submit the manuscript entitled ``<<title>>'' for consideration as a <<article_type>> in \journalname{<<journal>>}.
+
+<<problem>> <<idea>> <<components>> <<result>>
+
+\journalname{<<journal>>} has recently published work on <<fit_topic>> (<<fit_citations>>). % style-exempt: Harvard citation list
+<<fit_gap>> <<fit_close>> <<significance>>
+
+<<declarations>>
+
+<<reviewers>>Thank you for considering our manuscript. Please contact me if any further information is required.
+
+\begin{minipage}{\linewidth}          % the closing and the signature stay on one page
+Yours sincerely,
+
+\vspace{1.6em}
+<<signatory_block>>
+\end{minipage}\par
+<<references>>
+\end{document}
