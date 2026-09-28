@@ -17,8 +17,13 @@ Checks
  11. the highlights are within the venue's count and character limits
  12. the keyword count is within the venue's range
  13. the title is not overlong and does not repeat a word root
+ 14. for a double-anonymized venue, the reviewer copy carries no author details
+ 15. the submission package (submission.yaml, Title_Page, Cover_Letter) agrees
+     with the manuscript: same title, same author order, corresponding authors
+     starred, letter within one page with the required statements, templates
+     free of identity literals, anonymous flag consistent with the class option
 
-Checks 10-13 are the venue's own hard limits. They are cheap to run and
+Checks 10-15 are the venue's own hard limits. They are cheap to run and
 expensive to miss: this manuscript once carried a 388-word abstract against a
 250-word limit and two highlights over the 85-character limit, none of which is
 visible by eye.
@@ -39,9 +44,12 @@ VENUE = {
     "jms":       dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
     "cie":       dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
     "rcim":      dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
+    # Computers in Industry reviews double-anonymized: author details go on a
+    # separate title page and the reviewer copy must carry none of them.
+    "cii":       dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8), anonymized=True),
     "ieee-trans": dict(abstract=250, highlights=None, keywords=(3, 8)),
 }
-TARGET = "aei"
+TARGET = "cii"
 
 # Titles in this field run 9-15 words; a longer one is a warning, not a failure.
 TITLE_WORDS = 18
@@ -134,7 +142,19 @@ for group in re.findall(r"\\cite[a-z]*\*?(?:\[[^\]]*\])*\{([^}]+)\}", body):
 
 for k in sorted(cited - bibkeys):
     problems.append(f"citation with no bibliography entry: {k}")
-for k in sorted(bibkeys - cited):
+# The cover letter's journal-fit citations live in the same .bib so that they
+# are real entries, but they are cited by the letter, not by the body.
+SUBMISSION_YAML = ROOT / "submission.yaml"
+submission_cfg = None
+fit_keys: set[str] = set()
+if SUBMISSION_YAML.exists():
+    try:
+        import yaml as _yaml
+        submission_cfg = _yaml.safe_load(SUBMISSION_YAML.read_text(encoding="utf-8"))
+        fit_keys = set(submission_cfg.get("cover_letter", {}).get("fit_citekeys", []) or [])
+    except ImportError:
+        notes.append("submission: pyyaml not installed, yaml-based checks skipped")
+for k in sorted(bibkeys - cited - fit_keys):
     notes.append(f"bibliography entry never cited: {k}")
 
 # ---- 7 & 8: the build log -------------------------------------------------
@@ -205,6 +225,99 @@ if title:
     for root, c in sorted(roots.items()):
         if c >= 3:
             notes.append(f"title repeats the root '{root}-' {c} times")
+
+# ---- 14: double-anonymized review ----------------------------------------
+# The class's doubleblind option hides the author block, and the
+# \ifnum\theblind>0 branches in main.tex hide the acknowledgments and the
+# repository address. Read the manuscript the way the reviewer copy prints it
+# and look for what must not be there.
+if LIMITS.get("anonymized"):
+    before = len(problems)
+    opts = re.search(r"\\documentclass\[([^\]]*)\]", main)
+    if not (opts and "doubleblind" in opts.group(1)):
+        problems.append("double-anonymized venue, but main.tex lacks the doubleblind class option")
+    reviewer_copy = re.sub(r"\\ifnum\\theblind>0\\relax(.*?)\\else(.*?)\\fi",
+                           r"\1", main, flags=re.S)
+    # what the class option itself withholds
+    reviewer_copy = re.sub(
+        r"^\s*\\(author|ead|credit|affiliation|cormark|cortext|shortauthors)\b.*$",
+        "", reviewer_copy, flags=re.M)
+    prose = reviewer_copy + "\n" + strip_comments(read(SOURCES[1:]))
+    for pat, what in [(r"github\.com/", "a repository address"),
+                      (r"[Aa]cknowledg", "an acknowledgment"),
+                      (r"supported by", "a funding statement"),
+                      (r"\b[\w.]+@[\w.]+\.(edu|cn|com|org)\b", "an e-mail address"),
+                      (r"\bour (previous|earlier|prior) work\b", "a self-identifying citation")]:
+        m = re.search(pat, prose)
+        if m:
+            problems.append(f"reviewer copy still carries {what}: '{m.group(0)}'")
+    if not (ROOT / "submission" / "Title_Page.tex").exists():
+        problems.append("double-anonymized venue, but submission/Title_Page.tex is missing")
+    if len(problems) == before:
+        notes.append("anonymized: doubleblind option set, author details confined to submission/Title_Page.tex")
+
+# ---- 15: the submission package agrees with the manuscript ----------------
+# submission.yaml is the only place author facts are typed; make_submission.py
+# renders the title page, the cover letter and the manuscript's author block
+# from it. This check reads back what was rendered.
+if SUBMISSION_YAML.exists():
+    before = len(problems)
+    sub = ROOT / "submission"
+    tp, cl = sub / "Title_Page.tex", sub / "Cover_Letter.tex"
+    for f in (tp, cl):
+        if not f.exists():
+            problems.append(f"submission: {f.name} missing (run make_submission.py)")
+    if sub.exists():
+        extra = sorted(p.name for p in sub.iterdir() if p.suffix not in {".tex", ".pdf"})
+        if extra:
+            problems.append(f"submission: stray files {extra} -- the folder holds only .tex and .pdf")
+        stems = sorted({p.stem for p in sub.iterdir() if p.suffix in {".tex", ".pdf"}})
+        if stems and stems != ["Cover_Letter", "Title_Page"]:
+            problems.append(f"submission: expected exactly Title_Page and Cover_Letter, found {stems}")
+    if not (ROOT / "frontmatter-authors.tex").exists():
+        problems.append("submission: frontmatter-authors.tex missing (run make_submission.py)")
+    if tp.exists() and cl.exists() and title:
+        main_title = re.sub(r"\s+", " ", title.group(1)).strip().replace("\\", "")
+        for f in (tp, cl):
+            txt = re.sub(r"\s+", " ", f.read_text(encoding="utf-8")).replace("\\", "")
+            if main_title not in txt:
+                problems.append(f"submission: {f.name} title differs from main.tex")
+        body = cl.read_text(encoding="utf-8")
+        m = re.search(r"Dear .*?,(.*?)Yours sincerely", body, re.S)
+        if m:
+            letter = re.sub(r"%.*", "", m.group(1))
+            letter = re.sub(r"\\[A-Za-z]+(\[[^\]]*\])?(\{[^}]*\})?", " ", letter)
+            words = len(re.findall(r"[A-Za-z]{2,}", letter))
+            if words > 420:
+                problems.append(f"submission: cover letter body is {words} words (keep it to one page, <= 420)")
+            else:
+                notes.append(f"submission: cover letter body {words} words")
+            for need, label in (("original", "originality"), ("approved the manuscript", "all-authors-approved"),
+                                ("competing", "competing-interests")):
+                if need not in m.group(1).lower():
+                    problems.append(f"submission: cover letter lacks the {label} statement")
+        if submission_cfg:
+            names = [a["name"] for a in submission_cfg["authors"]]
+            tptxt = tp.read_text(encoding="utf-8")
+            pos = [tptxt.find(n) for n in names]
+            if -1 in pos:
+                problems.append(f"submission: author missing from Title_Page: {names[pos.index(-1)]}")
+            elif pos != sorted(pos):
+                problems.append("submission: author order in Title_Page differs from submission.yaml")
+            for n in [a["name"] for a in submission_cfg["authors"] if a.get("corresponding")]:
+                if not re.search(re.escape(n) + r"\$\^\{\*\}\$", tptxt):
+                    problems.append(f"submission: corresponding author {n} not starred on Title_Page")
+            opts = re.search(r"\\documentclass\[([^\]]*)\]", main)
+            blind = bool(opts and "doubleblind" in opts.group(1))
+            if bool(submission_cfg.get("anonymous")) != blind:
+                problems.append("submission: `anonymous:` in submission.yaml and the doubleblind class option disagree")
+    # identity must live in submission.yaml only: templates carry no e-mail or ORCID literals
+    for tpl in (Path(__file__).resolve().parents[1] / "templates").glob("*.tpl.tex"):
+        tt = tpl.read_text(encoding="utf-8")
+        if re.search(r"[\w.+-]+@[\w-]+\.[\w.]+", tt) or re.search(r"\d{4}-\d{4}-\d{4}-\d{3}[\dX]", tt):
+            problems.append(f"submission: template {tpl.name} contains an e-mail or ORCID literal -- identity belongs in submission.yaml")
+    if len(problems) == before:
+        notes.append("submission: Title_Page and Cover_Letter agree with submission.yaml and main.tex")
 
 # ---- report ---------------------------------------------------------------
 print(f"sources : {len(SOURCES)} files")
