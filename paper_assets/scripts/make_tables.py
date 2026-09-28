@@ -186,8 +186,8 @@ HCMAGRL versus & $\Delta$ (\%) & $p$ & $\Delta$ (\%) & $p$ & $\Delta$ (\%) & $p$
 """ + "\n".join(rows[:-1]) + r"""
 \bottomrule
 \multicolumn{8}{l}{\footnotesize Paired Wilcoxon signed-rank test over
- $N=""" + str(n) + r"""$ (instance, weight) settings; each is a mean over 20} \\
-\multicolumn{8}{l}{\footnotesize evaluation seeds. Negative $\Delta$ favours
+ $N=""" + str(n) + r"""$ (instance, weight) settings, each a mean over 20} \\
+\multicolumn{8}{l}{\footnotesize evaluation seeds. Negative $\Delta$ favors
  HCMAGRL. $^{*}p<0.05$, $^{**}p<0.01$, $^{***}p<0.001$.} \\
 \end{tabular}""")
     write(TABLES / "statistics.tex", body)

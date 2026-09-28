@@ -17,8 +17,9 @@ Checks
  11. the highlights are within the venue's count and character limits
  12. the keyword count is within the venue's range
  13. the title is not overlong and does not repeat a word root
+ 14. for a double-anonymized venue, the reviewer copy carries no author details
 
-Checks 10-13 are the venue's own hard limits. They are cheap to run and
+Checks 10-14 are the venue's own hard limits. They are cheap to run and
 expensive to miss: this manuscript once carried a 388-word abstract against a
 250-word limit and two highlights over the 85-character limit, none of which is
 visible by eye.
@@ -39,9 +40,12 @@ VENUE = {
     "jms":       dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
     "cie":       dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
     "rcim":      dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8)),
+    # Computers in Industry reviews double-anonymized: author details go on a
+    # separate title page and the reviewer copy must carry none of them.
+    "cii":       dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8), anonymized=True),
     "ieee-trans": dict(abstract=250, highlights=None, keywords=(3, 8)),
 }
-TARGET = "aei"
+TARGET = "cii"
 
 # Titles in this field run 9-15 words; a longer one is a warning, not a failure.
 TITLE_WORDS = 18
@@ -205,6 +209,36 @@ if title:
     for root, c in sorted(roots.items()):
         if c >= 3:
             notes.append(f"title repeats the root '{root}-' {c} times")
+
+# ---- 14: double-anonymized review ----------------------------------------
+# The class's doubleblind option hides the author block, and the
+# \ifnum\theblind>0 branches in main.tex hide the acknowledgments and the
+# repository address. Read the manuscript the way the reviewer copy prints it
+# and look for what must not be there.
+if LIMITS.get("anonymized"):
+    before = len(problems)
+    opts = re.search(r"\\documentclass\[([^\]]*)\]", main)
+    if not (opts and "doubleblind" in opts.group(1)):
+        problems.append("double-anonymized venue, but main.tex lacks the doubleblind class option")
+    reviewer_copy = re.sub(r"\\ifnum\\theblind>0\\relax(.*?)\\else(.*?)\\fi",
+                           r"\1", main, flags=re.S)
+    # what the class option itself withholds
+    reviewer_copy = re.sub(
+        r"^\s*\\(author|ead|credit|affiliation|cormark|cortext|shortauthors)\b.*$",
+        "", reviewer_copy, flags=re.M)
+    prose = reviewer_copy + "\n" + strip_comments(read(SOURCES[1:]))
+    for pat, what in [(r"github\.com/", "a repository address"),
+                      (r"[Aa]cknowledg", "an acknowledgment"),
+                      (r"supported by", "a funding statement"),
+                      (r"\b[\w.]+@[\w.]+\.(edu|cn|com|org)\b", "an e-mail address"),
+                      (r"\bour (previous|earlier|prior) work\b", "a self-identifying citation")]:
+        m = re.search(pat, prose)
+        if m:
+            problems.append(f"reviewer copy still carries {what}: '{m.group(0)}'")
+    if not (ROOT / "submission" / "title-page.tex").exists():
+        problems.append("double-anonymized venue, but submission/title-page.tex is missing")
+    if len(problems) == before:
+        notes.append("anonymized: doubleblind option set, author details confined to submission/title-page.tex")
 
 # ---- report ---------------------------------------------------------------
 print(f"sources : {len(SOURCES)} files")
