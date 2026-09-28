@@ -153,37 +153,34 @@ def place(f: dict) -> str:
     return ", ".join(x for x in (head, city, esc(f.get("country", ""))) if x)
 
 
+def aff_line(f: dict) -> str:
+    """One affiliation on the title page: department first when there is one."""
+    dept = esc(f["department"]) + ",\\\\\n" if f.get("department") else ""
+    return dept + place(f) + ".\\\\\n"
+
+
 # ---------------------------------------------------------------- title page
+# The page carries only what identifies the authors: by-line blocks (every
+# affiliation of an author, in order), the biographies and the
+# acknowledgments. CRediT, the competing-interest declaration and the data
+# availability statement are sections of the manuscript, not of this page.
 blocks = []
 for a in authors:
-    f = aff_of(a)
     orcid_line = f"ORCID: {esc(a['orcid'])}\\par\n" if a.get("orcid") else "\\par\n"
     blocks.append(
         f"{{\\bfseries {esc(a['name'])}{'$^{*}$' if a.get('corresponding') else ''}\\par}}\n"
-        f"{esc(f['department'])},\\\\\n{place(f)}.\\\\\n"
+        + "".join(aff_line(aff[t]) for t in a["affiliations"])
         + (f"Tel: {esc(a['tel'])}\\\\\n" if a.get("tel") else "")
         + f"E-mail: \\href{{mailto:{esc(a['email'])}}}{{{esc(a['email'])}}}\\\\\n"
         + orcid_line + "\\vspace{1.0em}\n")
-credit = ""
-if any(a.get("credit") for a in authors):
-    credit = ("\\section*{CRediT authorship contribution statement}\n"
-              + " ".join(f"\\textbf{{{esc(a['name'])}:}} {esc(a['credit'])}." for a in authors if a.get("credit"))
-              + "\n")
 funding = cfg.get("funding") or []
 ack = ("\\section*{Acknowledgments}\nThis work was supported by " + esc(join_and(funding)) + ".\n") if funding else ""
 d = cfg.get("declarations", {})
-statements = ""
-if d.get("competing_interests_title_page") or d.get("competing_interests"):
-    statements += "\\section*{Declaration of competing interest}\n" + esc(d.get("competing_interests_title_page") or d["competing_interests"]) + "\n"
-if d.get("data_availability_title_page") or d.get("data_availability"):
-    statements += "\\section*{Data availability}\n" + esc(d.get("data_availability_title_page") or d["data_availability"]) + "\n"
 bios = [a for a in authors if a.get("bio")] if elsevier else []
 bio_page = ("\\clearpage\n" + "".join(f"{{\\bfseries {esc(a['name'])}}} {esc(a['bio'])}\\par\n\\vspace{{0.6em}}\n" for a in bios)) if bios else ""
 title_tex = fill((TPL / "Title_Page.tpl.tex").read_text(encoding="utf-8"), dict(
-    title=esc(title), journal=journal, article_type=article_type[:1].upper() + article_type[1:],
-    review_note=" for double-anonymized review" if anonymous else "",
-    author_blocks="".join(blocks), corr_plural="s" if len(corr) > 1 else "",
-    credit=credit, acknowledgments=ack, statements=statements, bio_page=bio_page))
+    title=esc(title), author_blocks="".join(blocks), corr_plural="s" if len(corr) > 1 else "",
+    acknowledgments=ack, bio_page=bio_page))
 
 # ---------------------------------------------------------------- cover letter
 cl = cfg["cover_letter"]
@@ -234,17 +231,21 @@ else:
     for a in authors:
         tags = ",".join(tag_of[t] for t in a["affiliations"])
         lines.append(f"\\author[{tags}]{{{esc(a['name'])}}}" + (f"[orcid={esc(a['orcid'])}]" if a.get("orcid") else ""))
-        lines.append(f"\\ead{{{esc(a['email'])}}}")
+        lines.append(f"\\ead{{{a['email']}}}")          # the class typesets \ead verbatim, so no escaping
         if a.get("credit"):
             lines.append(f"\\credit{{{esc(a['credit'])}}}")
         if a.get("corresponding"):
             lines.append("\\cormark[1]")
         lines.append("")
     for k, f in aff.items():
-        parts = [f"organization={{{esc(f['department'])}, {esc(f['institution'])}}}"]
+        org = ", ".join(esc(x) for x in (f.get("department", ""), f["institution"]) if x)
+        parts = [f"organization={{{org}}}"]
         if f.get("address"):
             parts.append(f"addressline={{{esc(f['address'])}}}")
-        parts += [f"city={{{esc(f['city'])}}}", f"postcode={{{esc(str(f['postcode']))}}}", f"country={{{esc(f['country'])}}}"]
+        parts.append(f"city={{{esc(f['city'])}}}")
+        if f.get("postcode"):
+            parts.append(f"postcode={{{esc(str(f['postcode']))}}}")
+        parts.append(f"country={{{esc(f['country'])}}}")
         lines.append(f"\\affiliation[{tag_of[k]}]{{" + ", ".join(parts) + "}")
     lines.append("\\cortext[1]{Corresponding author" + ("s" if len(corr) > 1 else "") + "}")
     fm.write_text("% generated from submission.yaml by make_submission.py -- do not edit\n" + "\n".join(lines) + "\n", encoding="utf-8")
