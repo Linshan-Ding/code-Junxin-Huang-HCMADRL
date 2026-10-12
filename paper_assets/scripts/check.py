@@ -47,9 +47,12 @@ VENUE = {
     # Computers in Industry reviews double-anonymized: author details go on a
     # separate title page and the reviewer copy must carry none of them.
     "cii":       dict(abstract=250, highlights=(3, 5, 85), keywords=(3, 8), anonymized=True),
+    # Archives of Computational Methods in Engineering (Springer) reviews
+    # single-blind, asks for 4-6 keywords and no highlights.
+    "acme":      dict(abstract=250, highlights=None, keywords=(4, 6)),
     "ieee-trans": dict(abstract=250, highlights=None, keywords=(3, 8)),
 }
-TARGET = "cii"
+TARGET = "acme"
 
 # Titles in this field run 9-15 words; a longer one is a warning, not a failure.
 TITLE_WORDS = 18
