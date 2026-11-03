@@ -16,6 +16,7 @@
 \newcommand{\journalname}[1]{\emph{#1}}   % a journal name is a title, not an emphasis
 \newcommand{\HC}{HCMAGRL\xspace}
 \input{../macros/results}                 % the letter's numbers come from the same macros as the body
+\InputIfFileExists{../macros/industrial-results}{}{}   % case-study macros, when the manuscript has them
 
 \begin{document}
 
@@ -27,8 +28,7 @@ We submit the manuscript entitled ``<<title>>'' for consideration as a <<article
 
 <<problem>> <<idea>> <<components>> <<result>>
 
-\journalname{<<journal>>} has recently published work on <<fit_topic>> (<<fit_citations>>). % style-exempt: Harvard citation list
-<<fit_gap>> <<fit_close>> <<significance>>
+<<fit_paragraph>>
 
 <<declarations>>
 

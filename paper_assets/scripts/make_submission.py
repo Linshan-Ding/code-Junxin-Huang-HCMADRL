@@ -45,14 +45,26 @@ ESC = {"&": r"\&", "%": r"\%", "$": r"\$", "#": r"\#", "_": r"\_", "{": r"\{", "
        "~": r"\textasciitilde{}", "^": r"\textasciicircum{}"}
 
 
+def plain(s: str) -> str:
+    return "".join(ESC.get(c, c) for c in s)
+
+
 def esc(s: str) -> str:
-    """Escape LaTeX specials in plain text. Macros such as \\GapMsEDQN{} pass through."""
+    """Escape LaTeX specials in plain text.
+
+    A macro passes through: \\GapMsEDQN{} and \\HC{} as they are, and a macro
+    with one brace-group argument such as \\textit{...} or \\journalname{...}
+    keeps its argument, whose own text is escaped.
+    """
     out, i = [], 0
-    for m in re.finditer(r"\\[A-Za-z]+(?:\{\})?", s):
-        out.append("".join(ESC.get(c, c) for c in s[i:m.start()]))
-        out.append(m.group(0))
+    for m in re.finditer(r"\\([A-Za-z]+)(\{([^{}]*)\})?", s):
+        out.append(plain(s[i:m.start()]))
+        if m.group(2) is None:
+            out.append(m.group(0))
+        else:
+            out.append("\\" + m.group(1) + "{" + plain(m.group(3)) + "}")
         i = m.end()
-    out.append("".join(ESC.get(c, c) for c in s[i:]))
+    out.append(plain(s[i:]))
     return "".join(out)
 
 
@@ -177,7 +189,8 @@ funding = cfg.get("funding") or []
 ack = ("\\section*{Acknowledgments}\nThis work was supported by " + esc(join_and(funding)) + ".\n") if funding else ""
 d = cfg.get("declarations", {})
 bios = [a for a in authors if a.get("bio")] if elsevier else []
-bio_page = ("\\clearpage\n" + "".join(f"{{\\bfseries {esc(a['name'])}}} {esc(a['bio'])}\\par\n\\vspace{{0.6em}}\n" for a in bios)) if bios else ""
+# The biographies follow the by-line blocks on the same page run.
+bio_page = ("\\vspace{1.4em}\n" + "".join(f"{{\\bfseries {esc(a['name'])}}} {esc(a['bio'])}\\par\n\\vspace{{0.6em}}\n" for a in bios)) if bios else ""
 title_tex = fill((TPL / "Title_Page.tpl.tex").read_text(encoding="utf-8"), dict(
     title=esc(title), author_blocks="".join(blocks), corr_plural="s" if len(corr) > 1 else "",
     acknowledgments=ack, bio_page=bio_page))
@@ -185,8 +198,8 @@ title_tex = fill((TPL / "Title_Page.tpl.tex").read_text(encoding="utf-8"), dict(
 # ---------------------------------------------------------------- cover letter
 cl = cfg["cover_letter"]
 decl = []
-if anonymous:
-    decl.append("A separate title page carries the author details, as the double-anonymized review requires.")
+decl.append("A separate title page carries the author details, as the double-anonymized review requires."
+            if anonymous else "A separate title page carries the author details and biographies.")
 if d.get("originality", True):
     decl.append("We confirm that this work is original, has not been published elsewhere and is not under consideration by another journal.")
 if d.get("all_authors_approved", True):
@@ -194,9 +207,17 @@ if d.get("all_authors_approved", True):
 for k in ("competing_interests", "data_availability", "ai_use", "ethics"):
     if d.get(k):
         decl.append(esc(d[k]))
-entries = bib_entries(cl.get("fit_citekeys", []))
-if not entries:
-    sys.exit("[FAIL] cover_letter.fit_citekeys is empty: name 3-5 recent papers from the target journal")
+entries = bib_entries(cl.get("fit_citekeys") or [])
+if entries:
+    fit_paragraph = (f"\\journalname{{{journal}}} has recently published work on {esc(cl['fit_topic'])} "
+                     f"({'; '.join(harvard_inline(e) for e in entries)}). % style-exempt: Harvard citation list\n"
+                     f"{esc(cl['fit_gap'])} {esc(cl['fit_close'])} {esc(cl['significance'])}")
+elif cl.get("fit_statement"):
+    print("[WARN] cover_letter.fit_citekeys is empty: the fit paragraph opens with fit_statement and cites "
+          "nothing; the skill prefers 3-5 recent papers of the target journal")
+    fit_paragraph = f"{esc(cl['fit_statement'])} {esc(cl['fit_close'])} {esc(cl['significance'])}"
+else:
+    sys.exit("[FAIL] cover_letter needs fit_citekeys (3-5 recent papers of the target journal) or a fit_statement")
 reviewers = ""
 if cl.get("suggested_reviewers"):
     items = "".join(f"  \\item {esc(r['name'])}, {esc(r['affiliation'])}, {esc(r['email'])}. {esc(r.get('reason', ''))}\n" for r in cl["suggested_reviewers"])
@@ -210,14 +231,14 @@ sig = (f"{esc(signatory['name'])}\\\\[0.2em]\n"
        + f"{esc(sf['department'])}, {place(sf)}.\\\\\n"
        + (f"Tel: {esc(signatory['tel'])}\\\\\n" if signatory.get("tel") else "")
        + f"E-mail: \\href{{mailto:{esc(signatory['email'])}}}{{{esc(signatory['email'])}}}\n")
-refs = "\\vspace{1.4em}\n{\\bfseries References}\\par\n\\small\n" + "".join(harvard_ref(e) + "\\par\n" for e in entries)
+refs = ("\\vspace{1.4em}\n{\\bfseries References}\\par\n\\small\n"
+        + "".join(harvard_ref(e) + "\\par\n" for e in entries)) if entries else ""
 letter_tex = fill((TPL / "Cover_Letter.tpl.tex").read_text(encoding="utf-8"), dict(
     date=esc(date), editor=esc(cfg.get("editor", "Editor")), title=esc(title),
     article_type=article_type, journal=journal,
     problem=esc(cl["problem"]), idea=esc(cl["idea"]),
     components=" ".join(esc(c) for c in cl["components"]), result=esc(cl["result"]),
-    fit_topic=esc(cl["fit_topic"]), fit_citations="; ".join(harvard_inline(e) for e in entries),
-    fit_gap=esc(cl["fit_gap"]), fit_close=esc(cl["fit_close"]), significance=esc(cl["significance"]),
+    fit_paragraph=fit_paragraph,
     declarations=" ".join(decl), reviewers=reviewers, signatory_block=sig, references=refs))
 
 # ---------------------------------------------------------------- main.tex author block (CAS syntax)
@@ -248,6 +269,12 @@ else:
         parts.append(f"country={{{esc(f['country'])}}}")
         lines.append(f"\\affiliation[{tag_of[k]}]{{" + ", ".join(parts) + "}")
     lines.append("\\cortext[1]{Corresponding author" + ("s" if len(corr) > 1 else "") + "}")
+    lines.append("")
+    # the running footer and the funding sentence come from the same facts
+    lines.append(f"\\shortauthors{{{esc(authors[0]['name'])} et al.}}")
+    lines.append("\\newcommand{\\fundingstatement}{"
+                 + (f"This work was supported by {esc(join_and(funding))}." if funding else "")
+                 + "}")
     fm.write_text("% generated from submission.yaml by make_submission.py -- do not edit\n" + "\n".join(lines) + "\n", encoding="utf-8")
 
 # ---------------------------------------------------------------- write, compile, clean

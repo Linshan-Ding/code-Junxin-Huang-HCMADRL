@@ -15,7 +15,7 @@
     → 75 次学习方法训练＋规则／TwoStage／NSGA-II
     → 107 份评估记录与事件轨迹
     → full/aggregate：detail、summary、portfolios、sensitivity、manifest
-    → run_07_export_paper.py：正式门槛检查＋图表／表格／宏／蓝色结果文字
+    → run_07_export_paper.py：正式门槛检查＋图表／表格／宏／结果文字（默认不着色）
     → run_08_compile_check.py：main.pdf＋main.log＋check.py
 ```
 
@@ -51,7 +51,7 @@ Set-Location 'D:\Python project\code-Junxin-Huang-HCMADRL'
 
 导出使用已有 NumPy／Pandas／Matplotlib 环境，示意图也是 Matplotlib 矢量图，不需要先编译 TikZ。PDF 最终宽度为 164.6 mm。新增案例只有少量代表解，绘制实际非支配点，不对稀疏点做核密度估计；原合成实验 Pareto 联合图的特殊样式继续保留。
 
-覆盖范围限于工业案例独立命名的表格、宏、图片及上述工业聚合目录，原实验产物不受影响。新增／修改的论文文字、表格、图注为蓝色，图内保留算法配色。记录齐全仍可能存在不可行运行，应同时查看可行率和有效样本数，不删除失败记录。
+覆盖范围限于工业案例独立命名的表格、宏、图片及上述工业聚合目录，原实验产物不受影响。产物默认不着色；要把它们标成修订文字时，用底层命令 `python -m industrial_case export-paper --profile full --revision-color blue`。只持有导出的两张结果表而没有聚合 CSV 时，`python3 scripts/make_industrial_macros.py` 用同一公式（`industrial_case/macros.py`）从表格重建 `macros/industrial-results.tex`。记录齐全仍可能存在不可行运行，应同时查看可行率和有效样本数，不删除失败记录。
 
 ### 第 08 步：编译、检查与目检
 
@@ -65,7 +65,7 @@ Set-Location 'D:\Python project\code-Junxin-Huang-HCMADRL'
 
 **输出：**论文目录的 `main.pdf`、`main.log` 及其他编译中间文件；启动日志位于 `RESULT_ROOT/runner_logs/`。**成功判据：**编译成功后才调用现有 `check.py`；其输出 `all checks passed.`，整个入口退出码为 0。**耗时与重跑：**有缓存时通常秒级至分钟级；重新编译并检查当前稿件，不更改实验记录。
 
-最后打开 PDF，目检案例参数表、方法比较表、三张图、补充表和蓝色修订。`check.py` 不验证科学结论，且 `note` 提示不会导致失败；本机原稿标题／类文件的 overfull 提示需要与新增案例页面的版面问题区分。
+最后打开 PDF，目检案例参数表、方法比较表、三张图和补充表。`check.py` 不验证科学结论，且 `note` 提示不会导致失败；本机原稿标题／类文件的 overfull 提示需要与新增案例页面的版面问题区分。
 
 PyCharm 可直接右键上述脚本运行，参数留空，解释器使用本机项目 Python。跨平台已选定正确 Python 环境时，可在 Bash 进入代码仓库后执行同名 `python scripts/industrial/run_07_export_paper.py`、`python scripts/industrial/run_08_compile_check.py`；循环、路径解析和编译操作均由 Python 处理。
 
@@ -99,6 +99,7 @@ figures/src/fig-*.tex + figures/scifig-preamble.tex
 | --- | --- | --- |
 | [scripts/build_data.py](scripts/build_data.py) | `HCMAGRL_CODE` 下的算例、训练日志、评估明细及 Excel | 覆盖本目录 `figures/data/` 下对应的聚合 CSV |
 | [scripts/make_tables.py](scripts/make_tables.py) | 本目录的聚合 CSV | 覆盖论文仓库 `tables/` 下生成的表格和 `macros/results.tex` |
+| [scripts/make_industrial_macros.py](scripts/make_industrial_macros.py) | 论文仓库 `tables/industrial_results.tex` 与 `industrial_runtime.tex` | 覆盖论文仓库 `macros/industrial-results.tex`，与 run_07 共用 `industrial_case/macros.py` 的公式 |
 | [scripts/make_submission.py](scripts/make_submission.py) | 论文仓库 `submission.yaml`（作者信息唯一来源）、`main.tex` 的标题、`cas-refs.bib`、本目录 `templates/*.tpl.tex` | 覆盖论文仓库 `submission/{Title_Page,Cover_Letter}.{tex,pdf}` 与 `frontmatter-authors.tex`（`main.tex` 输入的作者块；`anonymous: true` 时为空） |
 | `figures/src/plot_*.py` | 本目录的聚合 CSV；部分示例数值直接定义在绘图脚本中 | 覆盖论文仓库同名 PDF，以及本目录 `figures/_proofs/` 中的 PNG |
 | `figures/src/fig-*.tex` | 示意图源码及共享 TikZ 前导 | 编译目录内的 PDF、日志等中间文件；复制步骤覆盖论文仓库同名 PDF |

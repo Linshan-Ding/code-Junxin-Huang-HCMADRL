@@ -24,6 +24,7 @@ def main():
         if command == "export-paper":
             sub.add_argument("--paper", help="Paper repository (otherwise HCMAGRL_PAPER or sibling checkout).")
             sub.add_argument("--draft", action="store_true", help="Export source table, schematic and explicitly pending result placeholders; no smoke numbers.")
+            sub.add_argument("--revision-color", metavar="COLOR", help="Colour the exported tables, captions and figure text (e.g. blue) to mark a revision; off for a fresh submission.")
     args = parser.parse_args()
     try:
         if args.command == "prepare":
@@ -46,7 +47,7 @@ def main():
             aggregate(args.profile, args.output)
         elif args.command == "export-paper":
             from .export import export_paper
-            export_paper(args.profile, args.output, args.paper, args.draft)
+            export_paper(args.profile, args.output, args.paper, args.draft, args.revision_color)
         elif args.command == "run":
             from .data import validate_data
             from .learning import train, evaluate
