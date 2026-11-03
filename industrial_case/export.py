@@ -1,4 +1,10 @@
-"""Vector figures and blue revision tables, with a strict formal-result gate."""
+"""Vector figures, tables and result macros of the motor case, with a strict formal-result gate.
+
+The products are uncoloured by default, as a fresh submission needs them. Pass
+a revision colour (``--revision-color blue``) to mark them as changed text in a
+revised manuscript. The derived result macros come from industrial_case.macros,
+which paper_assets/scripts/make_industrial_macros.py shares.
+"""
 from __future__ import annotations
 
 import os
@@ -15,17 +21,28 @@ from paper_assets.figures.scifig_style import use_scifig
 from .analysis import aggregate, nondominated
 from .common import DATA, METHODS, ROOT, read_json
 from .data import PUBLISHED
+from .macros import derive, render
 
 WIDTH = 164.6 / 25.4
 COLORS = dict(zip(METHODS, ["#0072B2", "#009E73", "#CC79A7", "#6E6E6E", "#E69F00", "#56B4E9", "#D55E00"]))
 MARKERS = dict(zip(METHODS, ["o", "^", "v", "s", "D", "P", "x"]))
-CAPTION = r"\colorlet{scolor}{blue}\captionsetup{labelfont={color=blue},textfont={color=blue}}"
+REVISION_COLOR = None   # e.g. "blue": colour the exported tables, captions and figure text as revised
+
+
+def float_open(environment):
+    """'\\begin{table}\\centering', coloured with the caption set-up when a revision colour is on."""
+    if not REVISION_COLOR:
+        return "\\begin{%s}\\centering" % environment
+    return ("\\begin{%s}\\color{%s}\\centering\n\\colorlet{scolor}{%s}"
+            "\\captionsetup{labelfont={color=%s},textfont={color=%s}}"
+            % ((environment,) + (REVISION_COLOR,) * 4))
 
 
 def tex(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    # CAS resets the caption text colour and bypasses caption package fonts.
-    value = value.replace(r"\caption{", r"\caption{\color{blue}")
+    if REVISION_COLOR:
+        # CAS resets the caption text colour and bypasses caption package fonts.
+        value = value.replace(r"\caption{", r"\caption{\color{%s}" % REVISION_COLOR)
     path.write_text(value.strip() + "\n", encoding="utf-8")
 
 
@@ -69,10 +86,7 @@ def source_tables(paper):
     info = read_json(DATA / "derived.json")
     rows = [" & ".join([label, product, str(q), *map(str, times)]) + r" \\" for label, product, q, times in
             zip(PUBLISHED["product_labels"], PUBLISHED["products"], PUBLISHED["demand"], PUBLISHED["processing"])]
-    tex(paper / "tables/industrial_case.tex", r"""
-\begin{table}
-\color{blue}\centering
-""" + CAPTION + r"""
+    tex(paper / "tables/industrial_case.tex", float_open("table") + r"""
 \caption{Literature-reported motor-case data. Processing times retain the source time-unit.}
 \label{tab:industrial-data}
 \small
@@ -92,10 +106,8 @@ unlimited buffers and triangular installation/removal times.
         raw = " & ".join(f"{x:g}" for x in PUBLISHED["switch_cost"][r])
         fitted = " & ".join(f"{0 if r == s else info['cost_removal_line'][r]+info['cost_installation_line'][s]:.3f}" for s in range(4))
         lines.append(f"{'ABCD'[r]} & {raw} & {fitted}" + r" \\")
-    tex(paper / "tables/industrial_cost_fit.tex", r"""
-\begin{table}\color{blue}\centering
-""" + CAPTION + r"""
-\caption{Published and reconstructed line-level switching costs (thousand CNY). The diagonal is zero because no changeover is performed.}
+    tex(paper / "tables/industrial_cost_fit.tex", float_open("table") + r"""
+\caption{Published and reconstructed line-level switching costs (thousand CNY). The diagonal is zero because no reconfiguration is performed.}
 \label{tab:industrial-cost-fit}\small
 \begin{tabular}{lrrrrrrrr}\toprule
 &\multicolumn{4}{c}{Published destination}&\multicolumn{4}{c}{Additive approximation}\\
@@ -105,10 +117,8 @@ From & A & B & C & D & A & B & C & D\\\midrule
     for m in info["modules"]:
         triple = lambda v: "(" + ",".join(f"{x:g}" for x in v) + ")"
         module_lines.append(f"S{m['station']+1} & {'ABCD'[m['product']]} & {triple(m['mount_time'])} & {triple(m['remove_time'])} & {m['mount_cost_cny']} & {m['remove_cost_cny']}" + r" \\")
-    tex(paper / "tables/industrial_modules.tex", r"""
-\begin{table}\color{blue}\centering
-""" + CAPTION + r"""
-\caption{Reconstructed module parameters. Times are assumed triangular numbers in source time-units; costs are derived CNY values.}
+    tex(paper / "tables/industrial_modules.tex", float_open("table") + r"""
+\caption{Reconstructed module parameters. Times are assumed triangular numbers in the source time unit, and costs are derived values in CNY.}
 \label{tab:industrial-modules}\small
 \begin{tabular}{llrrrr}\toprule
 Cell & Type & Installation time & Removal time & Install cost & Remove cost\\\midrule
@@ -130,10 +140,8 @@ def comparison_table(paper, summary):
     for row in summary:
         rows.append(" & ".join([row["method"], f"{row['feasible']}/{row['attempted']}", fmt(row, "makespan"),
                                  fmt(row, "cost"), fmt(row, "reconfigurations"), fmt(row, "hv"), fmt(row, "runtime_seconds")]) + r" \\")
-    tex(paper / "tables/industrial_results.tex", r"""
-\begin{table}\color{blue}\centering
-""" + CAPTION + r"""
-\caption{Industrial-case comparison. Objectives and changes use equal weights; HV uses each seed's five-preference portfolio.}
+    tex(paper / "tables/industrial_results.tex", float_open("table") + r"""
+\caption{Results on the motor-assembly case. Objectives and change counts are reported at equal weights, and the hypervolume (HV) is computed over the five-weight portfolio of each seed.}
 \label{tab:industrial-results}\small
 \setlength{\tabcolsep}{3pt}
 \begin{tabular}{llrrrrr}\toprule
@@ -141,17 +149,15 @@ Method & Feasible & Makespan & Cost (CNY) & Changes & HV & Exec. (s)\\\midrule
 """ + "\n".join(rows) + r"""
 \bottomrule\end{tabular}
 \par\smallskip\raggedright\footnotesize
-Mean $\pm$ sample SD for independent training/search seeds; deterministic rules appear once.
+Mean $\pm$ sample SD over independent training or search seeds. Deterministic rules appear once.
 Objective means include feasible schedules only, with the denominator reported explicitly.
 Initial installations are excluded from the change count but included in time and cost.
 \end{table}
 """)
     rows = [" & ".join([r["method"], fmt(r, "offline_seconds"), fmt(r, "runtime_seconds"),
                          fmt(r, "original_matrix_cost")]) + r" \\" for r in summary]
-    tex(paper / "tables/industrial_runtime.tex", r"""
-\begin{table}\color{blue}\centering
-""" + CAPTION + r"""
-\caption{Industrial-case computation time and cost-model sensitivity. Offline time covers an entire preference portfolio; execution time measures one greedy rollout or rule decoding.}
+    tex(paper / "tables/industrial_runtime.tex", float_open("table") + r"""
+\caption{Computation time and cost-model sensitivity on the motor-assembly case. Offline time covers an entire preference portfolio, and execution time measures one greedy rollout or one rule decoding.}
 \label{tab:industrial-runtime}\small
 \begin{tabular}{lrrr}\toprule
 Method & Offline/search (s) & Execution (s) & Original-matrix cost (CNY)\\\midrule
@@ -197,7 +203,9 @@ def result_figures(paper, records, sensitivity):
     save_figure(fig, paper, "fig_industrial_gantt")
 
 
-def export_paper(name, output=None, paper_path=None, draft=False):
+def export_paper(name, output=None, paper_path=None, draft=False, color=None):
+    global REVISION_COLOR
+    REVISION_COLOR = color or None
     if name != "full":
         raise ValueError("Paper export requires --profile full. Smoke results cannot populate the manuscript.")
     paper = Path(paper_path or os.environ.get("HCMAGRL_PAPER", ROOT.parent / "Junxin_Huang_HCMAGRL_RMS_FRT")).resolve()
@@ -210,15 +218,11 @@ def export_paper(name, output=None, paper_path=None, draft=False):
         raise ValueError("Refusing to replace completed formal results with a draft.")
     info = source_tables(paper)
     schematic(paper)
-    macros = r"\newif\ifIndustrialResultsReady" + "\n" + (r"\IndustrialResultsReadyfalse" if draft else r"\IndustrialResultsReadytrue")
-    macros += "\n" + "\n".join("\\newcommand{\\" + key + "}{" + f"{value:.3f}" + "}" for key, value in
-                                     [("IndustrialCostMAE", info["cost_fit"]["mae_thousand_cny"]),
-                                      ("IndustrialCostRMSE", info["cost_fit"]["rmse_thousand_cny"])])
-    tex(existing, macros)
+    fit = [("IndustrialCostMAE", info["cost_fit"]["mae_thousand_cny"]),
+           ("IndustrialCostRMSE", info["cost_fit"]["rmse_thousand_cny"])]
     if draft:
-        tex(paper / "tables/industrial_results.tex", r"""
-\begin{table}\color{blue}\centering
-""" + CAPTION + r"""
+        tex(existing, render(fit, {}, ready=False))
+        tex(paper / "tables/industrial_results.tex", float_open("table") + r"""
 \caption{Industrial-case comparison: full experiments pending.}
 \label{tab:industrial-results}
 \begin{tabular}{ll}\toprule Method & Result status\\\midrule
@@ -231,9 +235,7 @@ SPT, SetupGreedy, TwoStage, NSGA-II & Pending full-profile evaluation\\
 The Pareto/sensitivity and Gantt figures will be generated from audited full-profile runs.
 Smoke tests are excluded from manuscript results.
 """)
-        tex(paper / "tables/industrial_runtime.tex", r"""
-\begin{table}\color{blue}\centering
-""" + CAPTION + r"""
+        tex(paper / "tables/industrial_runtime.tex", float_open("table") + r"""
 \caption{Industrial-case runtime and cost-model comparison: full experiments pending.}
 \label{tab:industrial-runtime}
 \begin{tabular}{ll}\toprule Item & Status\\\midrule
@@ -245,19 +247,18 @@ Original-matrix cost comparison & Pending audited full-profile schedules\\
     else:
         out, manifest, records, summary, sensitivity = result
         comparison_table(paper, summary)
+        tex(existing, render(fit, derive(summary)))
         result_figures(paper, records, sensitivity)
         tex(paper / "tables/industrial_result_figures.tex", r"""
 Figure~\ref{fig:industrial-performance} reports the observed objective trade-offs and
-fixed-order sensitivity; Figure~\ref{fig:industrial-gantt} shows the prespecified schedules.
-\begin{figure}\centering\color{blue}
-""" + CAPTION + r"""
+the fixed-order sensitivity. Figure~\ref{fig:industrial-gantt} shows the prespecified schedules.
+""" + float_open("figure") + r"""
 \includegraphics{figures/fig_industrial_performance.pdf}
-\caption{Industrial-case non-dominated representatives and fixed-order schedule replay. The replay varies assumed changeover times; it is not a stochastic-worker robustness test.}
+\caption{Objective trade-offs on the motor-assembly case. (a) Pooled non-dominated points of every method over the five preference weights and the seeds. (b) Makespan of each schedule at equal weights, replayed with the operation sequence of every station fixed, under installation and removal times scaled by $0.5$, $1$ and $2$. The replay varies assumed durations and is not a test of robustness to operator variability.}
 \label{fig:industrial-performance}\end{figure}
-\begin{figure}\centering\color{blue}
-""" + CAPTION + r"""
+""" + float_open("figure") + r"""
 \includegraphics{figures/fig_industrial_gantt.pdf}
-\caption{Prespecified industrial schedules: HCMAGRL seed 42 at equal weights and the deterministic cost-first two-stage method. Unfilled spans denote idle time.}
+\caption{Schedules at equal weights on the motor-assembly case, HCMAGRL with seed $42$ and the deterministic two-stage construction, both fixed before the results were seen. Colors are the four motor types, gray spans are installations, hatched spans are removals and unfilled spans are idle time.}
 \label{fig:industrial-gantt}\end{figure}
 """)
         ours = next(r for r in summary if r["method"] == "HCMAGRL")
@@ -268,8 +269,8 @@ fixed-order sensitivity; Figure~\ref{fig:industrial-gantt} shows the prespecifie
             dt = 100*(ours["makespan_mean"]/base["makespan_mean"]-1)
             dc = 100*(ours["cost_mean"]/base["cost_mean"]-1)
             finding = (f"Relative to the cost-first two-stage schedule, the mean balanced-preference HCMAGRL makespan changes by {dt:+.2f}\\% "
-                       f"and its additive reconfiguration cost by {dc:+.2f}\\%. These signed changes use feasible runs; "
-                       "negative values indicate reductions, and the reported feasibility counts must be read alongside them.")
+                       f"and its additive reconfiguration cost by {dc:+.2f}\\%. These signed changes use feasible runs. "
+                       "Negative values indicate reductions, and the reported feasibility counts must be read alongside them.")
         original_rank = sorted([r for r in summary if r["cost_mean"] is not None], key=lambda r: r["original_matrix_cost_mean"])
         fitted_rank = sorted([r for r in summary if r["cost_mean"] is not None], key=lambda r: r["cost_mean"])
         finding += " The ordering of balanced-preference mean costs " + ("is unchanged" if [r["method"] for r in original_rank] == [r["method"] for r in fitted_rank] else "changes") + " when the published switching matrix is used for post-hoc accounting."

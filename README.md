@@ -15,7 +15,7 @@
 - [可视化与结果](#可视化与结果)：Pareto 图、甘特图、检查点与评估结果。
 - [当前限制](#当前限制)：需要先调整的路径和暂不能直接运行的入口。
 - [论文图表生成指南](paper_assets/README.md)：利用已有结果重生成论文图表与表格。
-- [工业电机案例](#工业电机案例)：公开数据重构、独立训练与评估、论文蓝色修订产物。
+- [工业电机案例](#工业电机案例)：公开数据重构、独立训练与评估、论文产物（默认不着色，修订稿可用 `--revision-color blue` 标记）。
 
 希望查看现有实验结果的读者，可以从 `result/` 和 `paper_assets/figures/data/` 开始，无需先训练模型。工业案例已提供独立的数据、训练、评估和论文产物流程；原有 27 个合成算例的旧入口仍存在下文所列限制。
 
@@ -179,7 +179,7 @@ Set-Location 'D:\Python project\code-Junxin-Huang-HCMADRL'
 & 'E:\anaconda3\envs\python3.13\python.exe' scripts/industrial/run_08_compile_check.py
 ```
 
-第 07 步生成工业案例独立命名的表格、三张图、结果宏和蓝色结果文字；固定种子 42、平衡权重的 HCMAGRL 与 TwoStage 甘特图不择优挑选。第 08 步编译 `main.pdf`，保留日志，并运行 `check.py`。各自退出码为 0 才算该步骤成功，最后仍需目检 PDF。
+第 07 步生成工业案例独立命名的表格、三张图、结果宏（含正文引用的相对差距、倍数与小时数，公式在 `industrial_case/macros.py`）和结果文字。产物默认不着色，投修订稿时在底层命令加 `--revision-color blue`。固定种子 42、平衡权重的 HCMAGRL 与 TwoStage 甘特图不择优挑选。第 08 步编译 `main.pdf`，保留日志，并运行 `check.py`。各自退出码为 0 才算该步骤成功，最后仍需目检 PDF。
 
 导出缺少正式数据时在写论文产物前失败；不能用 smoke 替代。编译入口也可独立检查当前待实验草稿。详细编译器查找、输入输出和覆盖范围见[工业案例论文导出](paper_assets/README.md#工业案例论文导出)。
 
