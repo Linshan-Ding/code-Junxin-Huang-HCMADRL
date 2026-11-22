@@ -196,17 +196,34 @@ else:
     else:
         notes.append(f"abstract {n}/{LIMITS['abstract']} words")
 
+
+
+def printed(text: str) -> str:
+    """A highlight as it prints, which is what the character limit applies to.
+
+    Macros defined in main.tex or macros/*.tex expand to their text, so a
+    result macro counts as the number it prints and \\HC as the method name."""
+    defs = {}
+    for f in [ROOT / "main.tex", *sorted((ROOT / "macros").glob("*.tex"))]:
+        for name, body in re.findall(r"\\newcommand\{\\([A-Za-z]+)\}\{(.*?)(?:\\xspace)?\}\s*$",
+                                     f.read_text(encoding="utf-8"), re.M):
+            defs[name] = body
+    for _ in range(3):   # a definition may itself use a macro
+        text = re.sub(r"\\([A-Za-z]+)", lambda m: defs.get(m.group(1), m.group(0)), text)
+    return re.sub(r"\\(%|,)", r"\1", text).replace("--", "-").replace("$", "").replace("~", " ")
+
+
 hl = environment("highlights")
 if LIMITS["highlights"] and hl is not None:
     lo, hi, chars = LIMITS["highlights"]
-    items = [i.strip() for i in re.findall(r"\\item (.*)", hl)]
+    items = [printed(i.strip()) for i in re.findall(r"\\item (.*)", hl)]
     if not lo <= len(items) <= hi:
         problems.append(f"{len(items)} highlights, outside the {lo}-{hi} range")
     for it in items:
         if len(it) > chars:
-            problems.append(f"highlight is {len(it)} characters, over {chars}: {it[:48]}...")
+            problems.append(f"highlight is {len(it)} characters as printed, over {chars}: {it[:48]}...")
     if items:
-        notes.append(f"highlights {len(items)} items, longest {max(len(i) for i in items)}/{chars} chars")
+        notes.append(f"highlights {len(items)} items, longest {max(len(i) for i in items)}/{chars} printed chars")
 
 kw = environment("keywords")
 if kw is not None and LIMITS["keywords"]:

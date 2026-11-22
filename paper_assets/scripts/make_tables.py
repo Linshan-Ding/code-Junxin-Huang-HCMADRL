@@ -75,6 +75,11 @@ def fmt_p(p: float) -> str:
     return r"$<$0.001" if p < 1e-3 else f"{p:.3f}"
 
 
+def p_relation(p: float) -> str:
+    """A test result as it reads in a sentence or a table header: '$p < 0.001$' or '$p = 0.002$'."""
+    return "$p < 0.001$" if p < 1e-3 else f"$p = {p:.3f}$"
+
+
 def write(path: Path, body: str) -> None:
     path.write_text(HEADER + body)
     print(f"  {path.relative_to(PAPER)}")
@@ -204,6 +209,7 @@ HCMAGRL versus & $\Delta$ (\%) & $p$ & $\Delta$ (\%) & $p$ & $\Delta$ (\%) & $p$
         f = summ[summ.family == fam]
         tag = fam.capitalize()
         put(f"FriedmanChi{tag}", f"{f.friedman_chi2.iloc[0]:.1f}")
+        put(f"FriedmanP{tag}", p_relation(f.friedman_p.iloc[0]))
         put(f"NemenyiCD{tag}", f"{f.nemenyi_cd.iloc[0]:.3f}")
         put(f"KMethods{tag}", str(int(f.k_methods.iloc[0])))
         for _, r in f.iterrows():
@@ -225,7 +231,7 @@ def table_ranks(summ: pd.DataFrame) -> None:
         chi2 = f.friedman_chi2.iloc[0]
         p = f.friedman_p.iloc[0]
         rows.append(rf"\multicolumn{{4}}{{l}}{{\textit{{{label}}}: "
-                    rf"$\chi^2={chi2:.1f}$, $p={fmt_p(p).replace('$<$', '<')}$, "
+                    rf"$\chi^2={chi2:.1f}$, {p_relation(p)}, "
                     rf"CD $={cd:.3f}$}} \\")
         for _, r in f.iterrows():
             if r.method == OURS:
