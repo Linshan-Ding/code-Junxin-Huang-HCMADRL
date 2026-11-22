@@ -1,0 +1,3 @@
+# Python bytecode, written whenever the scripts run
+__pycache__/
+*.py[cod]
