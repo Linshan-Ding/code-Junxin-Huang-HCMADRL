@@ -126,7 +126,8 @@ def harvard_ref(e: dict) -> str:
         initials = "".join(g[0] + "." for g in given.replace("-", " ").split())
         names.append(f"{sur}, {initials}")
     vol = e.get("volume", "")
-    pages = e.get("pages", "")
+    # a page range prints with an en dash whichever way the .bib writes it, as BibTeX does
+    pages = re.sub(r"(?<=\d)\s*-+\s*(?=\d)", "--", e.get("pages", ""))
     tail = ", ".join(x for x in (vol, pages) if x)
     # bib fields are LaTeX already (accents, protected braces), so they are not escaped
     return f"{', '.join(names)}, {e['year']}. {e['title']}. {e.get('journal', e.get('booktitle', ''))} {tail}.".replace(" ,", ",").replace(" .", ".")
