@@ -402,6 +402,85 @@ def pareto_macros(pts: pd.DataFrame) -> None:
 
 
 # --------------------------------------------------------------------------
+FINAL_EPISODES = 50   # the window of a run's final value, as in build_data.py
+SETTLE_TOL = 0.05     # a curve has settled once it stays within 5% of its final level
+
+
+def convergence_macros(conv: pd.DataFrame) -> None:
+    """The numbers that the text quotes from the learning curves.
+
+    Equal weights only, as in the figures. A curve is the per-episode median
+    over the instances of value / best final value on the instance. Its final
+    level is the mean of that median over the last FINAL_EPISODES episodes. A
+    curve has settled at the first episode after which its smoothed median
+    stays within SETTLE_TOL of the final level, and HCMAGRL has crossed the
+    baselines at the first episode after which its smoothed median stays below
+    all of theirs on both objectives. The text states these orderings, so the
+    script stops if a rerun overturns one of them.
+    """
+    b = conv[conv.weight == "balanced"]
+    ms, cost, steps = "makespan_mean", "cost_mean", "steps_mean"
+
+    def curve(m, metric, col="median"):
+        return b[(b.method == m) & (b.metric == metric)].sort_values("episode")[col].to_numpy()
+
+    def final(m, metric):
+        return curve(m, metric)[-FINAL_EPISODES:].mean()
+
+    def settled(m, metric):
+        s = curve(m, metric, "median_smooth")
+        off = np.flatnonzero(np.abs(s / final(m, metric) - 1.0) > SETTLE_TOL)
+        return 1 if off.size == 0 else int(off[-1]) + 2
+
+    put("ConvStartMsOurs", f"{curve(OURS, ms)[0]:.2f}")
+    put("ConvStartCostOurs", f"{curve(OURS, cost)[0]:.2f}")
+    for m in [OURS] + ABLATION:
+        put(f"ConvFinalMs{SLUG[m]}", f"{final(m, ms):.2f}")
+        put(f"ConvFinalCost{SLUG[m]}", f"{final(m, cost):.2f}")
+    for metric, tag in ((ms, "Ms"), (cost, "Cost")):
+        levels = [final(m, metric) for m in RL]
+        assert final(OURS, metric) < min(levels), metric
+        put(f"ConvFinal{tag}BaseMin", f"{min(levels):.2f}")
+        put(f"ConvFinal{tag}BaseMax", f"{max(levels):.2f}")
+
+    below = np.ones(len(curve(OURS, ms)), dtype=bool)
+    for metric in (ms, cost):
+        rivals = np.min([curve(m, metric, "median_smooth") for m in RL], axis=0)
+        below &= curve(OURS, metric, "median_smooth") < rivals
+    off = np.flatnonzero(~below)
+    assert off.size < len(below) and (off.size == 0 or off[-1] < len(below) - FINAL_EPISODES)
+    put("ConvCrossEp", str(1 if off.size == 0 else int(off[-1]) + 2))
+
+    put("ConvSettleMsOurs", str(settled(OURS, ms)))
+    put("ConvSettleCostOurs", str(settled(OURS, cost)))
+    # DDQN and EDQN are quoted together, so the later of the two
+    put("ConvSettleMsDQN", str(max(settled(m, ms) for m in ("DDQN", "EDQN"))))
+    put("ConvSettleDDRL", str(max(settled("D-DRL", ms), settled("D-DRL", cost))))
+
+    reduction = 1.0 - final(OURS, steps) / curve(OURS, steps)[0]
+    put("ConvStepsReductionOurs", f"{100 * reduction:.0f}\\%")
+    put("ConvSettleStepsOurs", str(settled(OURS, steps)))
+
+    # The orderings that Section 6.2 and Section 6.8 state in words.
+    dqn = ("DDQN", "EDQN")
+    move = {(m, x): abs(curve(m, x)[0] - final(m, x)) for m in RL for x in (ms, cost)}
+    for x in (ms, cost):
+        assert curve(OURS, x)[0] > max(curve(m, x)[0] for m in RL), "weakest start"
+        assert max(move["D-DRL", x], move["SAC", x]) < min(move[m, x] for m in dqn), "move least"
+    assert settled(OURS, ms) < min(settled(m, ms) for m in dqn), "makespan settles first"
+    assert min(settled(m, cost) for m in dqn) <= settled(OURS, cost) \
+        <= max(settled(m, cost) for m in dqn), "cost settles about as late as DQN"
+    assert final("SAC", cost) == max(final(m, cost) for m in [OURS] + ABLATION + RL)
+    assert final("w/o Hierarchy", ms) == max(final(m, ms) for m in ABLATION)
+    assert final("w/o Hierarchy", cost) < final(OURS, cost), "flat variant tradeoff"
+    assert final("w/o Heterogeneity", cost) == max(final(m, cost) for m in ABLATION)
+    assert all(final("w/o EdgeAttn", x) > final(OURS, x) for x in (ms, cost))
+    assert all(abs(final("w/o Graph", x) - final(OURS, x)) < 0.02 for x in (ms, cost))
+    start, last = curve(OURS, steps)[0], final(OURS, steps)
+    assert start - (1 + SETTLE_TOL) * last > 0.5 * (start - last), "most of the cut early"
+
+
+# --------------------------------------------------------------------------
 def main() -> None:
     TABLES.mkdir(exist_ok=True)
     MACROS.mkdir(exist_ok=True)
@@ -415,6 +494,7 @@ def main() -> None:
     bm = pd.read_csv(DATA / "benchmark_rmssp.csv")
     rt = pd.read_csv(DATA / "runtime.csv")
     pts = pd.read_csv(DATA / "pareto_points.csv")
+    conv = pd.read_csv(DATA / "convergence.csv")
 
     table_instances(inst)
     table_main(cells, pair)
@@ -424,6 +504,7 @@ def main() -> None:
     table_benchmark(bm)
     table_runtime(rt)
     pareto_macros(pts)
+    convergence_macros(conv)
 
     lines = [HEADER]
     for name in sorted(macros):

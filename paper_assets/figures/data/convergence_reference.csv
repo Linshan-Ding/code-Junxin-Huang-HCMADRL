@@ -1,0 +1,163 @@
+weight,metric,instance_id,reference,method
+balanced,makespan_mean,M4_A3_R4_J2,940.049,HCMAGRL
+balanced,makespan_mean,M4_A3_R6_J3,1744.17,w/o EdgeAttn
+balanced,makespan_mean,M4_A3_R8_J4,2947.87,HCMAGRL
+balanced,makespan_mean,M4_A4_R4_J2,953.308,w/o Heterogeneity
+balanced,makespan_mean,M4_A4_R6_J3,2282.18,HCMAGRL
+balanced,makespan_mean,M4_A4_R8_J4,3798.02,HCMAGRL
+balanced,makespan_mean,M4_A5_R4_J2,809.173,w/o Graph
+balanced,makespan_mean,M4_A5_R6_J3,1498.11,HCMAGRL
+balanced,makespan_mean,M4_A5_R8_J4,3045,HCMAGRL
+balanced,makespan_mean,M8_A6_R4_J2,1132.74,w/o Graph
+balanced,makespan_mean,M8_A6_R6_J3,2022.06,HCMAGRL
+balanced,makespan_mean,M8_A6_R8_J4,3604.35,w/o EdgeAttn
+balanced,makespan_mean,M8_A8_R4_J2,603.436,HCMAGRL
+balanced,makespan_mean,M8_A8_R6_J3,2428.72,DDQN
+balanced,makespan_mean,M8_A8_R8_J4,2369.52,DDQN
+balanced,makespan_mean,M8_A10_R4_J2,574.584,HCMAGRL
+balanced,makespan_mean,M8_A10_R6_J3,847.874,HCMAGRL
+balanced,makespan_mean,M8_A10_R8_J4,2107.31,HCMAGRL
+balanced,makespan_mean,M12_A9_R4_J2,519.208,w/o Graph
+balanced,makespan_mean,M12_A9_R6_J3,671.446,w/o Graph
+balanced,makespan_mean,M12_A9_R8_J4,1572.45,HCMAGRL
+balanced,makespan_mean,M12_A12_R4_J2,482.277,HCMAGRL
+balanced,makespan_mean,M12_A12_R6_J3,919.9,w/o Heterogeneity
+balanced,makespan_mean,M12_A12_R8_J4,1627.53,w/o Graph
+balanced,makespan_mean,M12_A15_R4_J2,562.477,w/o Graph
+balanced,makespan_mean,M12_A15_R6_J3,718.056,HCMAGRL
+balanced,makespan_mean,M12_A15_R8_J4,1830.69,HCMAGRL
+balanced,cost_mean,M4_A3_R4_J2,205.265,w/o Hierarchy
+balanced,cost_mean,M4_A3_R6_J3,242.875,w/o Hierarchy
+balanced,cost_mean,M4_A3_R8_J4,258.965,HCMAGRL
+balanced,cost_mean,M4_A4_R4_J2,107.495,w/o Graph
+balanced,cost_mean,M4_A4_R6_J3,254.68,w/o Hierarchy
+balanced,cost_mean,M4_A4_R8_J4,257.635,HCMAGRL
+balanced,cost_mean,M4_A5_R4_J2,194.535,w/o Hierarchy
+balanced,cost_mean,M4_A5_R6_J3,149.11,w/o Hierarchy
+balanced,cost_mean,M4_A5_R8_J4,636.515,HCMAGRL
+balanced,cost_mean,M8_A6_R4_J2,377.685,HCMAGRL
+balanced,cost_mean,M8_A6_R6_J3,425.09,w/o Graph
+balanced,cost_mean,M8_A6_R8_J4,259.8,HCMAGRL
+balanced,cost_mean,M8_A8_R4_J2,637.455,w/o Heterogeneity
+balanced,cost_mean,M8_A8_R6_J3,507.4,w/o Graph
+balanced,cost_mean,M8_A8_R8_J4,1170.52,w/o EdgeAttn
+balanced,cost_mean,M8_A10_R4_J2,496.185,w/o EdgeAttn
+balanced,cost_mean,M8_A10_R6_J3,324.547,HCMAGRL
+balanced,cost_mean,M8_A10_R8_J4,940.393,HCMAGRL
+balanced,cost_mean,M12_A9_R4_J2,730.63,w/o Hierarchy
+balanced,cost_mean,M12_A9_R6_J3,760.53,w/o Hierarchy
+balanced,cost_mean,M12_A9_R8_J4,1136.6,w/o Graph
+balanced,cost_mean,M12_A12_R4_J2,518.777,HCMAGRL
+balanced,cost_mean,M12_A12_R6_J3,968.713,HCMAGRL
+balanced,cost_mean,M12_A12_R8_J4,1098.14,w/o Graph
+balanced,cost_mean,M12_A15_R4_J2,713.715,w/o Graph
+balanced,cost_mean,M12_A15_R6_J3,855.18,HCMAGRL
+balanced,cost_mean,M12_A15_R8_J4,1783.81,w/o Graph
+balanced,steps_mean,M4_A3_R4_J2,66.03,w/o Hierarchy
+balanced,steps_mean,M4_A3_R6_J3,137.51,w/o Hierarchy
+balanced,steps_mean,M4_A3_R8_J4,247.13,HCMAGRL
+balanced,steps_mean,M4_A4_R4_J2,58.125,w/o Graph
+balanced,steps_mean,M4_A4_R6_J3,153.855,w/o Hierarchy
+balanced,steps_mean,M4_A4_R8_J4,254.42,HCMAGRL
+balanced,steps_mean,M4_A5_R4_J2,59.52,w/o Hierarchy
+balanced,steps_mean,M4_A5_R6_J3,134.67,w/o Hierarchy
+balanced,steps_mean,M4_A5_R8_J4,250,DDQN
+balanced,steps_mean,M8_A6_R4_J2,57.49,w/o Graph
+balanced,steps_mean,M8_A6_R6_J3,166.995,w/o Heterogeneity
+balanced,steps_mean,M8_A6_R8_J4,253.095,HCMAGRL
+balanced,steps_mean,M8_A8_R4_J2,70.56,w/o EdgeAttn
+balanced,steps_mean,M8_A8_R6_J3,170.535,w/o Graph
+balanced,steps_mean,M8_A8_R8_J4,297.98,w/o Graph
+balanced,steps_mean,M8_A10_R4_J2,88.325,w/o Graph
+balanced,steps_mean,M8_A10_R6_J3,135.25,w/o Hierarchy
+balanced,steps_mean,M8_A10_R8_J4,291.88,HCMAGRL
+balanced,steps_mean,M12_A9_R4_J2,91.125,w/o Hierarchy
+balanced,steps_mean,M12_A9_R6_J3,146.055,w/o Hierarchy
+balanced,steps_mean,M12_A9_R8_J4,263.875,w/o Graph
+balanced,steps_mean,M12_A12_R4_J2,80.8933,HCMAGRL
+balanced,steps_mean,M12_A12_R6_J3,145.627,HCMAGRL
+balanced,steps_mean,M12_A12_R8_J4,245.015,w/o Graph
+balanced,steps_mean,M12_A15_R4_J2,84.895,w/o Graph
+balanced,steps_mean,M12_A15_R6_J3,161.313,HCMAGRL
+balanced,steps_mean,M12_A15_R8_J4,253.96,w/o Graph
+makespan,makespan_mean,M4_A3_R4_J2,933.422,w/o EdgeAttn
+makespan,makespan_mean,M4_A3_R6_J3,1723.86,w/o EdgeAttn
+makespan,makespan_mean,M4_A3_R8_J4,3165.63,w/o EdgeAttn
+makespan,makespan_mean,M4_A4_R4_J2,911.44,w/o EdgeAttn
+makespan,makespan_mean,M4_A4_R6_J3,2267.54,HCMAGRL
+makespan,makespan_mean,M4_A4_R8_J4,3669.7,HCMAGRL
+makespan,makespan_mean,M4_A5_R4_J2,826.655,HCMAGRL
+makespan,makespan_mean,M4_A5_R6_J3,1449.92,HCMAGRL
+makespan,makespan_mean,M4_A5_R8_J4,3105.64,HCMAGRL
+makespan,makespan_mean,M8_A6_R4_J2,1130.89,w/o Heterogeneity
+makespan,makespan_mean,M8_A6_R6_J3,1717.25,w/o EdgeAttn
+makespan,makespan_mean,M8_A6_R8_J4,2851.5,w/o EdgeAttn
+makespan,makespan_mean,M8_A8_R4_J2,575.173,w/o EdgeAttn
+makespan,makespan_mean,M8_A8_R6_J3,1999.83,w/o Hierarchy
+makespan,makespan_mean,M8_A8_R8_J4,2195.21,HCMAGRL
+makespan,makespan_mean,M8_A10_R4_J2,527.003,w/o Heterogeneity
+makespan,makespan_mean,M8_A10_R6_J3,896.712,HCMAGRL
+makespan,makespan_mean,M8_A10_R8_J4,2065.58,HCMAGRL
+makespan,makespan_mean,M12_A9_R4_J2,420.044,HCMAGRL
+makespan,makespan_mean,M12_A9_R6_J3,641.698,HCMAGRL
+makespan,makespan_mean,M12_A9_R8_J4,1332.41,w/o Hierarchy
+makespan,makespan_mean,M12_A12_R4_J2,437.473,w/o EdgeAttn
+makespan,makespan_mean,M12_A12_R6_J3,798.716,HCMAGRL
+makespan,makespan_mean,M12_A12_R8_J4,1307.25,HCMAGRL
+makespan,makespan_mean,M12_A15_R4_J2,574.812,w/o EdgeAttn
+makespan,makespan_mean,M12_A15_R6_J3,686.857,HCMAGRL
+makespan,makespan_mean,M12_A15_R8_J4,1464.69,HCMAGRL
+makespan,cost_mean,M4_A3_R4_J2,203.38,w/o EdgeAttn
+makespan,cost_mean,M4_A3_R6_J3,142.645,w/o Heterogeneity
+makespan,cost_mean,M4_A3_R8_J4,263.69,w/o EdgeAttn
+makespan,cost_mean,M4_A4_R4_J2,149.435,w/o Heterogeneity
+makespan,cost_mean,M4_A4_R6_J3,361.635,HCMAGRL
+makespan,cost_mean,M4_A4_R8_J4,212.755,w/o Graph
+makespan,cost_mean,M4_A5_R4_J2,246.02,EDQN
+makespan,cost_mean,M4_A5_R6_J3,218.215,w/o Heterogeneity
+makespan,cost_mean,M4_A5_R8_J4,652.365,w/o EdgeAttn
+makespan,cost_mean,M8_A6_R4_J2,379.04,w/o Heterogeneity
+makespan,cost_mean,M8_A6_R6_J3,399.57,w/o EdgeAttn
+makespan,cost_mean,M8_A6_R8_J4,217.175,HCMAGRL
+makespan,cost_mean,M8_A8_R4_J2,799.72,D-DRL
+makespan,cost_mean,M8_A8_R6_J3,452.94,w/o Graph
+makespan,cost_mean,M8_A8_R8_J4,1202.15,w/o Heterogeneity
+makespan,cost_mean,M8_A10_R4_J2,562.695,w/o Graph
+makespan,cost_mean,M8_A10_R6_J3,581.11,w/o Graph
+makespan,cost_mean,M8_A10_R8_J4,1214.6,w/o Hierarchy
+makespan,cost_mean,M12_A9_R4_J2,818.83,w/o EdgeAttn
+makespan,cost_mean,M12_A9_R6_J3,754.71,HCMAGRL
+makespan,cost_mean,M12_A9_R8_J4,1216.93,w/o Heterogeneity
+makespan,cost_mean,M12_A12_R4_J2,660.795,w/o EdgeAttn
+makespan,cost_mean,M12_A12_R6_J3,1205.78,HCMAGRL
+makespan,cost_mean,M12_A12_R8_J4,1478.54,w/o EdgeAttn
+makespan,cost_mean,M12_A15_R4_J2,858.5,w/o EdgeAttn
+makespan,cost_mean,M12_A15_R6_J3,904.79,w/o Heterogeneity
+makespan,cost_mean,M12_A15_R8_J4,2041.63,w/o Hierarchy
+makespan,steps_mean,M4_A3_R4_J2,66.005,w/o EdgeAttn
+makespan,steps_mean,M4_A3_R6_J3,136.195,w/o Heterogeneity
+makespan,steps_mean,M4_A3_R8_J4,246.985,w/o EdgeAttn
+makespan,steps_mean,M4_A4_R4_J2,58.965,w/o Heterogeneity
+makespan,steps_mean,M4_A4_R6_J3,155.52,HCMAGRL
+makespan,steps_mean,M4_A4_R8_J4,253.48,w/o EdgeAttn
+makespan,steps_mean,M4_A5_R4_J2,59.88,EDQN
+makespan,steps_mean,M4_A5_R6_J3,135.985,w/o Heterogeneity
+makespan,steps_mean,M4_A5_R8_J4,250.24,DDQN
+makespan,steps_mean,M8_A6_R4_J2,58.01,w/o Heterogeneity
+makespan,steps_mean,M8_A6_R6_J3,166.12,w/o EdgeAttn
+makespan,steps_mean,M8_A6_R8_J4,252,HCMAGRL
+makespan,steps_mean,M8_A8_R4_J2,71.99,w/o Hierarchy
+makespan,steps_mean,M8_A8_R6_J3,169.245,w/o Graph
+makespan,steps_mean,M8_A8_R8_J4,296.94,SAC
+makespan,steps_mean,M8_A10_R4_J2,88.635,w/o Graph
+makespan,steps_mean,M8_A10_R6_J3,137.78,D-DRL
+makespan,steps_mean,M8_A10_R8_J4,294.88,D-DRL
+makespan,steps_mean,M12_A9_R4_J2,90.695,w/o Graph
+makespan,steps_mean,M12_A9_R6_J3,145.21,w/o Heterogeneity
+makespan,steps_mean,M12_A9_R8_J4,263.42,SAC
+makespan,steps_mean,M12_A12_R4_J2,81.1667,HCMAGRL
+makespan,steps_mean,M12_A12_R6_J3,147.22,HCMAGRL
+makespan,steps_mean,M12_A12_R8_J4,246.96,D-DRL
+makespan,steps_mean,M12_A15_R4_J2,86.215,w/o EdgeAttn
+makespan,steps_mean,M12_A15_R6_J3,162.13,w/o Heterogeneity
+makespan,steps_mean,M12_A15_R8_J4,253.62,D-DRL

@@ -112,7 +112,7 @@ figures/src/fig-*.tex + figures/scifig-preamble.tex
 - `result/eval/eval_detail.csv`：生成评估聚合、标量评分、非支配点及统计检验结果。
 - `result/HCMADRL.xlsx` 的 `RL`、`Ablation`、`VS DABC` 工作表：提供多目标指标、胜率及公开 RMSSP 基准数据。
 
-聚合目录已包含 `instances.csv`、`convergence.csv`、`eval_cells.csv`、`cell_scores.csv`、`pareto_points.csv`、`stats_pairwise.csv`、`stats_summary.csv`、`indicators.csv`、`indicator_winrate.csv`、`benchmark_rmssp.csv` 和 `runtime.csv`。**仅重绘现有图表时，可以跳过 `build_data.py`，直接使用这些文件。**
+聚合目录已包含 `instances.csv`、`convergence.csv`、`convergence_reference.csv`、`eval_cells.csv`、`cell_scores.csv`、`pareto_points.csv`、`stats_pairwise.csv`、`stats_summary.csv`、`indicators.csv`、`indicator_winrate.csv`、`benchmark_rmssp.csv` 和 `runtime.csv`。**仅重绘现有图表时，可以跳过 `build_data.py`，直接使用这些文件。**
 
 重新聚合不会自动运行模型，也不会从新训练的 `.pt` 生成评估 CSV。若替换了实验数据，需要先按输入格式准备相应日志、评估明细与 Excel；部分聚合函数会跳过缺失的训练日志，因此脚本运行成功也不能单独证明实验覆盖完整。
 
@@ -259,6 +259,8 @@ python3 scripts/check.py --paper "$HCMAGRL_PAPER" --venue aei
 ## 图表风格与命名
 
 [figures/scifig_style.py](figures/scifig_style.py) 为常规数据图设置颜色、线型、标记、字号和印刷尺寸；`save()` 统一输出论文 PDF 与本地 PNG。示意图使用 [figures/scifig-preamble.tex](figures/scifig-preamble.tex) 中的共享 TikZ 风格。
+
+训练曲线（`fig_convergence_rl`、`fig_convergence_ablation` 及 `fig_efficiency` 的 (b) 图）统一使用实线，以稀疏标记区分方法，由 `scifig_style.learning_curves()` 绘制。每条训练记录除以同一算例上九种方法中最好的最终值（最后 50 个回合的均值），因此各曲线保留各自的起始水平。细线为每个回合跨 27 个算例的中位数，粗线为 21 回合中心滑动平均，阴影为四分位距。参考值与平滑都在 `build_data.py` 的 `build_convergence()` 中计算，并写入 `convergence.csv` 与 `convergence_reference.csv`。正文引用的训练曲线数值由 `make_tables.py` 的 `convergence_macros()` 生成，该函数同时断言正文用文字陈述的排序，重新聚合后若排序改变，脚本会直接报错。
 
 [figures/src/plot_pareto_joint.py](figures/src/plot_pareto_joint.py) 移植自仓库根目录的 `plot_pareto_front.py`。正文使用的两张联合分布图保留 seaborn JointGrid 风格、Set1 配色与填充核密度，输出 `fig_pareto_joint_rl.pdf` 和 `fig_pareto_joint_abl.pdf`。与根脚本相比，这里按方法分组、从聚合评估 CSV 取数据、每张图放置两个算例，并绘制非支配前沿连接线；具体差异写在脚本文档字符串中。
 

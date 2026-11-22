@@ -8,6 +8,9 @@ Design rules enforced here
   * Okabe-Ito colour-blind-safe palette.
   * Triple-redundant encoding (colour + line style + marker) so the figures
     survive greyscale printing.
+  * Learning curves are the one exception to the line styles: every learning
+    curve is solid, and sparse markers carry the redundant encoding (see
+    `learning_curves`).
   * Computer Modern text and math, which is what cas-sc sets the body in.
   * 8 pt labels (never below 7 pt).
   * Figures are sized 1:1 against the final printed width, so `\includegraphics`
@@ -22,6 +25,7 @@ from pathlib import Path
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FixedLocator, FormatStrFormatter, NullLocator
 
 MM = 1 / 25.4
 
@@ -71,6 +75,53 @@ HATCH = {
 
 def style(method: str) -> dict:
     return STYLE.get(method, dict(color=OI["gray"], ls="-", marker="."))
+
+
+# --------------------------------------------------------------------------
+# Learning curves: fig_convergence_rl, fig_convergence_ablation, fig_efficiency.
+#
+# Each method is drawn as a thin unsmoothed median over the instances with a
+# thick smoothed median on top, over an interquartile band. A dashed thick
+# line laid over its own noisy thin line breaks up into fragments, so every
+# learning curve is solid, and sparse markers on the thick line carry the
+# redundant encoding that the line style carries in the other figures.
+
+def learning_curves(ax, df, methods, metric, styles=None, logx=False, ours="HCMAGRL"):
+    """Draw the learning curves of `methods` from rows of convergence.csv.
+
+    `df` holds a single weight. Per method, metric and episode it needs the
+    columns median, median_smooth, q25_smooth and q75_smooth. Ours is drawn
+    last so that it sits on top. `styles` overrides the colour or marker of a
+    method within one figure.
+    """
+    order = [m for m in methods if m != ours] + [m for m in methods if m == ours]
+    for k, m in enumerate(order):
+        d = df[(df.method == m) & (df.metric == metric)].sort_values("episode")
+        st = {**style(m), **(styles or {}).get(m, {})}
+        c = st["color"]
+        ax.fill_between(d.episode, d.q25_smooth, d.q75_smooth, color=c, alpha=0.10, lw=0,
+                        zorder=1)
+        ax.plot(d.episode, d["median"], color=c, lw=0.4, alpha=0.45, zorder=2)
+        # Staggered marker positions keep methods with equal values apart.
+        ax.plot(d.episode, d.median_smooth, color=c, ls="-", lw=1.25, zorder=3 + k, label=m,
+                marker=st["marker"], markersize=2.8, markeredgewidth=0.4,
+                markeredgecolor="white",
+                markevery=(0.06 + 0.017 * k, 0.12) if logx else (12 + 9 * k, 60))
+
+
+def episode_axis(ax, n_episodes: int, logx: bool = False) -> None:
+    """Training-episode axis of a learning curve, with the reference level 1 marked."""
+    ax.axhline(1.0, color="black", lw=0.5, zorder=0)
+    ax.set_xlim(1, n_episodes)
+    if logx:
+        ax.set_xscale("log")
+        ticks = [t for t in (1, 2, 5, 10, 20, 50, 100, 200, 500, 1000) if t <= n_episodes]
+        ax.xaxis.set_major_locator(FixedLocator(ticks))
+        ax.xaxis.set_major_formatter(FormatStrFormatter("%g"))
+        ax.xaxis.set_minor_locator(NullLocator())
+        ax.set_xlabel("Training episode (logarithmic scale)")
+    else:
+        ax.set_xlabel("Training episode")
 
 
 def use_scifig(width_mm: float = FULL_MM, height_mm: float | None = None) -> None:

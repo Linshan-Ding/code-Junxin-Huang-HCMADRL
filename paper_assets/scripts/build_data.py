@@ -12,7 +12,9 @@ Source repository (override with $HCMAGRL_CODE):
     /home/user/code-Junxin-Huang-HCMADRL
 
 Outputs (all under figures/data/):
-    convergence_<group>.csv   normalized learning curves, mean +/- std over instances
+    convergence.csv           learning curves on a common reference per instance:
+                              median and quartiles over instances, raw and smoothed
+    convergence_reference.csv the reference of every instance and the method holding it
     eval_cells.csv            per (method, instance, weight) mean/std over 20 seeds
     cell_scores.csv           min-max normalized scalarized score + rank per cell
     pareto_points.csv         every evaluation, with the non-dominated ones flagged
@@ -83,42 +85,80 @@ def parse_instance(name: str) -> dict:
 # --------------------------------------------------------------------------
 # 1. Convergence curves
 # --------------------------------------------------------------------------
-def build_convergence() -> None:
-    """Each run is normalized by its own first-episode value before averaging.
+FINAL_EPISODES = 50   # a run's final value is the mean of its last 50 episodes
+SMOOTH_HALF = 10      # 21-episode centred moving average of the median
+BAND_HALF = 2         # 5-episode centred moving average of the quartiles
 
-    Raw makespans span 960..3000+ across the 27 instances, so an unnormalized
-    mean would simply track the largest instances. Normalizing per run makes the
-    curves comparable and the shaded band meaningful (spread across instances).
+
+def centred_ma(x: np.ndarray, half: int) -> np.ndarray:
+    """Centred moving average over 2*half+1 points.
+
+    Near the ends the window shrinks symmetrically, so the first and the last
+    point are not pulled toward the interior and the curve does not lag.
     """
-    rows = []
-    for src, label in METHODS.items():
-        for weight, wdir in (("balanced", "wt0.5_wc0.5"), ("makespan", "wt1_wc0")):
-            curves = {"makespan_mean": [], "cost_mean": [], "steps_mean": []}
+    c = np.concatenate([[0.0], np.cumsum(x)])
+    n = len(x)
+    out = np.empty(n)
+    for i in range(n):
+        h = min(half, i, n - 1 - i)
+        out[i] = (c[i + h + 1] - c[i - h]) / (2 * h + 1)
+    return out
+
+
+def build_convergence() -> None:
+    """Learning curves on a common reference per instance.
+
+    Every run is divided by the best final value that any of the nine methods
+    reaches on its instance at that weight, the mean of its last FINAL_EPISODES
+    episodes. A common reference keeps the level a method starts from.
+    Dividing a run by its own first episode, as an earlier version did, pins
+    every curve to 1 at the start and hides that an untrained HCMAGRL starts
+    far above the baselines.
+
+    Per episode the CSV holds the median and the quartiles over the instances,
+    unsmoothed, together with their centred moving averages. The figures and
+    the result macros read these columns, so the smoothing is defined once.
+    A per-episode value in a log is itself a mean over the rollout workers of
+    the run: six for HCMAGRL, four for the ablated variants, one for the
+    baselines.
+    """
+    rows, refs = [], []
+    for weight, wdir in (("balanced", "wt0.5_wc0.5"), ("makespan", "wt1_wc0")):
+        logs = {}
+        for src, label in METHODS.items():
             for inst in INSTANCE_ORDER:
                 p = CODE / "result" / src / f"{src}_{wdir}_{inst}" / "log.csv"
-                if not p.exists():
-                    continue
-                d = pd.read_csv(p)
-                for col in curves:
-                    v = d[col].to_numpy(dtype=float)
-                    base = v[0] if v[0] not in (0.0, np.nan) else np.nan
-                    curves[col].append(v / base if base and np.isfinite(base) else np.full_like(v, np.nan))
-            if not curves["makespan_mean"]:
-                continue
-            n_inst = len(curves["makespan_mean"])
-            for col in curves:
-                arr = np.vstack(curves[col])
-                with np.errstate(invalid="ignore"):
-                    mean = np.nanmean(arr, axis=0)
-                    std = np.nanstd(arr, axis=0)
-                for ep, (mu, sd) in enumerate(zip(mean, std), start=1):
-                    rows.append({
-                        "method": label, "weight": weight, "metric": col,
-                        "episode": ep, "mean": mu, "std": sd, "n_instances": n_inst,
-                    })
+                if p.exists():
+                    logs[label, inst] = pd.read_csv(p)
+        insts = [i for i in INSTANCE_ORDER if all((m, i) in logs for m in METHODS.values())]
+        if not insts:
+            continue
+        for col in ("makespan_mean", "cost_mean", "steps_mean"):
+            final = {(m, i): logs[m, i][col].iloc[-FINAL_EPISODES:].mean()
+                     for m in METHODS.values() for i in insts}
+            best = {}
+            for i in insts:
+                holder = min(METHODS.values(), key=lambda m: final[m, i])
+                best[i] = final[holder, i]
+                refs.append({"weight": weight, "metric": col, "instance_id": i,
+                             "reference": best[i], "method": holder})
+            for m in METHODS.values():
+                arr = np.vstack([logs[m, i][col].to_numpy(dtype=float) / best[i] for i in insts])
+                med = np.median(arr, axis=0)
+                q25, q75 = np.percentile(arr, 25, axis=0), np.percentile(arr, 75, axis=0)
+                smooth = centred_ma(med, SMOOTH_HALF)
+                q25s, q75s = centred_ma(q25, BAND_HALF), centred_ma(q75, BAND_HALF)
+                for ep in range(arr.shape[1]):
+                    rows.append({"method": m, "weight": weight, "metric": col, "episode": ep + 1,
+                                 "median": med[ep], "q25": q25[ep], "q75": q75[ep],
+                                 "median_smooth": smooth[ep], "q25_smooth": q25s[ep],
+                                 "q75_smooth": q75s[ep], "n_instances": len(insts)})
     df = pd.DataFrame(rows)
-    df.to_csv(OUT / "convergence.csv", index=False)
+    # six significant digits keep every quoted ratio exact at half the file size
+    df.to_csv(OUT / "convergence.csv", index=False, float_format="%.6g")
+    pd.DataFrame(refs).to_csv(OUT / "convergence_reference.csv", index=False, float_format="%.6g")
     print(f"  convergence.csv          {len(df):>6} rows")
+    print(f"  convergence_reference.csv {len(refs):>5} rows")
 
 
 # --------------------------------------------------------------------------
