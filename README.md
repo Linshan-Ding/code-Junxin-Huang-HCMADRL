@@ -248,7 +248,7 @@ Set-Location 'D:\Python project\code-Junxin-Huang-HCMADRL'
 | 论文 `tables/industrial_case.tex`、`industrial_cost_fit.tex`、`industrial_modules.tex` | 07 | 来源参数、成本拟合、完整模块表 |
 | 论文 `tables/industrial_results.tex`、`industrial_runtime.tex` | 07 | 主比较表、成本重算和运行时间补充表 |
 | 论文 `tables/industrial_result_figures.tex`、`industrial_findings.tex`、`macros/industrial-results.tex` | 07 | 图引用、真实结果文字及结果就绪标记 |
-| 论文 `figures/fig_industrial_system.pdf` | 07 | 五工位及逻辑模块示意图 |
+| 论文 `figures/fig_industrial_system.pdf` | 07 | 五工位产线、二十个产品专用模块与各工位装配工序示意图，由 `industrial_case/figures/fig_industrial_system.tex`（TikZ）编译，需要 `pdflatex` |
 | 论文 `figures/fig_industrial_performance.pdf` | 07 | Pareto 与时间敏感性组合图 |
 | 论文 `figures/fig_industrial_gantt.pdf` | 07 | 预指定 HCMAGRL／TwoStage 对照甘特图 |
 | `paper_assets/figures/_proofs/industrial/*.png` | 07 | 目检稿，不作为实验输入 |

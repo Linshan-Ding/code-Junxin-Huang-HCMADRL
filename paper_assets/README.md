@@ -51,7 +51,7 @@ Set-Location 'D:\Python project\code-Junxin-Huang-HCMADRL'
 
 导出使用已有 NumPy／Pandas／Matplotlib 环境，示意图也是 Matplotlib 矢量图，不需要先编译 TikZ。PDF 最终宽度为 164.6 mm。新增案例只有少量代表解，绘制实际非支配点，不对稀疏点做核密度估计；原合成实验 Pareto 联合图的特殊样式继续保留。
 
-覆盖范围限于工业案例独立命名的表格、宏、图片及上述工业聚合目录，原实验产物不受影响。产物默认不着色；要把它们标成修订文字时，用底层命令 `python -m industrial_case export-paper --profile full --revision-color blue`。只持有导出的两张结果表而没有聚合 CSV 时，`python3 scripts/make_industrial_macros.py` 用同一公式（`industrial_case/macros.py`）从表格重建 `macros/industrial-results.tex`。记录齐全仍可能存在不可行运行，应同时查看可行率和有效样本数，不删除失败记录。
+覆盖范围限于工业案例独立命名的表格、宏、图片及上述工业聚合目录，原实验产物不受影响。产物默认不着色；要把它们标成修订文字时，用底层命令 `python -m industrial_case export-paper --profile full --revision-color blue`。只持有导出的两张结果表而没有聚合 CSV 时，`python3 scripts/make_industrial_macros.py` 用同一公式（`industrial_case/macros.py`）从表格重建 `macros/industrial-results.tex`。同样只持有已审计产物时，`python3 scripts/make_industrial_figures.py` 编译 Figure 15 的 TikZ 源码（`industrial_case/figures/fig_industrial_system.tex`），用论文中的方法名从表格自身数值重写两张结果表，并按 `figures/data/industrial/plotted.json` 重绘 Figure 16 与 Figure 17。该 JSON 由 `python3 scripts/recover_industrial_plots.py` 从论文仓库历史版本（默认 `48f3cfb`）中审计导出的两张矢量图读出，需要 PyMuPDF；写出前会核对公开需求与加工时间、各工位安装与拆卸的众数时间，以及结果表中的确定性方法数值。三者都调用 `industrial_case/export.py` 的同一绘图与制表函数，之后正式导出得到的图表风格相同。记录齐全仍可能存在不可行运行，应同时查看可行率和有效样本数，不删除失败记录。
 
 ### 第 08 步：编译、检查与目检
 
@@ -100,6 +100,8 @@ figures/src/fig-*.tex + figures/scifig-preamble.tex
 | [scripts/build_data.py](scripts/build_data.py) | `HCMAGRL_CODE` 下的算例、训练日志、评估明细及 Excel | 覆盖本目录 `figures/data/` 下对应的聚合 CSV |
 | [scripts/make_tables.py](scripts/make_tables.py) | 本目录的聚合 CSV | 覆盖论文仓库 `tables/` 下生成的表格和 `macros/results.tex` |
 | [scripts/make_industrial_macros.py](scripts/make_industrial_macros.py) | 论文仓库 `tables/industrial_results.tex` 与 `industrial_runtime.tex` | 覆盖论文仓库 `macros/industrial-results.tex`，与 run_07 共用 `industrial_case/macros.py` 的公式 |
+| [scripts/make_industrial_figures.py](scripts/make_industrial_figures.py) | `industrial_case/figures/fig_industrial_system.tex`、论文仓库两张工业结果表、本目录 `figures/data/industrial/plotted.json` | 覆盖论文仓库 `figures/fig_industrial_{system,performance,gantt}.pdf` 与两张工业结果表（只改方法名，数值不变） |
+| [scripts/recover_industrial_plots.py](scripts/recover_industrial_plots.py) | 论文仓库指定历史版本中审计导出的 `fig_industrial_performance.pdf` 与 `fig_industrial_gantt.pdf` | 写入本目录 `figures/data/industrial/plotted.json`；核对不通过时不写出 |
 | [scripts/make_submission.py](scripts/make_submission.py) | 论文仓库 `submission.yaml`（作者信息唯一来源）、`main.tex` 的标题、`cas-refs.bib`、本目录 `templates/*.tpl.tex` | 覆盖论文仓库 `submission/{Title_Page,Cover_Letter}.{tex,pdf}` 与 `frontmatter-authors.tex`（`main.tex` 输入的作者块；`anonymous: true` 时为空） |
 | `figures/src/plot_*.py` | 本目录的聚合 CSV；部分示例数值直接定义在绘图脚本中 | 覆盖论文仓库同名 PDF，以及本目录 `figures/_proofs/` 中的 PNG |
 | `figures/src/fig-*.tex` | 示意图源码及共享 TikZ 前导 | 编译目录内的 PDF、日志等中间文件；复制步骤覆盖论文仓库同名 PDF |

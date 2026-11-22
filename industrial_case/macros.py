@@ -23,6 +23,13 @@ ROUND = {"makespan": 1, "cost": 0, "original_matrix_cost": 0, "reconfigurations"
          "runtime_seconds": 2, "offline_seconds": 0}
 SLUG = {"HCMAGRL": "Ours", "Flat": "Flat", "MLP": "MLP", "SPT": "SPT", "SetupGreedy": "SetupGreedy",
         "TwoStage": "TwoStage", "NSGA-II": "NSGA"}
+# Names the exported tables print, those of the main study's tables for the two
+# ablated variants and the words of the text for the rules. The keys stay the
+# identifiers of the code and the result files, and summary_from_tables reads
+# either spelling back to them.
+TABLE_LABEL = {"HCMAGRL": "HCMAGRL", "Flat": r"HCMAGRL$-$H", "MLP": r"HCMAGRL$-$G", "SPT": "SPT",
+               "SetupGreedy": "Greedy", "TwoStage": "Two-stage", "NSGA-II": "NSGA-II"}
+METHOD_OF_LABEL = {label: method for method, label in TABLE_LABEL.items()}
 
 
 def _num(value, digits):
@@ -114,7 +121,7 @@ def _rows(tex, columns):
         cells = [c.strip() for c in line.split(r"\bottomrule")[0].replace(r"\\", "").split("&")]
         if len(cells) != columns:
             continue
-        rows[cells[0]] = cells[1:]
+        rows[METHOD_OF_LABEL.get(cells[0], cells[0])] = cells[1:]
     if not rows:
         raise ValueError("no data rows found in the table")
     return rows

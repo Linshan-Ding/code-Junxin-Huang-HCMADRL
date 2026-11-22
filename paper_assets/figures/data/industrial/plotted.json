@@ -1,0 +1,1724 @@
+{
+ "source": {
+  "paper_revision": "48f3cfb",
+  "sha256": {
+   "fig_industrial_performance.pdf": "9e2af1a8b9de34272b3b38958542e42d618f09255335d899db8d6d2c64507da1",
+   "fig_industrial_gantt.pdf": "55ac8e619e71bdb29c4bcb4741fe8fbc4aae28fb2db01dc9620621f8efd3289f"
+  },
+  "note": "Plotted data of the audited exports of the formal run (run_07), read from their vector paths because the result tree is not in the repository."
+ },
+ "multipliers": [
+  0.5,
+  1,
+  2
+ ],
+ "fronts": {
+  "Flat": [
+   [
+    194.25,
+    13500
+   ]
+  ],
+  "HCMAGRL": [
+   [
+    187.9,
+    13750
+   ],
+   [
+    194.25,
+    13500
+   ]
+  ],
+  "MLP": [
+   [
+    193.4,
+    13750
+   ],
+   [
+    194.25,
+    13500
+   ]
+  ],
+  "NSGA-II": [
+   [
+    186.25,
+    13875
+   ],
+   [
+    193.25,
+    13500
+   ]
+  ],
+  "SPT": [
+   [
+    212.75,
+    19775
+   ]
+  ],
+  "SetupGreedy": [
+   [
+    194.25,
+    13500
+   ]
+  ],
+  "TwoStage": [
+   [
+    194.25,
+    13500
+   ]
+  ]
+ },
+ "replay": {
+  "Flat": [
+   173.925,
+   194.28,
+   235.36
+  ],
+  "HCMAGRL": [
+   174.025,
+   196.54,
+   242.68
+  ],
+  "MLP": [
+   174.525,
+   195.48,
+   237.76
+  ],
+  "NSGA-II": [
+   164.125,
+   186.25,
+   234.8
+  ],
+  "SPT": [
+   182.875,
+   212.75,
+   275.5
+  ],
+  "SetupGreedy": [
+   173.125,
+   194.4,
+   238.8
+  ],
+  "TwoStage": [
+   174.125,
+   194.25,
+   234.5
+  ]
+ },
+ "schedules": {
+  "HCMAGRL": [
+   {
+    "machine": 0,
+    "kind": "install",
+    "product": null,
+    "start": 0.0,
+    "end": 3.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 0,
+    "start": 3.9,
+    "end": 8.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 0,
+    "start": 8.9,
+    "end": 13.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 0,
+    "start": 13.9,
+    "end": 18.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 0,
+    "start": 18.9,
+    "end": 23.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 0,
+    "start": 23.9,
+    "end": 28.9
+   },
+   {
+    "machine": 0,
+    "kind": "remove",
+    "product": null,
+    "start": 28.9,
+    "end": 31.5
+   },
+   {
+    "machine": 0,
+    "kind": "install",
+    "product": null,
+    "start": 31.5,
+    "end": 35.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 1,
+    "start": 35.4,
+    "end": 42.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 1,
+    "start": 42.4,
+    "end": 49.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 1,
+    "start": 49.4,
+    "end": 56.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 1,
+    "start": 56.4,
+    "end": 63.4
+   },
+   {
+    "machine": 0,
+    "kind": "remove",
+    "product": null,
+    "start": 63.4,
+    "end": 66.0
+   },
+   {
+    "machine": 0,
+    "kind": "install",
+    "product": null,
+    "start": 66.0,
+    "end": 69.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 2,
+    "start": 69.9,
+    "end": 77.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 2,
+    "start": 77.9,
+    "end": 85.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 2,
+    "start": 85.9,
+    "end": 93.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 2,
+    "start": 93.9,
+    "end": 101.9
+   },
+   {
+    "machine": 0,
+    "kind": "remove",
+    "product": null,
+    "start": 101.9,
+    "end": 104.5
+   },
+   {
+    "machine": 0,
+    "kind": "install",
+    "product": null,
+    "start": 104.5,
+    "end": 108.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 3,
+    "start": 108.4,
+    "end": 114.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 3,
+    "start": 114.4,
+    "end": 120.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 3,
+    "start": 120.4,
+    "end": 126.4
+   },
+   {
+    "machine": 1,
+    "kind": "install",
+    "product": null,
+    "start": 8.9,
+    "end": 13.25
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 0,
+    "start": 13.25,
+    "end": 21.25
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 0,
+    "start": 21.25,
+    "end": 29.25
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 0,
+    "start": 29.25,
+    "end": 37.25
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 0,
+    "start": 37.25,
+    "end": 45.25
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 0,
+    "start": 45.25,
+    "end": 53.25
+   },
+   {
+    "machine": 1,
+    "kind": "remove",
+    "product": null,
+    "start": 53.25,
+    "end": 56.15
+   },
+   {
+    "machine": 1,
+    "kind": "install",
+    "product": null,
+    "start": 56.15,
+    "end": 60.5
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 1,
+    "start": 60.5,
+    "end": 67.5
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 1,
+    "start": 67.5,
+    "end": 74.5
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 1,
+    "start": 74.5,
+    "end": 81.5
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 1,
+    "start": 81.5,
+    "end": 88.5
+   },
+   {
+    "machine": 1,
+    "kind": "remove",
+    "product": null,
+    "start": 88.5,
+    "end": 91.4
+   },
+   {
+    "machine": 1,
+    "kind": "install",
+    "product": null,
+    "start": 91.4,
+    "end": 95.75
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 2,
+    "start": 95.75,
+    "end": 100.75
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 2,
+    "start": 100.75,
+    "end": 105.75
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 2,
+    "start": 105.75,
+    "end": 110.75
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 2,
+    "start": 110.75,
+    "end": 115.75
+   },
+   {
+    "machine": 1,
+    "kind": "remove",
+    "product": null,
+    "start": 115.75,
+    "end": 118.65
+   },
+   {
+    "machine": 1,
+    "kind": "install",
+    "product": null,
+    "start": 118.65,
+    "end": 123.0
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 3,
+    "start": 123.0,
+    "end": 132.0
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 3,
+    "start": 132.0,
+    "end": 141.0
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 3,
+    "start": 141.0,
+    "end": 150.0
+   },
+   {
+    "machine": 2,
+    "kind": "install",
+    "product": null,
+    "start": 21.25,
+    "end": 25.0
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 0,
+    "start": 25.0,
+    "end": 29.0
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 0,
+    "start": 29.25,
+    "end": 33.25
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 0,
+    "start": 37.25,
+    "end": 41.25
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 0,
+    "start": 45.25,
+    "end": 49.25
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 0,
+    "start": 53.25,
+    "end": 57.25
+   },
+   {
+    "machine": 2,
+    "kind": "remove",
+    "product": null,
+    "start": 67.5,
+    "end": 70.0
+   },
+   {
+    "machine": 2,
+    "kind": "install",
+    "product": null,
+    "start": 70.0,
+    "end": 73.75
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 1,
+    "start": 73.75,
+    "end": 82.75
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 1,
+    "start": 82.75,
+    "end": 91.75
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 1,
+    "start": 91.75,
+    "end": 100.75
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 1,
+    "start": 100.75,
+    "end": 109.75
+   },
+   {
+    "machine": 2,
+    "kind": "remove",
+    "product": null,
+    "start": 109.75,
+    "end": 112.25
+   },
+   {
+    "machine": 2,
+    "kind": "install",
+    "product": null,
+    "start": 112.25,
+    "end": 116.0
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 2,
+    "start": 116.0,
+    "end": 121.0
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 2,
+    "start": 121.0,
+    "end": 126.0
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 2,
+    "start": 126.0,
+    "end": 131.0
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 2,
+    "start": 131.0,
+    "end": 136.0
+   },
+   {
+    "machine": 2,
+    "kind": "remove",
+    "product": null,
+    "start": 136.0,
+    "end": 138.5
+   },
+   {
+    "machine": 2,
+    "kind": "install",
+    "product": null,
+    "start": 138.5,
+    "end": 142.25
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 3,
+    "start": 142.25,
+    "end": 149.25
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 3,
+    "start": 149.25,
+    "end": 156.25
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 3,
+    "start": 156.25,
+    "end": 163.25
+   },
+   {
+    "machine": 3,
+    "kind": "install",
+    "product": null,
+    "start": 29.0,
+    "end": 32.6
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 0,
+    "start": 32.6,
+    "end": 38.6
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 0,
+    "start": 38.6,
+    "end": 44.6
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 0,
+    "start": 44.6,
+    "end": 50.6
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 0,
+    "start": 50.6,
+    "end": 56.6
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 0,
+    "start": 57.25,
+    "end": 63.25
+   },
+   {
+    "machine": 3,
+    "kind": "remove",
+    "product": null,
+    "start": 82.75,
+    "end": 85.15
+   },
+   {
+    "machine": 3,
+    "kind": "install",
+    "product": null,
+    "start": 85.15,
+    "end": 88.75
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 1,
+    "start": 88.75,
+    "end": 93.75
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 1,
+    "start": 93.75,
+    "end": 98.75
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 1,
+    "start": 100.75,
+    "end": 105.75
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 1,
+    "start": 109.75,
+    "end": 114.75
+   },
+   {
+    "machine": 3,
+    "kind": "remove",
+    "product": null,
+    "start": 121.0,
+    "end": 123.4
+   },
+   {
+    "machine": 3,
+    "kind": "install",
+    "product": null,
+    "start": 123.4,
+    "end": 127.0
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 2,
+    "start": 127.0,
+    "end": 136.0
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 2,
+    "start": 136.0,
+    "end": 145.0
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 2,
+    "start": 145.0,
+    "end": 154.0
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 2,
+    "start": 154.0,
+    "end": 163.0
+   },
+   {
+    "machine": 3,
+    "kind": "remove",
+    "product": null,
+    "start": 163.0,
+    "end": 165.4
+   },
+   {
+    "machine": 3,
+    "kind": "install",
+    "product": null,
+    "start": 165.4,
+    "end": 169.0
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 3,
+    "start": 169.0,
+    "end": 173.0
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 3,
+    "start": 173.0,
+    "end": 177.0
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 3,
+    "start": 177.0,
+    "end": 181.0
+   },
+   {
+    "machine": 4,
+    "kind": "install",
+    "product": null,
+    "start": 38.6,
+    "end": 42.35
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 0,
+    "start": 42.35,
+    "end": 50.35
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 0,
+    "start": 50.35,
+    "end": 58.35
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 0,
+    "start": 58.35,
+    "end": 66.35
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 0,
+    "start": 66.35,
+    "end": 74.35
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 0,
+    "start": 74.35,
+    "end": 82.35
+   },
+   {
+    "machine": 4,
+    "kind": "remove",
+    "product": null,
+    "start": 93.75,
+    "end": 96.25
+   },
+   {
+    "machine": 4,
+    "kind": "install",
+    "product": null,
+    "start": 96.25,
+    "end": 100.0
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 1,
+    "start": 100.0,
+    "end": 106.0
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 1,
+    "start": 106.0,
+    "end": 112.0
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 1,
+    "start": 112.0,
+    "end": 118.0
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 1,
+    "start": 118.0,
+    "end": 124.0
+   },
+   {
+    "machine": 4,
+    "kind": "remove",
+    "product": null,
+    "start": 136.0,
+    "end": 138.5
+   },
+   {
+    "machine": 4,
+    "kind": "install",
+    "product": null,
+    "start": 138.5,
+    "end": 142.25
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 2,
+    "start": 142.25,
+    "end": 146.25
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 2,
+    "start": 146.25,
+    "end": 150.25
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 2,
+    "start": 154.0,
+    "end": 158.0
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 2,
+    "start": 163.0,
+    "end": 167.0
+   },
+   {
+    "machine": 4,
+    "kind": "remove",
+    "product": null,
+    "start": 173.0,
+    "end": 175.5
+   },
+   {
+    "machine": 4,
+    "kind": "install",
+    "product": null,
+    "start": 175.5,
+    "end": 179.25
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 3,
+    "start": 179.25,
+    "end": 186.25
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 3,
+    "start": 186.25,
+    "end": 193.25
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 3,
+    "start": 193.25,
+    "end": 200.25
+   }
+  ],
+  "TwoStage": [
+   {
+    "machine": 0,
+    "kind": "install",
+    "product": null,
+    "start": 0.0,
+    "end": 3.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 0,
+    "start": 3.9,
+    "end": 8.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 0,
+    "start": 8.9,
+    "end": 13.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 0,
+    "start": 13.9,
+    "end": 18.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 0,
+    "start": 18.9,
+    "end": 23.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 0,
+    "start": 23.9,
+    "end": 28.9
+   },
+   {
+    "machine": 0,
+    "kind": "remove",
+    "product": null,
+    "start": 28.9,
+    "end": 31.5
+   },
+   {
+    "machine": 0,
+    "kind": "install",
+    "product": null,
+    "start": 31.5,
+    "end": 35.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 1,
+    "start": 35.4,
+    "end": 42.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 1,
+    "start": 42.4,
+    "end": 49.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 1,
+    "start": 49.4,
+    "end": 56.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 1,
+    "start": 56.4,
+    "end": 63.4
+   },
+   {
+    "machine": 0,
+    "kind": "remove",
+    "product": null,
+    "start": 63.4,
+    "end": 66.0
+   },
+   {
+    "machine": 0,
+    "kind": "install",
+    "product": null,
+    "start": 66.0,
+    "end": 69.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 3,
+    "start": 69.9,
+    "end": 75.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 3,
+    "start": 75.9,
+    "end": 81.9
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 3,
+    "start": 81.9,
+    "end": 87.9
+   },
+   {
+    "machine": 0,
+    "kind": "remove",
+    "product": null,
+    "start": 87.9,
+    "end": 90.5
+   },
+   {
+    "machine": 0,
+    "kind": "install",
+    "product": null,
+    "start": 90.5,
+    "end": 94.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 2,
+    "start": 94.4,
+    "end": 102.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 2,
+    "start": 102.4,
+    "end": 110.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 2,
+    "start": 110.4,
+    "end": 118.4
+   },
+   {
+    "machine": 0,
+    "kind": "process",
+    "product": 2,
+    "start": 118.4,
+    "end": 126.4
+   },
+   {
+    "machine": 1,
+    "kind": "install",
+    "product": null,
+    "start": 8.9,
+    "end": 13.25
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 0,
+    "start": 13.25,
+    "end": 21.25
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 0,
+    "start": 21.25,
+    "end": 29.25
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 0,
+    "start": 29.25,
+    "end": 37.25
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 0,
+    "start": 37.25,
+    "end": 45.25
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 0,
+    "start": 45.25,
+    "end": 53.25
+   },
+   {
+    "machine": 1,
+    "kind": "remove",
+    "product": null,
+    "start": 53.25,
+    "end": 56.15
+   },
+   {
+    "machine": 1,
+    "kind": "install",
+    "product": null,
+    "start": 56.15,
+    "end": 60.5
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 1,
+    "start": 60.5,
+    "end": 67.5
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 1,
+    "start": 67.5,
+    "end": 74.5
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 1,
+    "start": 74.5,
+    "end": 81.5
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 1,
+    "start": 81.5,
+    "end": 88.5
+   },
+   {
+    "machine": 1,
+    "kind": "remove",
+    "product": null,
+    "start": 88.5,
+    "end": 91.4
+   },
+   {
+    "machine": 1,
+    "kind": "install",
+    "product": null,
+    "start": 91.4,
+    "end": 95.75
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 3,
+    "start": 95.75,
+    "end": 104.75
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 3,
+    "start": 104.75,
+    "end": 113.75
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 3,
+    "start": 113.75,
+    "end": 122.75
+   },
+   {
+    "machine": 1,
+    "kind": "remove",
+    "product": null,
+    "start": 122.75,
+    "end": 125.65
+   },
+   {
+    "machine": 1,
+    "kind": "install",
+    "product": null,
+    "start": 125.65,
+    "end": 130.0
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 2,
+    "start": 130.0,
+    "end": 135.0
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 2,
+    "start": 135.0,
+    "end": 140.0
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 2,
+    "start": 140.0,
+    "end": 145.0
+   },
+   {
+    "machine": 1,
+    "kind": "process",
+    "product": 2,
+    "start": 145.0,
+    "end": 150.0
+   },
+   {
+    "machine": 2,
+    "kind": "install",
+    "product": null,
+    "start": 21.25,
+    "end": 25.0
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 0,
+    "start": 25.0,
+    "end": 29.0
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 0,
+    "start": 29.25,
+    "end": 33.25
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 0,
+    "start": 37.25,
+    "end": 41.25
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 0,
+    "start": 45.25,
+    "end": 49.25
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 0,
+    "start": 53.25,
+    "end": 57.25
+   },
+   {
+    "machine": 2,
+    "kind": "remove",
+    "product": null,
+    "start": 67.5,
+    "end": 70.0
+   },
+   {
+    "machine": 2,
+    "kind": "install",
+    "product": null,
+    "start": 70.0,
+    "end": 73.75
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 1,
+    "start": 73.75,
+    "end": 82.75
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 1,
+    "start": 82.75,
+    "end": 91.75
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 1,
+    "start": 91.75,
+    "end": 100.75
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 1,
+    "start": 100.75,
+    "end": 109.75
+   },
+   {
+    "machine": 2,
+    "kind": "remove",
+    "product": null,
+    "start": 109.75,
+    "end": 112.25
+   },
+   {
+    "machine": 2,
+    "kind": "install",
+    "product": null,
+    "start": 112.25,
+    "end": 116.0
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 3,
+    "start": 116.0,
+    "end": 123.0
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 3,
+    "start": 123.0,
+    "end": 130.0
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 3,
+    "start": 130.0,
+    "end": 137.0
+   },
+   {
+    "machine": 2,
+    "kind": "remove",
+    "product": null,
+    "start": 137.0,
+    "end": 139.5
+   },
+   {
+    "machine": 2,
+    "kind": "install",
+    "product": null,
+    "start": 139.5,
+    "end": 143.25
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 2,
+    "start": 143.25,
+    "end": 148.25
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 2,
+    "start": 148.25,
+    "end": 153.25
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 2,
+    "start": 153.25,
+    "end": 158.25
+   },
+   {
+    "machine": 2,
+    "kind": "process",
+    "product": 2,
+    "start": 158.25,
+    "end": 163.25
+   },
+   {
+    "machine": 3,
+    "kind": "install",
+    "product": null,
+    "start": 29.0,
+    "end": 32.6
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 0,
+    "start": 32.6,
+    "end": 38.6
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 0,
+    "start": 38.6,
+    "end": 44.6
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 0,
+    "start": 44.6,
+    "end": 50.6
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 0,
+    "start": 50.6,
+    "end": 56.6
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 0,
+    "start": 57.25,
+    "end": 63.25
+   },
+   {
+    "machine": 3,
+    "kind": "remove",
+    "product": null,
+    "start": 82.75,
+    "end": 85.15
+   },
+   {
+    "machine": 3,
+    "kind": "install",
+    "product": null,
+    "start": 85.15,
+    "end": 88.75
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 1,
+    "start": 88.75,
+    "end": 93.75
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 1,
+    "start": 93.75,
+    "end": 98.75
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 1,
+    "start": 100.75,
+    "end": 105.75
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 1,
+    "start": 109.75,
+    "end": 114.75
+   },
+   {
+    "machine": 3,
+    "kind": "remove",
+    "product": null,
+    "start": 123.0,
+    "end": 125.4
+   },
+   {
+    "machine": 3,
+    "kind": "install",
+    "product": null,
+    "start": 125.4,
+    "end": 129.0
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 3,
+    "start": 129.0,
+    "end": 133.0
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 3,
+    "start": 133.0,
+    "end": 137.0
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 3,
+    "start": 137.0,
+    "end": 141.0
+   },
+   {
+    "machine": 3,
+    "kind": "remove",
+    "product": null,
+    "start": 148.25,
+    "end": 150.65
+   },
+   {
+    "machine": 3,
+    "kind": "install",
+    "product": null,
+    "start": 150.65,
+    "end": 154.25
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 2,
+    "start": 154.25,
+    "end": 163.25
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 2,
+    "start": 163.25,
+    "end": 172.25
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 2,
+    "start": 172.25,
+    "end": 181.25
+   },
+   {
+    "machine": 3,
+    "kind": "process",
+    "product": 2,
+    "start": 181.25,
+    "end": 190.25
+   },
+   {
+    "machine": 4,
+    "kind": "install",
+    "product": null,
+    "start": 38.6,
+    "end": 42.35
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 0,
+    "start": 42.35,
+    "end": 50.35
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 0,
+    "start": 50.35,
+    "end": 58.35
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 0,
+    "start": 58.35,
+    "end": 66.35
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 0,
+    "start": 66.35,
+    "end": 74.35
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 0,
+    "start": 74.35,
+    "end": 82.35
+   },
+   {
+    "machine": 4,
+    "kind": "remove",
+    "product": null,
+    "start": 93.75,
+    "end": 96.25
+   },
+   {
+    "machine": 4,
+    "kind": "install",
+    "product": null,
+    "start": 96.25,
+    "end": 100.0
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 1,
+    "start": 100.0,
+    "end": 106.0
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 1,
+    "start": 106.0,
+    "end": 112.0
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 1,
+    "start": 112.0,
+    "end": 118.0
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 1,
+    "start": 118.0,
+    "end": 124.0
+   },
+   {
+    "machine": 4,
+    "kind": "remove",
+    "product": null,
+    "start": 133.0,
+    "end": 135.5
+   },
+   {
+    "machine": 4,
+    "kind": "install",
+    "product": null,
+    "start": 135.5,
+    "end": 139.25
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 3,
+    "start": 139.25,
+    "end": 146.25
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 3,
+    "start": 146.25,
+    "end": 153.25
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 3,
+    "start": 153.25,
+    "end": 160.25
+   },
+   {
+    "machine": 4,
+    "kind": "remove",
+    "product": null,
+    "start": 163.25,
+    "end": 165.75
+   },
+   {
+    "machine": 4,
+    "kind": "install",
+    "product": null,
+    "start": 165.75,
+    "end": 169.5
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 2,
+    "start": 169.5,
+    "end": 173.5
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 2,
+    "start": 173.5,
+    "end": 177.5
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 2,
+    "start": 181.25,
+    "end": 185.25
+   },
+   {
+    "machine": 4,
+    "kind": "process",
+    "product": 2,
+    "start": 190.25,
+    "end": 194.25
+   }
+  ]
+ }
+}
